@@ -16,7 +16,7 @@ Una breve descripción del juego... *Hoot Owl Hoot* es un juego de mesa colabora
 
 ### Mecánica del juego
 
-En cada turno, cada jugador debe jugar alguna de sus cartas y mover su ficha de búho a la siguiente **posición disponible** del color de carta que escogió jugar. Si un jugador tiene una carta de sol, **está obligado** a jugarla y avanzar la ficha de sol en ese turno. Al finalizar su turno, el jugador debe coger una nueva carta de la pila de cartas y enviar a la pila de descarte la carta que acaba de utilizar. Si todos los búhos llegaron al nido antes de que la ficha de sol llegara al sol, entonces todos los jugadores ganan; pero si aún falta al menos un búho de entrar al nido y la ficha de sol llega a su punto máximo, el juego concluye los jugadores pierden.
+En cada turno, cada jugador debe jugar alguna de sus cartas y mover su ficha de búho a la siguiente **posición disponible** del color de carta que escogió jugar. Si un jugador tiene una carta de sol, **está obligado** a jugarla y avanzar la ficha de sol en ese turno. Al finalizar su turno, el jugador debe coger una nueva carta de la pila de cartas y enviar a la pila de descarte la carta que acaba de utilizar. Si todos los búhos llegaron al nido antes de que la ficha de sol llegara al sol, entonces todos los jugadores ganan; pero si aún falta al menos un búho de entrar al nido y la ficha de sol llega a su punto máximo, el juego concluye y los jugadores pierden.
 
 ### Posibles Adaptaciones:
 
