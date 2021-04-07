@@ -22,13 +22,13 @@ En cada turno, cada jugador debe jugar alguna de sus cartas y mover su ficha de 
 
 Propuestas por el profesor:
 
- 1. En vez de soles haya preguntas que se tengan que responder y que exista un máximo de preguntas que se puedan fallar antes de que concluya el juego.
+ 1. En lugar de la carta de sol, utilizar una carta de preguntas. El jugador tendrá un máximo de preguntas por responder. Conforme el jugador responde más y más preguntas, la dificultad de las mismas incrementa.
  
  2. Modalidad competitiva. El jugador que lleve el primer búho al nido gana.
  
  4. Otros juegos de mesa empotrados.
 
-Propuestos por los estudiantes:
+Propuestas por los estudiantes:
 
  1. En el caso de que se escogiera la modalidad competitiva, introducir otros tipo de cartas que permitan por ejemplo, bloquear el turno de otro jugador, una carta que permita avanzar más de una posición, una carta que obligue a otro jugador a devolver su ficha, entre otras. Probablemente mediante esta estrategia el tamaño del tablero se tendría que ampliar. Esta idea está inspirada en el juego de cartas UNO.
  
