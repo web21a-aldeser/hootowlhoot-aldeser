@@ -35,3 +35,5 @@ Propuestas por los estudiantes:
  2. Introducir una carta que permita a un jugador bloquear el siguiente sol que aparezca. De manera que el siguiente jugador pueda jugar alguna de sus cartas, pero no la de sol.
  
  3. Posicionar al azar en los círculos del tablero bombas ocultas. Si un jugador mueve su ficha a una posición donde haya una bomba, la ficha se devuelve a su posición anterior y dicha posición queda inutilizable.
+ 
+ 4. Posicionar al azar al igual que las bombas casillas con peces que les permiten moverse otra vez en el mismo turno. Estos están ocultos hasta que llega un búho a esa posición.
