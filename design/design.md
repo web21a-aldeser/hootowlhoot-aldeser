@@ -1,6 +1,8 @@
 ## Mapa del sitio
 
-![mapa-del-sitio](./wirefames/Aldeser-site-map.svg)
+A continuación se detalle el diseño del mapa del sitio.
+
+![mapa-del-sitio](./wireframes/Aldeser-site-map.svg)
 
 ## Pantalla principal
 
