@@ -52,6 +52,8 @@ Figura 7. Sala de espera
 
 Figura 8. Ventana emergente para elección de búho
 
+El propósito de esta pantalla es...
 
+![pantalla-de-juego](./wireframes/board.svg)
 
 Figura 9.  Pantalla de juego
