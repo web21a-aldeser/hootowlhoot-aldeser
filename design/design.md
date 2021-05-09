@@ -1,3 +1,7 @@
+## Mapa del sitio
+
+![mapa-del-sitio](./wirefames/Aldeser-site-map.svg)
+
 ## Pantalla principal
 
 El propósito de la pantalla principal es permitir al visitante elegir entre las siguientes tres opciones. 
