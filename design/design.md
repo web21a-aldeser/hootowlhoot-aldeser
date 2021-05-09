@@ -1,6 +1,6 @@
 ## Mapa del sitio
 
-A continuación se detalle el diseño del mapa del sitio.
+A continuación se detalla el diseño del mapa del sitio.
 
 ![mapa-del-sitio](./wireframes/Aldeser-site-map.svg)
 
