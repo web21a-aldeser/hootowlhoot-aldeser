@@ -2,7 +2,7 @@
 
 El propósito de la pantalla principal es permitir al visitante elegir entre las siguientes tres opciones. 
 
-Primera, solicitar ayuda ![1](./numbers/1.svg).  Si el visitante selecciona la opción de solicitar ayuda será redirigido a la pantalla de ayuda (Figura 2) donde podrá obtener más información respecto al juego. Segunda, organizar un juego ![2](./numbers/2.svg).  Si el visitante elige esta opción será redirigido a la pantalla de organización de juego donde podrá establer las configuraciones de la partida (Figura 5). Tercera, unirse a un juego ![3](./numbers/3.svg). Si el jugador elige esta opción se le mostrará una ventana emergente (Figura X) donde puede eligir de qué forma desea ingresar a una partida.
+Primera, solicitar ayuda ![1](./numbers/1.svg).  Si el visitante selecciona la opción de solicitar ayuda será redirigido a la pantalla de ayuda (Figura 2) donde podrá obtener más información respecto al juego. Segunda, organizar un juego ![2](./numbers/2.svg).  Si el visitante elige esta opción será redirigido a la pantalla de organización de juego donde podrá establer las configuraciones de la partida (Figura 5). Tercera, unirse a un juego ![3](./numbers/3.svg). Si el jugador elige esta opción se le mostrará una ventana emergente (Figura 6) donde puede eligir de qué forma desea ingresar a una partida.
 
 ![pantalla-principal](./wireframes/home.svg)
 
@@ -34,8 +34,8 @@ Figura 5. Organización de partida.
 
 ## Ingresar a una partida
 
-El propósito de esta ventana emergente es permitirle al visitante escoger alguna de las dos modalides disponibles. La primera, unirse a una partida mediante una llave privada ![1](./numbers/1.svg). Esta llave es provista por el organizador de la partida. La segunda, unirse a una partida aleatoria ![2](./numbers/2.svg) que ya pudo haber comenzado.
+El propósito de esta ventana emergente es permitirle al visitante escoger alguna de las dos modalides disponibles. La primera, unirse a una partida mediante una llave privada ![1](./numbers/1.svg). Esta llave es provista por el organizador de la partida. La segunda, unirse a una partida aleatoria ![2](./numbers/2.svg) que ya pudo haber comenzado. Luego de haber seleccionado cualquiera de las dos opciones, el ahora jugador será redirigido a la sala de espera de una partida (Figura X). 
 
 ![unirse-a-partida](./wireframes/game-joining-options-modal.svg)
 
-​                                                                                            Figura 5. Ventana emergente para unirse a partida
+​                      Figura 6. Ventana emergente para unirse a partida
