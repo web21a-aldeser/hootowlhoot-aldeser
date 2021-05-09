@@ -26,7 +26,7 @@ El propósito de esta pantalla es permitirle al visitante obtener información a
 
 ## Organizar una partida
 
-El propósito de esta ventana emergente es permitirle al oganizardor de la partida establecer las configuraciones de la partida. Por ejemplo, establecer la cantidad máxima de jugadores ![1](./numbers/1.svg), establecer la duración de la partida ![2](./numbers/2.svg), establecer la probabilidad de encontrarse un bomba en los espacios disponibles ![3](./numbers/3.svg) y establecer la probabilidad de encontrarse alguna mejora de habilidad en los espacios ![4](./numbers/4.svg) entre otras. Adicionalmente, el organizardor tiene la posibilidad de cancelar la configuración y vover a la pantalla principal ![5](./numbers/5.svg) y confirmar la configuración lo que establecerá por creada la partida y llevará al organizador a la sala de espera (Figura X).
+El propósito de esta ventana emergente es permitirle al oganizardor de la partida establecer las configuraciones de la partida. Por ejemplo, establecer la cantidad máxima de jugadores ![1](./numbers/1.svg), establecer la duración de la partida ![2](./numbers/2.svg), establecer la probabilidad de encontrarse un bomba en los espacios disponibles ![3](./numbers/3.svg) y establecer la probabilidad de encontrarse alguna mejora de habilidad en los espacios ![4](./numbers/4.svg) entre otras. Adicionalmente, el organizardor tiene la posibilidad de cancelar la configuración y vover a la pantalla principal ![5](./numbers/5.svg) y confirmar la configuración lo que establecerá por creada la partida y llevará al organizador a la sala de espera (Figura 7).
 
 ![pantalla-organizacion-partida](./wireframes/game-settings.svg)
 
@@ -34,8 +34,24 @@ Figura 5. Organización de partida.
 
 ## Ingresar a una partida
 
-El propósito de esta ventana emergente es permitirle al visitante escoger alguna de las dos modalides disponibles. La primera, unirse a una partida mediante una llave privada ![1](./numbers/1.svg). Esta llave es provista por el organizador de la partida. La segunda, unirse a una partida aleatoria ![2](./numbers/2.svg) que ya pudo haber comenzado. Luego de haber seleccionado cualquiera de las dos opciones, el ahora jugador será redirigido a la sala de espera de una partida (Figura X). 
+El propósito de esta ventana emergente es permitirle al visitante escoger alguna de las dos modalides disponibles. La primera, unirse a una partida mediante una llave privada ![1](./numbers/1.svg). Esta llave es provista por el organizador de la partida. La segunda, unirse a una partida aleatoria ![2](./numbers/2.svg) que ya pudo haber comenzado. Luego de haber seleccionado cualquiera de las dos opciones, el ahora jugador será redirigido a la sala de espera de una partida (Figura 7). 
 
 ![unirse-a-partida](./wireframes/game-joining-options-modal.svg)
 
 ​                      Figura 6. Ventana emergente para unirse a partida
+
+## Sala de espera
+
+El propósito de esta pantalla es permitir tanto al organizador como a los jugadores poder observar el tiempo restante que queda para que inicie la partida ![1](./numbers/1.svg), la lista de jugadores ![2](./numbers/2.svg), la información de cada jugador ![3](./numbers/3.svg), la opción de salir del juego y regresar a la pantalla principal  ![4](./numbers/4.svg) (Figura 1),  la opción de escoger el búho con el que se desea jugar ![5](./numbers/5.svg) (Figura 8) y la opción para que le jugador eliga si está listo y ya ha finalizado con su configuración ![6](./numbers/6.svg). Una vez finalizado el tiempo de espera o que todos los jugadores estén listos serán dirigidos a la pantalla de juego (Figura 9).
+
+![pantalla-sala-de-espera](./wireframes/waiting-room.svg)
+
+Figura 7. Sala de espera
+
+![seleccion-buho](./wireframes/owl-choosing-modal.svg)
+
+Figura 8. Ventana emergente para elección de búho
+
+
+
+Figura 9.  Pantalla de juego
