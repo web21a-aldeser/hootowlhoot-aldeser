@@ -58,8 +58,18 @@ Figura 7. Sala de espera
 
 Figura 8. Ventana emergente para elección de búho
 
-El propósito de esta pantalla es...
+El propósito de esta pantalla es permitir que los jugadores elijan su color de preferencia y asi distinguir a los jugadores en el juego.
+
+## Juego
 
 ![pantalla-de-juego](./wireframes/board.svg)
 
 Figura 9.  Pantalla de juego
+
+En esta pantalla se permite a los jugadores jugar de acuerdo a su turno
+
+![pantalla de calificación final](./wireframes/finalRank.svg)
+
+Figura 10. Calificación final
+
+Al finalizar el juego o el tiempo se presentan los jugadores ganadores y sus calificaciones, y un botón para regresar a la pantalla principal
