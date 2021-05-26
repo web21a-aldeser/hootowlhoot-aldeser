@@ -41,7 +41,7 @@ Al igual que en el original cada jugador debe de jugar una de sus cartas en su t
  
  1. Diferentes dinosaurios para cada jugador por defecto.
  2. Cartas a azar.
- 3. Mover caracteres
- 4. ubicar bombas
+ 3. Mover caracteres.
+ 4. ubicar bombas.
  5. Cambiar de dinosaurios.
  6. Calificaciones en orden de llegada a la cueva.
