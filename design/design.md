@@ -45,7 +45,7 @@ Figura 6. Sala de espera para jugadores.
 
 Figura 7.  Pantalla de juego
 
-En esta pantalla se permite a los jugadores jugar de acuerdo a su turno
+En esta pantalla se permite a los jugadores jugar de acuerdo a su turno. El número ![1](./numbers/1.svg) representa la barra de tiempo, los jugadores pueden jugar mientras el meteorito no llegue a la tierra. El número ![2](./numbers/2.svg) muestra el tablero. El número ![3](./numbers/3.svg) son las cartas de las que se sacan nuevas para la mano del jugador ![5](./numbers/5.svg) y el número ![4](./numbers/4.svg) muestra la pila de cartas descartadas o ya usadas.
 
 
 ![pantalla-de-juego2](./wireframes/boardInGame.svg)
