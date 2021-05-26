@@ -35,5 +35,13 @@ Al igual que en el original cada jugador debe de jugar una de sus cartas en su t
 	4.2 Una carta que obligue a otro jugador a devolver su ficha
 	4.3 Carta que permita a un jugador bloquear el siguiente meteorito que aparezca. De manera que el siguiente jugador pueda jugar alguna de sus cartas, pero no esta.
 	4.4 Pasar el turno de otro jugador,
+	
  
+ ### Prioridades de desarrollo
  
+ 1. Diferentes dinosaurios para cada jugador por defecto.
+ 2. Cartas a azar.
+ 3. Mover caracteres
+ 4. ubicar bombas
+ 5. Cambiar de dinosaurios.
+ 6. Calificaciones en orden de llegada a la cueva.
