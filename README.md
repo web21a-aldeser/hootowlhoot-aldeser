@@ -10,7 +10,7 @@ El juego adaptativo es un juego colaborativo *Dino Explosion* en el que podran p
  ![pantalla-de-juego](./design/wireframes/boardInGame.svg)
  - Ficha de dinosaurio: hay un total de seis dinosaurios diferentes. El mínimo de jugadores que pueden jugar es dos y el máximo seis. Entre más dinosaurios haya, mayor es la dificultad.
  ![pantalla-de-espera](./design/wireframes/waiting-roomHost.svg)
- ![caracteres](./design/wireframes/dinoChoose.svg)
+ ![caracteres](./design/wireframes/DinoChoose.svg)
  - Baraja de cartas: existen tres tipos de cartas. Las que son de alguno de los seis colores y las cartas de meteorito y las cartas de poder. 
  
  - Carta de meteorito: al comenzar, se coloca en la barra de claridad en el extremo izquierdo "el espacio" y se mueve una posición cada vez que aparece una carta de meteorito, hasta que llegue al otro extremo "La tierra".

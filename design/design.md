@@ -32,7 +32,7 @@ El propósito de esta ventana (Figura 4) es permitirle al anfitrión de la parti
 
 Figura 4. Sala de espera para anfitrión.
 
-![pantalla-cambio-avatar](./wireframes/dinoChoose.svg)
+![pantalla-cambio-avatar](./wireframes/DinoChoose.svg)
 
 Figura 5. Cambiar de avatar.
 
