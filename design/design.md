@@ -20,19 +20,19 @@ Figura 1. Pantalla principal
  Figura 2. Opción de ayuda
 
 
-![opcion-join](./wireframes/homeJoinKey.svg)
+![opcion-join](./wireframes/homeJoinKEY.svg)
 
- Figura 3. Opción de ayuda
+ Figura 3. Unirse a partida
 
 ## Sala de espera
 
-El propósito de esta ventana (Figura 4) es permitirle al anfitrión de la partida establecer las configuraciones de la partida y visualizar a los participantes entrantes a la partida. Por ejemplo,establecer la probabilidad de encontrarse un bomba en los espacios disponibles y establecer la probabilidad de encontrarse alguna mejora entre otras, tambien haciendo clik en los avatars se presenta la opcion de cambiar de dinosaurio (Figura 4). Los participantes visualizaran una pantalla similar con la diferencia de que no pueden cambiar las configuraciones. (Figura 5).
+El propósito de esta ventana (Figura 4) es permitirle al anfitrión de la partida establecer las configuraciones de la partida y visualizar a los participantes entrantes a la partida. Por ejemplo,establecer la probabilidad de encontrarse un bomba en los espacios disponibles y establecer la probabilidad de encontrarse alguna mejora entre otras, tambien haciendo clik en los avatars se presenta la opcion de cambiar de dinosaurio (Figura 5). Los participantes visualizaran una pantalla similar con la diferencia de que no pueden cambiar las configuraciones. (Figura 6).
 
 ![pantalla-organizacion-partida](./wireframes/waiting-roomHost.svg)
 
 Figura 4. Sala de espera para anfitrión.
 
-![pantalla-cambio-avatar](./wireframes/DinoChoose.svg)
+![pantalla-cambio-avatar](./wireframes/dinoChoose.svg)
 
 Figura 5. Cambiar de avatar.
 

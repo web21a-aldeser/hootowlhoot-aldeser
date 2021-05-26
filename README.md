@@ -6,17 +6,17 @@ El juego adaptativo es un juego colaborativo *Dino Explosion* en el que podran p
 ### Componentes del juego
 
  - Tablero:tablero cuadrado en el cual las casillas pueden tener seis colores diferentes (amarillo, verde, naranja, azul morado y rojo) y que llevan hasta la meta --cueva-- en la que se resguardaran los dinosaurios. El tablero posee una barra de claridad que indica cuánto falta para que termine el juego. Esta barra tiene en un extremo de inicio y en el otro extremo el final.
- ![pantalla-de-tablero](./wireframes/board.svg)
- ![pantalla-de-juego](./wireframes/boardInGame.svg)
+ ![pantalla-de-tablero](./design/wireframes/board.svg)
+ ![pantalla-de-juego](./design/wireframes/boardInGame.svg)
  - Ficha de dinosaurio: hay un total de seis dinosaurios diferentes. El mínimo de jugadores que pueden jugar es dos y el máximo seis. Entre más dinosaurios haya, mayor es la dificultad.
- ![pantalla-de-espera](./wireframes/waiting-roomHost.svg)
- ![caracteres](./wireframes/DinoChoose.svg)
+ ![pantalla-de-espera](./design/wireframes/waiting-roomHost.svg)
+ ![caracteres](./design/wireframes/dinoChoose.svg)
  - Baraja de cartas: existen tres tipos de cartas. Las que son de alguno de los seis colores y las cartas de meteorito y las cartas de poder. 
  
  - Carta de meteorito: al comenzar, se coloca en la barra de claridad en el extremo izquierdo "el espacio" y se mueve una posición cada vez que aparece una carta de meteorito, hasta que llegue al otro extremo "La tierra".
  
  - Mano de cartas: las cartas en mano de cada jugador en este caso 3 cartas por 
- ![cartas](./wireframes/cards.svg)
+ ![cartas](./design/wireframes/cards.svg)
 
 ### Mecánica del juego original
 
