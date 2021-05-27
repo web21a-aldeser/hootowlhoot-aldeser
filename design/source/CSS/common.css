@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 35px;
+    font-weight: normal;
+    margin-top: 5px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Applies to all elements with <... class="someclass"> specified. */
+
+.navBar {
+    background-color: rgba(240, 240, 240, 0.966);
+    overflow: hidden;
+}
+
+
+/* Applies to the element with <... id="someid"> specified. */
+
+.navBar a {
+    color: #000;
+    float: left;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.footer {
+    flex: 0 0 50px;
+    height: 2em;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(240, 240, 240, 0.966);
+    text-align: center;
+    position: fixed;
+}
