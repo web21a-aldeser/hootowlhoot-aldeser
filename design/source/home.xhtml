@@ -18,53 +18,32 @@
         </nav>
     </header>
     <main>
-        <section id="Home-buttons">
+        <section class="homeSection" id="Home">
             <h1>Dino Explosion</h1>
-            <ul>
-                <li><button class="button" id="help-button" onclick="helpMessage()">Help</button></li>
-                <li><button class="button" onclick="window.location.href='waitingroom.xhtml'">Host Game</button></li>
-                <li><button class="button" id="join-button" onclick="joinClick()">Join Game</button></li>
-            </ul>
-            <ul id="Join" class="Join">
-                <li><label for="JoinKey">Insert the join key:</label></li>
-                <li><input type="text" id="JoinKey" name="JoinKey"></input>
-                </li>
-                <li> <input type="submit" class="button" value="Enter" onclick="window.location.href='waitingroom.xhtml'"></input>
-                </li>
-            </ul>
+            <aside id="options">
+                <ul>
+                    <li><button class="button" id="help-button" onclick="helpMessage()">Help</button></li>
+                    <li><button class="button" onclick="window.location.href='waitingroom.xhtml'">Host Game</button></li>
+                    <li><button class="button" id="join-button" onclick="joinClick()">Join Game</button></li>
+                    <li><input type="text" id="JoinKey" name="JoinKey" placeholder="FDDLA54"></input>
+                    </li>
+                    <li> <input type="submit" class="button" value="Enter" onclick="window.location.href='waitingroom.xhtml'"></input>
+                    </li>
+                </ul>
+            </aside>
+            <aside id="Help-Dialog">
+                <button class="closebtn">x</button>
+                <h2>Rules:</h2>
+                <p>Each player must play one of his cards on his turn, moving to the available position of the card color he chose to play. If a player has a meteor card, he is required to play it and advance the meteor token on that turn. At the end of
+                    his turn, the player must take a new card from the pile of cards and send the card he just used to the discard pile. If all the dinosaurs reached the cave before the meteorite token reached the ground, then all players win; but if
+                    there is still at least one dinosaur to enter the cave and the meteorite token reaches its peak, the game is over and the players lose.
+                </p>
+                <h2>Host:</h2>
+                <p>Click the host button, share the key and wait for your friends</p>
+                <h2>Join:</h2>
+                <a>Click the join button, enter the key and click enter.</a>
+            </aside>
         </section>
-        <script>
-            function helpMessage() {
-                if (document.getElementById("Help-Dialog").style.display == "none") {
-                    document.getElementById("Help-Dialog").style.display = "block";
-                } else {
-                    document.getElementById("Help-Dialog").style.display = "none";
-                }
-            }
-
-            function joinClick() {
-
-                if (document.getElementById("Join").style.display == "none") {
-                    document.getElementById("Join").style.display = "block";
-                } else {
-                    document.getElementById("Join").style.display = "none";
-                }
-
-            }
-        </script>
-        <section class="Help-Dialog" id="Help-Dialog">
-            <h2>Rules:</h2>
-            <a>Each player must play one of his cards on his turn, moving to the available position of the card color he chose to play. If a player has a meteor card, he is required to play it and advance the meteor token on that turn. At the end of his
-                turn, the player must take a new card from the pile of cards and send the card he just used to the discard pile. If all the dinosaurs reached the cave before the meteorite token reached the ground, then all players win; but if there is
-                still at least one dinosaur to enter the cave and the meteorite token reaches its peak, the game is over and the players lose.
-			</a>
-            <h2>Host:</h2>
-            <p>Click the host button, share the key and wait for your friends</p>
-            <h2>Join:</h2>
-            <a>Click the join button, enter the key and click enter.</a>
-
-        </section>
-
     </main>
     <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
 </body>

@@ -1,38 +1,54 @@
-body {
+.homeSection {
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-flow: wrap;
 }
 
-#Home-buttons {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+#options {
+    width: 57%;
+    text-align: right;
 }
 
-#Home-buttons h1 {
-    display: flex;
-    justify-content: center;
+input {
+    text-align: center;
 }
 
-#Home-buttons li {
-    display: flex;
-    justify-content: center;
+.homeSection li {
     padding: 10px;
 }
 
-#Home-buttons li button,
-li input {
+#JoinKey {
+    width: 182px;
+}
+
+#joinText {
+    text-align: center;
+}
+
+.homeSection h1 {
+    width: 58%;
+    text-align: right;
+}
+
+.button {
     font-family: 'Brush Script MT', cursive;
-    width: 100px;
+    width: 5cm;
+    padding: 5px;
 }
 
-.Join {
-    display: none;
+#Help-Dialog {
+    width: 30%;
+    background-color: rgba(240, 240, 240, 0.966);
+    align-self: flex-end;
 }
 
-.Help-Dialog {
-    display: none;
-    justify-content: flex-end;
-    align-items: flex-end;
+.closebtn {
+    margin-left: 15px;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
 }
