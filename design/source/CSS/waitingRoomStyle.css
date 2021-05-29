@@ -57,8 +57,13 @@
   padding-right: 30px;
 }
 
+.avatar-button {
+  vertical-align:center;
+  width: 70px;
+  background-color: transparent;
+  border: none;
+}
 
-
-
-
-
+.avatar-button img {
+  align-self: center;
+}
