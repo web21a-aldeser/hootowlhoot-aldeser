@@ -74,28 +74,8 @@
 #container-for-players-list {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   padding-right: 20px;
-}
-
-#container-for-avatars-and-players-names {
-  display: flex;
-  flex-direction: row;
-}
-
-#container-for-avatars, #container-for-players-names{
-  display: flex;
-  flex-direction: column;
-}
-
-#container-for-avatars li, #container-for-players-names li {
-  padding-bottom: 5px;
-}
-
-#container-for-players-names li {
-  display: block;
-  width: 100px;
-  height: 30px;
 }
 
 .button {
