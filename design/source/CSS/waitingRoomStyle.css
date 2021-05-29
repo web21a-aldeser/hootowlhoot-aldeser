@@ -1,21 +1,60 @@
+/***********************************************************
+ Waiting room article.
+***********************************************************/
 #waiting-room-article {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
   align-items: center;
 }
 
 #waiting-room-title {
+  flex: 0 1 auto;
+  align-self: center;
+}
+
+/***********************************************************
+ Main container for settings and players list
+***********************************************************/
+#container-for-settings-and-players-list {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: stretch;
   align-items: center;
 }
 
-#game-settings {
+/***********************************************************
+ Container for settings
+***********************************************************/
+#container-for-game-settings {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding-right: 20px;
+}
+
+#game-settings-container-for-options {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 20px;
+}
+
+#game-settings-container-for-options li {
+  padding-bottom: 5px;
+}
+
+#game-settings-container-for-settings-and-configurations {
+  display: flex;
+  flex-direction: row;
+}
+
+#game-settings-container-for-configurations li {
+  padding-bottom: 5px;
 }
 
 .vertical-line {
@@ -26,6 +65,10 @@
   margin-left: -3px;
   top: 0;
 }
+
+/***********************************************************
+ Container for players
+***********************************************************/
 
 #players-list {
   display: flex;
