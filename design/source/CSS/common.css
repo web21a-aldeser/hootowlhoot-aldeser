@@ -2,6 +2,7 @@ body {
     margin: 0;
     font-family: 'Brush Script MT', cursive;
     font-size: 14px;
+    min-height: 100vh;
 }
 
 h1 {
@@ -37,12 +38,9 @@ ul {
 }
 
 .footer {
-    flex: 0 0 50px;
     height: 2em;
-    left: 0;
-    bottom: 0;
     width: 100%;
     background-color: rgba(240, 240, 240, 0.966);
     text-align: center;
-    position: fixed;
+    margin-top: auto;
 }
