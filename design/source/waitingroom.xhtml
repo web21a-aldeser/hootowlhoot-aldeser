@@ -24,33 +24,27 @@
                     <!-- Game settings -->
                     <section id="container-for-game-settings">
                         <h3>Settings</h3>
-                        <section
-                            id="game-settings-container-for-settings-and-configurations">
-                            <section id="game-settings-container-for-options">
-                                <ul>
-                                    <li>Bomb %</li>
-                                    <li>Power ups %</li>
-                                </ul>
-                            </section>
-                            <section
-                                id="game-settings-container-for-configurations">
-                                <ul>
-                                    <li>
+                        <table id="table-for-settings-configuration">
+                            <tbody>
+                                <tr>
+                                    <td>Bomb %</td>
+                                    <td>
                                         <input type="text" id="bomb-probability"
                                             minlength="2" maxlength="2" size="1"
                                             />
-                                    </li>
-                                    <li>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> Power ups</td>
+                                    <td>
                                         <input type="text"
                                             id="power-ups-probability"
                                             minlength="2"
                                             maxlength="2" size="1" />
-                                    </li>
-                                </ul>
-                            </section>
-                        </section>
-                        <button class="button" id="start-match-button">Start
-                            match</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </section> <!-- end container-for-game-settings -->
                     <div class="vertical-line"></div>
                     <!-- Players list -->
@@ -95,6 +89,10 @@
                         </table>
                     </section> <!-- end container-for-players-list -->
                 </section> <!-- end container-for-settings-and-players-list -->
+                <section id="waiting-room-buttons">
+                    <button id="start-match">Start match</button>
+                    <button id="leave-match">Leave match</button>
+                </section>
             </article>
         </main>
         <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
