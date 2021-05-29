@@ -1,0 +1,54 @@
+.homeSection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-flow: wrap;
+}
+
+#options {
+    width: 57%;
+    text-align: right;
+}
+
+input {
+    text-align: center;
+}
+
+.homeSection li {
+    padding: 10px;
+}
+
+#JoinKey {
+    width: 182px;
+}
+
+#joinText {
+    text-align: center;
+}
+
+.homeSection h1 {
+    width: 58%;
+    text-align: right;
+}
+
+.button {
+    font-family: 'Brush Script MT', cursive;
+    width: 5cm;
+    padding: 5px;
+}
+
+#Help-Dialog {
+    width: 30%;
+    background-color: rgba(240, 240, 240, 0.966);
+    align-self: flex-end;
+}
+
+.closebtn {
+    margin-left: 15px;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}

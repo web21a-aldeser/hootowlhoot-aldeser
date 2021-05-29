@@ -5,15 +5,18 @@ https://boardgamegeek.com/boardgame/94483/hoot-owl-hoot
 El juego adaptativo es un juego colaborativo *Dino Explosion* en el que podran participar de 2 a 6 jugadores. En el cual al igual que en su juego base los caracteres sacan y usan una carta por turno con la cual pueden avanzar.
 ### Componentes del juego
 
- - Tablero:tablero cuadrado en el cual las casillas pueden tener seis colores diferentes (amarillo, verde, naranja, azul morado y rojo) y que llevan hasta la meta --final del tablero--. El tablero posee una barra de claridad que indica cuánto falta para que termine el juego. Esta barra tiene en un extremo de inicio y en el otro extremo el final.
+ - Tablero:tablero cuadrado en el cual las casillas pueden tener seis colores diferentes (amarillo, verde, naranja, azul morado y rojo) y que llevan hasta la meta --cueva-- en la que se resguardaran los dinosaurios. El tablero posee una barra de claridad que indica cuánto falta para que termine el juego. Esta barra tiene en un extremo de inicio y en el otro extremo el final.
+ ![pantalla-de-tablero](./design/wireframes/board.svg)
+ ![pantalla-de-juego](./design/wireframes/boardInGame.svg)
+ - Ficha de dinosaurio: hay un total de seis dinosaurios diferentes. El mínimo de jugadores que pueden jugar es dos y el máximo seis. Entre más dinosaurios haya, mayor es la dificultad.
+ ![pantalla-de-espera](./design/wireframes/waiting-roomHost.svg)
+ ![caracteres](./design/wireframes/DinoChoose.svg)
+ - Baraja de cartas: existen tres tipos de cartas. Las que son de alguno de los seis colores y las cartas de meteorito y las cartas de poder. 
  
  - Carta de meteorito: al comenzar, se coloca en la barra de claridad en el extremo izquierdo "el espacio" y se mueve una posición cada vez que aparece una carta de meteorito, hasta que llegue al otro extremo "La tierra".
  
- - Ficha de caracter: hay un total de seis fichas. El mínimo de fichas con el que se puede jugar es dos y el máximo seis. Entre más fichas haya, mayor es la dificultad.
- 
- - Baraja de cartas: existen tres tipos de cartas. Las que son de alguno de los seis colores y las cartas de meteorito y las cartas de poder. 
- 
- - Mano de cartas: las cartas en mano de cada jugador en este caso 3 cartas por jugador
+ - Mano de cartas: las cartas en mano de cada jugador en este caso 3 cartas por 
+ ![cartas](./design/wireframes/cards.svg)
 
 ### Mecánica del juego original
 
