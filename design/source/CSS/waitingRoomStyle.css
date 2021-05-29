@@ -1,12 +1,13 @@
-#waiting-room-main h2{
-  display: flex;
-  justify-content: center;
-}
-
 #waiting-room-article {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+}
+
+#waiting-room-title {
+  display: flex;
+  flex-direction: row;
   align-items: center;
 }
 

@@ -3,11 +3,10 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="CSS/common.css"></link>
+    <link rel="stylesheet" href="CSS/common.css"/>
     <link rel="stylesheet" href="CSS/waitingRoomStyle.css"/>
     <title>Waiting Room</title>
 </head>
-
 <body>
     <header>
         <nav class="navBar" id="main-navigatin-menu">
@@ -18,25 +17,30 @@
         </nav>
     </header>
     <main id="waiting-room-main">
-        <h2>Waiting Room</h2>
         <article id="waiting-room-article">
+            <h2 id="waiting-room-title">Waiting Room</h2>
             <section id="game-settings">
                 <h3>Settings</h3>
                 <ul id="settings-list">
-                    <li>Setting 1</li>
-                    <li>Setting 2</li>
-                    <li>Setting 3</li>
+                    <li>
+                        <label for="bomb-chance">Bomb %</label>
+                        <input type="text" id="bomb-chance" minlength="2" maxlength="2" size="1"/>
+                    </li>
+                    <li>
+                        <label for="power-ups">Power ups %</label>
+                        <input type="text" id="power-ups" minlength="2" maxlength="2" size="1"/>
+                    </li>
                 </ul>
                 <button class="button" id="start-match-button">Start match</button>
             </section>
-            <section class="vertical-line"></section>
+            <div class="vertical-line"></div>
             <section id="players-list">
                 <h3>Players</h3>
                 <ul>
                     <li>
                         <div class="player-identity" id="player-1">
                             <button class="avatar-button">
-                                <img src="../icons/elasmosaurus.svg" alt="elasmosaurus-avatar" height="30px" width="30px"/>
+                                <img src="../icons/elasmosaurus.svg" alt="elasmosaurus-avatar" height="30" width="30"/>
                             </button>
                             <p>Alexandra Siles</p>
                         </div>
@@ -44,7 +48,7 @@
                     <li>
                         <div class="player-identity" id="player-2">
                             <button class="avatar-button">
-                                <img src="../icons/brontosaurus.svg" alt="brontosaurus-avatar" height="30px" width="30px"/>
+                                <img src="../icons/brontosaurus.svg" alt="brontosaurus-avatar" height="30" width="30"/>
                             </button>
                             <p>Sergio Fernández</p>
                         </div>
@@ -52,7 +56,7 @@
                     <li>
                         <div class="player-identity" id="player-3">
                             <button class="avatar-button">
-                                <img src="../icons/tyrannosaurus-rex.svg" alt="brontosaurus-avatar" height="30px" width="30px"/>
+                                <img src="../icons/tyrannosaurus-rex.svg" alt="brontosaurus-avatar" height="30" width="30"/>
                             </button>
                             <p>Dennis Solano</p>
                         </div>
