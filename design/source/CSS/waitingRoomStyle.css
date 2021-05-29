@@ -64,41 +64,42 @@
   left: 50%;
   margin-left: -3px;
   top: 0;
+  padding: 10px 10px;
 }
 
 /***********************************************************
  Container for players
 ***********************************************************/
 
-#players-list {
+#container-for-players-list {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: 20px;
+  padding-right: 20px;
 }
 
-#players-list ul {
-  padding-bottom: 20px;
+#container-for-avatars-and-players-names {
+  display: flex;
+  flex-direction: row;
 }
 
-#game-settings ul {
-  padding-bottom: 20px;
+#container-for-avatars, #container-for-players-names{
+  display: flex;
+  flex-direction: column;
+}
+
+#container-for-avatars li, #container-for-players-names li {
+  padding-bottom: 5px;
+}
+
+#container-for-players-names li {
+  display: block;
+  width: 100px;
+  height: 30px;
 }
 
 .button {
   font-size: 10px;
-}
-
-.player-identity {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-content: stretch;
-  align-items: center;
-}
-
-.player-identity img {
-  padding-right: 30px;
 }
 
 .avatar-button {
