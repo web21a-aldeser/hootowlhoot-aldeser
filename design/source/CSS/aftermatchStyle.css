@@ -1,0 +1,55 @@
+
+  
+  body {
+    font-family: Arial;
+    margin: 0 auto; 
+    max-width: 800px; 
+    padding: 30px;
+  }
+  
+  .title {
+    font-size: 25px;
+    margin-right: 100px;
+    text-align: center;
+  }
+
+  .buttons{
+      display: flex; 
+      
+  }
+  
+  /* Three column layout */
+  .side {
+    float: left;
+    width: 15%;
+    margin-top: 10px;
+  }
+  
+  .middle {
+    float: left;
+    width: 70%;
+    margin-top: 10px;
+  }
+  
+  /* Place text to the right */
+  .right {
+    text-align: right;
+  }
+  
+  
+  .bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: white;
+  }
+  
+  .button {
+    align-items: center;
+    width: 120px;
+  }
+
+  .bar-3 {width: 40%; height: 18px; background-color: #5ebd33;}
+  .bar-2 {width: 80%; height: 18px; background-color: #c5d819;}
+  .bar-1 {width: 60%; height: 18px; background-color: #f46c36;}
+  
