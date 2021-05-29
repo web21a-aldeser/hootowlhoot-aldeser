@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="CSS/common.css"></link>
+    <link rel="stylesheet" href="CSS/waitingRoomStyle.css"/>
     <title>Waiting Room</title>
 </head>
 
@@ -16,26 +17,27 @@
             <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4">How to play</a>
         </nav>
     </header>
-    <main>
-        <article>
-            <h2>Waiting Room</h2>
+    <main id="waiting-room-main">
+        <h2>Waiting Room</h2>
+        <article id="waiting-room-article">
             <section id="game-settings">
                 <h3>Settings</h3>
-                <ul>
+                <ul id="settings-list">
                     <li>Setting 1</li>
                     <li>Setting 2</li>
                     <li>Setting 3</li>
                 </ul>
-                <button id="start-match-button">Start match</button>
+                <button class="button" id="start-match-button">Start match</button>
             </section>
-            <section id="players">
+            <section class="vertical-line"></section>
+            <section id="players-list">
                 <h3>Players</h3>
                 <ul>
                     <li>Player 1</li>
                     <li>Player 2</li>
                     <li>Player 3</li>
                 </ul>
-                <button id="leave-game-button">Leave game</button>
+                <button class="button" id="leave-game-button">Leave game</button>
             </section>
         </article>
     </main>
