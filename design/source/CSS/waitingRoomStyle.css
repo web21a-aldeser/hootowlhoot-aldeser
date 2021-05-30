@@ -1,7 +1,23 @@
+/*****************************************************************
+ Main section.
+*****************************************************************/
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+/*****************************************************************
+ Waiting room article for settings, players, and avatar selection.
+*****************************************************************/
+#container-for-settings-players-and-avatar-selection {
+  display: flex;
+  flex-direction: row;
+}
+
 /***********************************************************
- Waiting room article.
+ Waiting room article for settings and players.
 ***********************************************************/
-#waiting-room-article {
+#waiting-room-article-for-settings-and-players {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -11,8 +27,8 @@
 }
 
 #waiting-room-title {
-  flex: 0 1 auto;
-  align-self: center;
+  display: flex;
+  align-self: flex-start;
 }
 
 /***********************************************************
@@ -94,4 +110,18 @@
 
 #start-match {
   margin-right: 100px;
+}
+
+/***********************************************************
+ Waiting room article for avatar selection.
+***********************************************************/
+#container-for-avatar-selection {
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  background-color:#E5E5E5;
+}
+
+.button-for-dinosaur-selection {
+  width: 150px;
 }
