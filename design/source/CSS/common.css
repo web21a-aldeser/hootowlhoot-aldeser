@@ -45,4 +45,10 @@ ul {
     background-color: rgba(240, 240, 240, 0.966);
     text-align: center;
     margin-top: auto;
+    position: relative;
+    bottom: 0px;
+}
+
+button {
+    font-family: 'Brush Script MT', cursive;
 }
