@@ -25,6 +25,7 @@
   justify-content: center;
   align-content: stretch;
   align-items: center;
+  background-color:#E5E5E5;
 }
 
 /***********************************************************
@@ -65,11 +66,12 @@
 
 #waiting-room-buttons {
   display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-content: stretch;
-    align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: flex-start;
+  margin-top: 35px;
 }
 
 /***********************************************************
