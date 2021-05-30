@@ -5,7 +5,9 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="CSS/common.css"></link>
     <link rel="stylesheet" href="CSS/boardStyle.css"></link>
+    <link rel="shortcut icon" href="icons/stegosaurios.svg" type="image/x-icon"></link>
     <title>Dino Explosion</title>
+
 </head>
 
 <body>
@@ -14,7 +16,7 @@
             <a>Dino Explosion</a>
             <a>Aldeser</a>
             <a>Info</a>
-            <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4">How to play</a>
+            <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4" target="_blank">How to play</a>
         </nav>
     </header>
     <figure class="turnos">
@@ -38,16 +40,17 @@
             <li class="cl14"></li>
         </ol>
         <img src="icons/planet-earth.svg" alt="planet" width="70" height="70"> </img>
-
-        <label>HELP</label>
+        <img class="stack" src="icons/stack.svg" alt="stack" width="80" height="80"> </img>
+        <img class="stack" src="icons/stock.svg" alt="stock" width="80" height="80"> </img>
+        <label>HELP?</label>
     </figure>
-    <section id="wrapper">
+    <main id="wrapper">
         <table class="board">
             <tbody>
                 <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th class="begin">.</th>
+                    <th class="begin">Start</th>
+                    <th class="begin">.</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -58,7 +61,7 @@
                 </tr>
                 <tr>
                     <th></th>
-                    <td class="begin"><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
+                    <td class="red"><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
                     </td>
                     <td class="light"></td>
                     <td class="red"></td>
@@ -67,99 +70,125 @@
                     <td class="light"></td>
                     <td class="yellow"></td>
                     <td class="orange"></td>
-                    <td class="purple"></td>
+                    <td><img src="icons/cave.svg" alt="cave" width="100" height="60"> </img>
+                    </td>
+
                 </tr>
                 <tr>
                     <th></th>
                     <td class="orange"></td>
                     <td class="light"></td>
+                    <td class="orange"></td>
                     <td class="light"></td>
-                    <td class="blue"></td>
-                    <td class="light"></td>
+                    <td class="green"></td>
                     <td class="light"></td>
                     <td class="purple"></td>
                     <td class="light"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th></th>
-                    <td class="yellow"><img src="icons/triceratops 1.svg" alt="rex" width="50" height="50"> </img>
+                    <td class="yellow"><img src="icons/triceratops.svg" alt="rex" width="50" height="50"> </img>
                     </td>
                     <td class="light"></td>
+                    <td class="purple"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="yellow"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="red"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th></th>
                     <td class="green"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="blue"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="orange"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="yellow"></td>
                     <td class="light"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th></th>
                     <td class="blue"></td>
-                    <td class="dark"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="red"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="green"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="orange"></td>
+                    <td class="light"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th></th>
                     <td class="purple"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="blue"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="red"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="blue"></td>
                     <td class="light"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th></th>
                     <td class="yellow"></td>
-                    <td class="dark"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="orange"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="purple"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="purple"></td>
+                    <td class="light"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th></th>
                     <td class="blue"></td>
                     <td class="red"></td>
                     <td class="purple"></td>
+                    <td class="light"></td>
+                    <td class="yellow"></td>
                     <td class="green"></td>
+                    <td class="red"></td>
                     <td class="light"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th><button id="Resign" onclick="window.location.href='home.xhtml'">Resign</button></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </tbody>
+
         </table>
+
         <section id="Dash">
-            <p>Turn: Alexandra<label id='turn'></label></p>
-            <section id="hand">
+            <h2>Turn: <label id='turn'>Alexandra</label></h2>
+
+            <aside id="hand">
                 <input type="image" src="icons/carta.svg" name="carta" width="100" height="100" alt="submit" />
                 <input type="image" src="icons/carta.svg" name="carta" width="100" height="100" alt="submit" />
                 <input type="image" src="icons/carta.svg" name="carta" width="100" height="100" alt="submit" />
-            </section>
-            <button id="resign">Resign</button>
+                <button id="pass">Pass Turn</button>
+            </aside>
+
+
         </section>
         <!-- End of Dash -->
-    </section>
+    </main>
 
     <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
 
