@@ -6,7 +6,7 @@ A continuación se detalla el diseño del mapa del sitio.
 
 ## Pantalla principal
 
-El propósito de la pantalla principal es permitir al visitante elegir entre las siguientes tres opciones. 
+El propósito de la pantalla principal es permitir al visitante elegir entre las siguientes opciones. 
 
 Primera, solicitar ayuda, este muestra un poco sobre las reglas y como unirse y organizar una partida ![1](./numbers/1.svg). Organizar un juego ![2](./numbers/2.svg) si el visitante elige esta opción será redirigido a la pantalla de espera de juego en la que entrara como anfitrión. Tercera, unirse a un juego ![3](./numbers/3.svg) el jugador debe de introducir la clave de algún juego ya iniciado para poder unirse y jugar con otros jugadores. 
 
@@ -18,7 +18,7 @@ Figura 1. Pantalla principal
 ![opcion-ayuda](./wireframes/help.svg)
 
  Figura 2. Opción de ayuda
-Si el visitante selecciona la opción de solicitar ayuda se desplegará en la pantalla un mensaje (Figura 2) donde podrá obtener más información respecto al juego.
+Si el visitante selecciona la opción de solicitar ayuda se desplegará en la pantalla un mensaje donde podrá obtener más información respecto al juego.
 
 ## Sala de espera
 
