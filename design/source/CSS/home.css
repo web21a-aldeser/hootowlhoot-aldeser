@@ -1,6 +1,6 @@
 @import url(common.css);
 
-.homeSection {
+.home-section {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -16,11 +16,11 @@ input {
     text-align: center;
 }
 
-.homeSection li {
+.home-section li {
     padding: 10px;
 }
 
-#JoinKey {
+#join-key {
     width: 182px;
 }
 
@@ -28,7 +28,7 @@ input {
     text-align: center;
 }
 
-.homeSection h1 {
+.home-section h1 {
     width: 58%;
     text-align: right;
 }
@@ -38,14 +38,14 @@ input {
     padding: 5px;
 }
 
-#Help-Dialog {
+#help-dialog {
     display: block;
     width: 30%;
     background-color: rgba(240, 240, 240, 0.966);
     align-self: flex-start;
 }
 
-.closebtn {
+.close-button {
     margin-left: 15px;
     font-weight: bold;
     float: right;

@@ -8,10 +8,9 @@
     <link rel="shortcut icon" href="icons/stegosaurios.svg" type="image/x-icon"></link>
     <title>Dino Explosion</title>
 </head>
-
 <body>
     <header>
-        <nav class="navBar" id="main-navigatin-menu">
+        <nav class="nav-bar" id="main-navigatin-menu">
             <a>Dino Explosion</a>
             <a>Aldeser</a>
             <a>Info</a>
@@ -19,7 +18,7 @@
         </nav>
     </header>
     <main>
-        <section class="homeSection" id="Home">
+        <section class="home-section" id="Home">
             <h1>Dino Explosion </h1>
             <aside id="options">
                 <img src="icons/rex.svg" alt="dino" width="80" height="70"> </img>
@@ -27,16 +26,16 @@
                 <img src="icons/stegosaurios.svg" alt="dino" width="70" height="70"> </img>
                 <ul>
                     <li><button class="button" id="help-button" onclick="helpMessage()">Help</button></li>
-                    <li><button class="button" onclick="window.location.href='waitingroom.xhtml'">Host Game</button></li>
+                    <li><a href="waiting-room.xhtml"><button class="button">Host Game</button></a></li>
                     <li><button class="button" id="join-button" onclick="joinClick()">Join Game</button></li>
-                    <li><input type="text" id="JoinKey" name="JoinKey" placeholder="FDDLA54"></input>
+                    <li><input type="text" id="join-key" name="join-key" placeholder="FDDLA54"></input>
                     </li>
-                    <li> <input type="submit" class="button" value="Enter" onclick="window.location.href='waitingroom.xhtml'"></input>
+                    <li> <input type="submit" class="button" value="Enter" onclick="window.location.href='waiting-room.xhtml'"></input>
                     </li>
                 </ul>
             </aside>
-            <aside id="Help-Dialog">
-                <button class="closebtn">x</button>
+            <aside id="help-dialog">
+                <button class="close-button">x</button>
                 <h2>Rules:</h2>
                 <p>Each player must play one of his cards on his turn, moving to the available position of the card color he chose to play. If a player has a meteor card, he is required to play it and advance the meteor token on that turn. At the end of
                     his turn, the player must take a new card from the pile of cards and send the card he just used to the discard pile. If all the dinosaurs reached the cave before the meteorite token reached the ground, then all players win; but if

@@ -53,12 +53,12 @@ ul {
     padding: 0;
 }
 
-.navBar {
+.nav-bar {
     background-color: rgba(240, 240, 240, 0.966);
     overflow: hidden;
 }
 
-.navBar a {
+.nav-bar a {
     color: #000;
     float: left;
     text-align: center;
