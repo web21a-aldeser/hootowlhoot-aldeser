@@ -12,7 +12,7 @@ En la siguiente seccion de componentes se presenta una descripcion detallada de 
 
  - Tablero
 
-   En el tablero posee casillas de seis colores diferentes: amarillo, verde, naranja, azul, morado y rojo; y que llevan hasta el refugio en el que se protegeran los dinosaurios. El tablero posee una barra de proxidad del meteorito que indica que tan cerca se encuentra el metorioto de impactar la tierra y acabar con la existencia de todos los seres vivos y en consecuencia, con la partida.
+   En el tablero posee casillas de seis colores diferentes: amarillo, verde, naranja, azul, morado y rojo; y que llevan hasta el refugio en el que se protegeran los dinosaurios. El tablero posee una barra de proximidad del meteorito que indica que tan cerca se encuentra el metorioto de impactar la tierra y acabar con la existencia de todos los seres vivos y en consecuencia, con la partida.
 
      ![pantalla-de-juego](./design/wireframes/boardInGame.svg)
 
@@ -46,29 +46,16 @@ En cada turno, cada jugador debe jugar alguna de sus cartas y mover su ficha de 
 
 ### Mecanica del juego adaptado
 
-Al igual que en el original cada jugador debe de jugar una de sus cartas en su turno, moviendo a la **posición disponible** del color de carta que escogió jugar. Si un jugador tiene una carta de meteorito, **está obligado** a jugarla y avanzar la ficha de meteorito en ese turno. Al finalizar su turno, el jugador debe coger una nueva carta de la pila de cartas y enviar a la pila de descarte la carta que acaba de utilizar. Si todos los dinosaurios llegaron a la cueva antes de que la ficha de meteorito llegara la tierra, entonces todos los jugadores ganan; pero si aún falta al menos un dinosaurio de entrar a la cueva y la ficha de meteorito llega a su punto máximo, el juego concluye y los jugadores pierden. Dino Explosion extiende la cantidad de jugadores a seis.
+Al igual que en el original cada jugador debe de jugar una de sus cartas en su turno, tocando la carta el dinosaurio se mueve a la **posición disponible** del color de carta que escogió jugar. Si un jugador tiene una carta de meteorito, **está obligado** a jugarla y avanzar la ficha de meteorito en ese turno. En el tablero se encuentran ocultos geysers, binoculares que permiten ver el geyser mas cercano y huevos de dinosaurio que permiten jugar otro turno seguido.Si todos los dinosaurios llegaron a la cueva antes de que la ficha de meteorito llegara la tierra, entonces todos los jugadores ganan; pero si aún falta al menos un dinosaurio de entrar a la cueva y la ficha de meteorito llega a su punto máximo(la tierra), el juego concluye y los jugadores pierden. Dino Explosion extiende la cantidad de jugadores a seis.
 
 
 ### Adaptaciones en orden descendente de prioridades:
 
-  1. Posicionar al azar en las casillas del tablero bombas ocultas. Si un jugador mueve su ficha a una posición donde haya una bomba, la ficha se devuelve a su posición anterior y dicha posición queda inutilizable.
+  1. Posicionar al azar en las casillas del tablero geysers ocultos. Si un jugador mueve su ficha a una posición donde haya un geyser, la ficha se devuelve a su posición anterior y dicha posición queda inutilizable.
 
-  2. Posicionar al azar al igual que las bombas casillas con premios que les permiten moverse otra vez en el mismo turno (sacar y usar otra carta). Estos están ocultos hasta que llega un caracter a esa posición.
+  2. Posicionar al azar al igual que los geysers casillas con huevos de dinosaurio que les permiten moverse otra vez en el mismo turno (sacar y usar otra carta), si otro jugador cae en esta casilla ya utilizada no se activara ya el dinasaurio anterior utilizo el huevo. Estos están ocultos hasta que llega un caracter a esa posición.
 
-  3. Introducir otros tipo de cartas. Esta idea está inspirada en el juego de cartas UNO.
-     Poderes en orden descendente de prioridad:
-     4.1 Una carta que permita avanzar más de una posición
-     4.2 Una carta que obligue a otro jugador a devolver su ficha
-     4.3 Carta que permita a un jugador bloquear el siguiente meteorito que aparezca. De manera que el siguiente jugador pueda jugar alguna de sus cartas, pero no esta.
-     4.4 Pasar el turno de otro jugador,
+  3. Posicionar al azar binoculares que le permitiran al jugador visualizar el geyser más cercano, y asi podrá evitarlo facilmente. 
 
- ### Prioridades de desarrollo
-
-  1. Diferentes dinosaurios para cada jugador por defecto.
-  2. Cartas a azar.
-  3. Mover caracteres.
-  4. ubicar bombas.
-  5. Cambiar de dinosaurios.
-  6. Calificaciones en orden de llegada a la cueva.
 
 Este proyecto es realizado por el equipo **Aldeser** compuesto por los estudiantes: Alexandra Siles, Dennis Solano y Sergio Fernández.
