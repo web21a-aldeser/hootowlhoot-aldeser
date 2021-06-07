@@ -35,6 +35,7 @@ En la siguiente seccion de componentes se presenta una descripcion detallada de 
    
    
    ![cartas](./design/wireframes/cards.svg)
+   Cartas disponibles.
 
 Dino Explosion es un juego colaborativo basado en el juego Hoot Owl Hoot. Este es un juego de mesa colaborativo en el que pueden participar de 2 a 4 jugadores con la finalidad de llevar todos los búhos al nido antes de que amanezca.
 https://boardgamegeek.com/boardgame/94483/hoot-owl-hoot
