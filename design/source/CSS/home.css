@@ -1,45 +1,70 @@
 @import url(common.css);
 
+/*****************************************************************
+ Main section.
+*****************************************************************/
+
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+/***********************************************************
+ Container for options and help
+***********************************************************/
+
 .home-section {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    flex-flow: wrap;
+    flex-flow: nowrap;
+    justify-content: space-evenly;
+}
+
+.home-section li {
+    padding: 20px;
+    padding-top: 40px;
 }
 
 #options {
-    width: 57%;
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    flex-flow: nowrap;
+}
+
+
+/***********************************************************
+ Option buttons and text
+***********************************************************/
+
+.button {
+    padding: 10px;
+}
+
+#join-button {
+    width: 100px;
+}
+
+#host-button {
+    width: 210px;
 }
 
 input {
     text-align: center;
 }
 
-.home-section li {
-    padding: 10px;
-}
-
 #join-key {
-    width: 182px;
+    width: 100px;
+    height: 35px;
 }
 
-#joinText {
-    text-align: center;
-}
 
-.home-section h1 {
-    width: 58%;
-    text-align: right;
-}
-
-.button {
-    width: 5cm;
-    padding: 5px;
-}
+/***********************************************************
+ Help-dialog and button.
+***********************************************************/
 
 #help-dialog {
-    display: block;
+    display: none;
     width: 30%;
     background-color: rgba(240, 240, 240, 0.966);
     align-self: flex-start;
