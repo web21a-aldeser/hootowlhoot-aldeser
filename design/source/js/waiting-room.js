@@ -19,6 +19,7 @@ class PlayerList {
 
   configurePlayersList() {
     this.retrieveDataFromPlayersTable();
+    this.setupEventsForPlayersList();
   }
 
   retrieveDataFromPlayersTable() {
@@ -32,11 +33,21 @@ class PlayerList {
   }
 
   addPlayerToList(player) {
-    thi.players.push(player);
+    this.players.push(player);
+  }
+
+  setupEventsForPlayersList() {
+    for (let index = 0; index < this.players.length; index++) {
+      this.players[index].avatarElement.addEventListener('click', () => {
+        const avatarSelection = document.getElementById('avatar-selection').style.display = 'block';
+      });
+    }
   }
 }
 
 function main() {
+  const avatarSelection = document.getElementById('avatar-selection').style.display = 'none';
+
   const playerList = new PlayerList('players-list-table');
   playerList.configurePlayersList();
 }
