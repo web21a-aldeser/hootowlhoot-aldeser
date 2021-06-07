@@ -1,10 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
+html {
+    height: 100vh;
+}
+
+
 body {
+    height: 100%;
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+header {
+    order: 1;
+    flex: 0 1 auto;
+    align-self: auto;
+}
+
+main {
+    order: 2;
+    flex: 1 1 auto;
+    align-self: auto;
+}
+
+
+footer {
+    order: 3;
+    flex: 0 1 auto;
+    align-self: auto;
+    height: 2em;
+    width: 100%;
+    background-color: rgba(240, 240, 240, 0.966);
+    text-align: center;
+    position: relative;
+    bottom: 0px;
 }
 
 h1 {
@@ -19,16 +53,10 @@ ul {
     padding: 0;
 }
 
-
-/* Applies to all elements with <... class="someclass"> specified. */
-
 .navBar {
     background-color: rgba(240, 240, 240, 0.966);
     overflow: hidden;
 }
-
-
-/* Applies to the element with <... id="someid"> specified. */
 
 .navBar a {
     color: #000;
@@ -37,16 +65,6 @@ ul {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
-}
-
-.footer {
-    height: 2em;
-    width: 100%;
-    background-color: rgba(240, 240, 240, 0.966);
-    text-align: center;
-    margin-top: auto;
-    position: relative;
-    bottom: 0px;
 }
 
 button {
