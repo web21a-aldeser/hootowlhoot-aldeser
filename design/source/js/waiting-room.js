@@ -16,7 +16,6 @@ class Player {
     this.nameElement = document.getElementById(nameId);
   }
 }
-
 class PlayerList {
   constructor(id) {
     this.playersTableId = id;
@@ -54,10 +53,20 @@ class PlayerList {
 }
 
 const avatar_selection_id = 'avatar-selection';
+const avatar_selection_table_id = 'avatar-selection-table';
+const avatar_image_cell = 1;
+const avatar_image_pos = 0;
+const avatar_button_cell = 0;
+const avatar_selection_button = 0;
+const players_avatar_cell = 0;
+const players_avatar_button = 0;
 class AvatarSelector {
-  constructor() {
+  constructor(playersList) {
     this.element = document.getElementById(avatar_selection_id);
     this.element.style.display = 'none';
+    this.avatarsTable = document.getElementById(avatar_selection_table_id);
+    // Player list is needed to perform player's avatar update.
+    this.playersList = playersList;
   }
 
   show() {
@@ -68,19 +77,50 @@ class AvatarSelector {
     this.element.style.display = 'none';
   }
 
+  /**
+   * Avatar id is necessary to change player's avatar.
+   * 
+   * @param id - The player's avatar id. 
+   */
   setPlayersAvatarId(id) {
     this.element.dataset.avatarId = id;
+  }
+
+  configure() {
+    this.setupEvents();
+  }
+
+  setupEvents() {
+    let avatars = this.avatarsTable.rows;
+    for (let index = 0; index < avatars.length; index++) {
+      let avatarSelectionButton =
+        avatars[index]
+          .children[avatar_button_cell]
+          .children.item(avatar_selection_button);
+
+      let avatarImagePath =
+        avatars[index]
+          .children[avatar_image_cell]
+          .children.item(avatar_image_pos).src;
+
+      avatarSelectionButton.addEventListener('click', () => {
+          document.getElementById(this.element.dataset.avatarId)
+            .children[players_avatar_cell]
+            .children[players_avatar_button].src = avatarImagePath;
+      });
+    }
   }
 }
 
 const players_table_id = 'players-list-table';
 class WaitingRoom {
   constructor() {
-    this.avatarSelector = new AvatarSelector();
     this.playerList = new PlayerList(players_table_id);
+    this.avatarSelector = new AvatarSelector(this.playersList);
   }
 
   configure() {
+    this.avatarSelector.configure();
     this.playerList.configurePlayersList(this.avatarSelector);
   }
 }
