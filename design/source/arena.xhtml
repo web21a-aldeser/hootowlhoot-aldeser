@@ -2,8 +2,8 @@
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="CSS/board.css"></link>
     <link rel="shortcut icon" href="icons/stegosaurios.svg" type="image/x-icon"></link>
     <title>Dino Explosion</title>
@@ -17,177 +17,187 @@
             <a>Aldeser</a>
             <a>Info</a>
             <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4" target="_blank">How to play</a>
+            <nav class="nav-bar-right">
+                <a href='' onclick="show('help-dialog')">Help</a>
+            </nav>
         </nav>
     </header>
-    <figure class="turnos">
-        <img src="icons/galaxy.svg" alt="galaxy" width="70" height="70"> </img>
+    <main>
+        <figure class="barra-proximidad">
+            <img src="icons/galaxy.svg" alt="galaxy" width="70" height="70"> </img>
 
-        <ol class="claridad">
-            <li class="cl1"><img src="icons/meteorite.svg" alt="meteorite" width="50" height="50"></img>
-            </li>
-            <li class="cl2"></li>
-            <li class="cl3"></li>
-            <li class="cl4"></li>
-            <li class="cl5"></li>
-            <li class="cl6"></li>
-            <li class="cl7"></li>
-            <li class="cl8"></li>
-            <li class="cl9"></li>
-            <li class="cl10"></li>
-            <li class="cl11"></li>
-            <li class="cl12"></li>
-            <li class="cl13"></li>
-            <li class="cl14"></li>
-        </ol>
-        <img src="icons/planet-earth.svg" alt="planet" width="70" height="70"> </img>
-        <img class="stack" src="icons/stack.svg" alt="stack" width="80" height="80"> </img>
-        <img class="stack" src="icons/stock.svg" alt="stock" width="80" height="80"> </img>
-        <label>HELP?</label>
-    </figure>
-    <main id="wrapper">
-        <table class="board">
-            <tbody>
-                <tr>
-                    <th class="begin">.</th>
-                    <th class="begin">Start</th>
-                    <th class="begin">.</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td class="red"><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
-                    </td>
-                    <td class="light"></td>
-                    <td class="red"></td>
-                    <td class="green"></td>
-                    <td class="blue"></td>
-                    <td class="light"></td>
-                    <td class="yellow"></td>
-                    <td class="orange"></td>
-                    <td><img src="icons/cave.svg" alt="cave" width="100" height="60"> </img>
-                    </td>
+            <ol class="claridad">
+                <li class="cl1"><img src="icons/meteorite.svg" alt="meteorite" width="50" height="50"></img>
+                </li>
+                <li class="cl2"></li>
+                <li class="cl3"></li>
+                <li class="cl4"></li>
+                <li class="cl5"></li>
+                <li class="cl6"></li>
+                <li class="cl7"></li>
+                <li class="cl8"></li>
+                <li class="cl9"></li>
+                <li class="cl10"></li>
+                <li class="cl11"></li>
+                <li class="cl12"></li>
+                <li class="cl13"></li>
+                <li class="cl14"></li>
+            </ol>
+            <img src="icons/planet-earth.svg" alt="planet" width="70" height="70"> </img>
 
-                </tr>
-                <tr>
-                    <th></th>
-                    <td class="orange"></td>
-                    <td class="light"></td>
-                    <td class="orange"></td>
-                    <td class="light"></td>
-                    <td class="green"></td>
-                    <td class="light"></td>
-                    <td class="purple"></td>
-                    <td class="light"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td class="yellow"><img src="icons/triceratops.svg" alt="rex" width="50" height="50"> </img>
-                    </td>
-                    <td class="light"></td>
-                    <td class="purple"></td>
-                    <td class="light"></td>
-                    <td class="yellow"></td>
-                    <td class="light"></td>
-                    <td class="red"></td>
-                    <td class="light"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td class="green"></td>
-                    <td class="light"></td>
-                    <td class="blue"></td>
-                    <td class="light"></td>
-                    <td class="orange"></td>
-                    <td class="light"></td>
-                    <td class="yellow"></td>
-                    <td class="light"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td class="blue"></td>
-                    <td class="light"></td>
-                    <td class="red"></td>
-                    <td class="light"></td>
-                    <td class="green"></td>
-                    <td class="light"></td>
-                    <td class="orange"></td>
-                    <td class="light"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td class="purple"></td>
-                    <td class="light"></td>
-                    <td class="blue"></td>
-                    <td class="light"></td>
-                    <td class="red"></td>
-                    <td class="light"></td>
-                    <td class="blue"></td>
-                    <td class="light"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td class="yellow"></td>
-                    <td class="light"></td>
-                    <td class="orange"></td>
-                    <td class="light"></td>
-                    <td class="purple"></td>
-                    <td class="light"></td>
-                    <td class="purple"></td>
-                    <td class="light"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td class="blue"></td>
-                    <td class="red"></td>
-                    <td class="purple"></td>
-                    <td class="light"></td>
-                    <td class="yellow"></td>
-                    <td class="green"></td>
-                    <td class="red"></td>
-                    <td class="light"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th><button id="Resign" onclick="window.location.href='home.xhtml'">Resign</button></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
+        </figure>
 
-        </table>
+        <main id="wrapper">
 
-        <section id="Dash">
-            <h2>Turn: <label id='turn'>Alexandra</label></h2>
-
-            <aside id="hand">
-                <input type="image" src="icons/carta.svg" name="carta" width="100" height="100" alt="submit" />
-                <input type="image" src="icons/carta.svg" name="carta" width="100" height="100" alt="submit" />
-                <input type="image" src="icons/carta.svg" name="carta" width="100" height="100" alt="submit" />
-                <button id="pass">Pass Turn</button>
-            </aside>
+            <section id="player-box">
+                <h2>Turn: <label id='turn'>Alexandra</label></h2>
+                <aside id="hand">
+                    <table class="GeneratedTable">
+                        <thead>
+                            <tr>
+                                <th>Dinasour</th>
+                                <th>Player</th>
+                                <th>Hand</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
+                                </td>
+                                <td><img src="icons/triceratops.svg" alt="rex" width="50" height="50"> </img>
+                                </td>
+                                <td><img src="icons/stegosaurios.svg" alt="rex" width="50" height="50"> </img>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Alexandra</td>
+                                <td>Sergio</td>
+                                <td>Dennis</td>
+                            </tr>
+                            <tr>
+                                <td><input type="image" src="icons/cards/cartaAzul.svg" name="carta" width="50" height="50" alt="submit" />
+                                    <input type="image" src="icons/cards/cartaNaranja.svg" name="carta" width="50" height="50" alt="submit" />
+                                    <input type="image" src="icons/cards/cartaRoja.svg" name="carta" width="50" height="50" alt="submit" /> </td>
+                                <td><input type="image" src="icons/cards/cartaAzul.svg" name="carta" width="50" height="50" alt="submit" /></td>
+                                <td><input type="image" src="icons/cards/cartaAzul.svg" name="carta" width="50" height="50" alt="submit" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
 
-        </section>
-        <!-- End of Dash -->
+
+                    <button id="pass">Pass Turn</button>
+                </aside>
+
+
+            </section>
+            <!-- End of player box -->
+            <table class="board">
+                <tbody>
+                    <tr>
+
+                        <td class="red"><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
+                        </td>
+                        <td class="light"></td>
+                        <td class="red"></td>
+                        <td class="green"></td>
+                        <td class="blue"></td>
+                        <td class="light"></td>
+                        <td class="yellow"></td>
+                        <td class="orange"></td>
+                        <td><img src="icons/cave.svg" alt="cave" width="100" height="60"> </img>
+                        </td>
+
+                    </tr>
+                    <tr>
+
+                        <td class="orange"></td>
+                        <td class="light"></td>
+                        <td class="orange"></td>
+                        <td class="light"></td>
+                        <td class="green"></td>
+                        <td class="light"></td>
+                        <td class="purple"></td>
+                        <td class="light"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+
+                        <td class="yellow"><img src="icons/triceratops.svg" alt="rex" width="50" height="50"> </img>
+                        </td>
+                        <td class="light"></td>
+                        <td class="purple"></td>
+                        <td class="light"></td>
+                        <td class="yellow"></td>
+                        <td class="light"></td>
+                        <td class="red"></td>
+                        <td class="light"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+
+                        <td class="green"></td>
+                        <td class="light"></td>
+                        <td class="blue"></td>
+                        <td class="light"></td>
+                        <td class="orange"></td>
+                        <td class="light"></td>
+                        <td class="yellow"></td>
+                        <td class="light"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+
+                        <td class="blue"></td>
+                        <td class="light"></td>
+                        <td class="red"></td>
+                        <td class="light"></td>
+                        <td class="green"></td>
+                        <td class="light"></td>
+                        <td class="orange"></td>
+                        <td class="light"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+
+                        <td class="purple"></td>
+                        <td class="light"></td>
+                        <td class="blue"></td>
+                        <td class="light"></td>
+                        <td class="red"></td>
+                        <td class="light"></td>
+                        <td class="blue"></td>
+                        <td class="light"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="yellow"></td>
+                        <td class="light"></td>
+                        <td class="orange"></td>
+                        <td class="light"></td>
+                        <td class="purple"></td>
+                        <td class="light"></td>
+                        <td class="purple"></td>
+                        <td class="light"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="blue"></td>
+                        <td class="red"></td>
+                        <td class="purple"></td>
+                        <td class="light"></td>
+                        <td class="yellow"></td>
+                        <td class="green"></td>
+                        <td class="red"></td>
+                        <td class="light"></td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </main>
+        <button id="Resign" onclick="window.location.href='home.xhtml'">Resign</button>
     </main>
 
     <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>

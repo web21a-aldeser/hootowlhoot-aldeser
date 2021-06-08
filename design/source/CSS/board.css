@@ -1,4 +1,9 @@
 @import url(common.css);
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 
 #wrapper {
     display: flex;
@@ -7,16 +12,12 @@
     flex-flow: wrap;
 }
 
-.hidden {
-    visibility: hidden
-}
-
-.turnos {
+.barra-proximidad {
     display: flex;
     flex-wrap: nowrap;
 }
 
-.turnos>figure {
+.barra-proximidad>figure {
     width: 50px;
     margin: 2.5px;
     text-align: center;
@@ -24,13 +25,7 @@
     font-size: 30px;
 }
 
-.turnos .stack {
-    width: 100px;
-    margin-left: 50px;
-    order: 0;
-}
-
-.turnos label {
+.barra-proximidad label {
     color: cornflowerblue;
     font-size: 20px;
     margin-left: 50px;
@@ -104,7 +99,6 @@
 }
 
 .board {
-    width: 75%;
     border-spacing: 0;
     border-collapse: collapse;
 }
@@ -112,11 +106,6 @@
 .board td {
     width: 100px;
     height: 50px;
-}
-
-.board th {
-    width: 0px;
-    height: 0px;
 }
 
 .board .begin {
@@ -148,7 +137,7 @@
     background: orange;
 }
 
-#Dash {
+#player-box {
     background-color: #FFF;
     border: 2px outset gray;
     color: maroon;
@@ -160,7 +149,6 @@
     position: relative;
     min-width: 200px;
     max-width: 500px;
-    width: 22%
 }
 
 #hand {
@@ -171,10 +159,4 @@
 
 #hand input:hover {
     opacity: 0.5
-}
-
-#pass {
-    width: 150px;
-    margin-top: 50px;
-    padding: 15px;
 }
