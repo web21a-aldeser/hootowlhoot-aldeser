@@ -1,13 +1,6 @@
-const player_avatar_pos = 0;
-const player_name_pos = 1
-
-
-/*
-* On avatar clicked, set modal data attribute to player-avatar-n
-* On modal image clicked, get data attribute for player-avatar and change image
-* path with clicked avatar.
-*/
-
+/**
+ * Players class
+ */
 class Player {
   constructor(avatarId, nameId) {
     this.avatarId = avatarId;
@@ -16,6 +9,12 @@ class Player {
     this.nameElement = document.getElementById(nameId);
   }
 }
+
+/**
+ * Player list
+ */
+const PLAYER_AVATAR_POS = 0;
+const PLAYER_NAME_POS = 1;
 class PlayerList {
   constructor(id) {
     this.playersTableId = id;
@@ -29,11 +28,11 @@ class PlayerList {
   }
 
   retrieveDataFromPlayersTable() {
-    let players = this.playersTable.rows;
-    for (let index = 0; index < players.length; index++) {
+    const players = this.playersTable.rows;
+    for (let index = 0; index < players.length; index += 1) {
       const row = players.item(index);
-      const player = new Player(row.cells.item(player_avatar_pos).id,
-        row.cells.item(player_name_pos).id);
+      const player = new Player(row.cells.item(PLAYER_AVATAR_POS).id,
+        row.cells.item(PLAYER_NAME_POS).id);
       this.addPlayerToList(player);
     }
   }
@@ -43,7 +42,7 @@ class PlayerList {
   }
 
   setupEventsForPlayersList(avatarSelector) {
-    for (let index = 0; index < this.players.length; index++) {
+    for (let index = 0; index < this.players.length; index += 1) {
       this.players[index].avatarElement.addEventListener('click', () => {
         avatarSelector.show();
         avatarSelector.setPlayersAvatarId(this.players[index].avatarId);
@@ -52,19 +51,23 @@ class PlayerList {
   }
 }
 
-const avatar_selection_id = 'avatar-selection';
-const avatar_selection_table_id = 'avatar-selection-table';
-const avatar_image_cell = 1;
-const avatar_image_pos = 0;
-const avatar_button_cell = 0;
-const avatar_selection_button = 0;
-const players_avatar_cell = 0;
-const players_avatar_button = 0;
+/**
+ * Avatar selector class
+ */
+const AVATAR_SELECTION_ID = 'avatar-selection';
+const AVATAR_SELECTION_TABLE_ID = 'avatar-selection-table';
+const AVATAR_IMAGE_CELL = 1;
+const AVATAR_IMAGE_POS = 0;
+const AVATAR_BUTTON_CELL = 0;
+const AVATAR_SELECTION_BUTTON = 0;
+const PLAYERS_AVATAR_CELL = 0;
+const PLAYERS_AVATAR_BUTTON = 0;
+
 class AvatarSelector {
   constructor(playersList) {
-    this.element = document.getElementById(avatar_selection_id);
+    this.element = document.getElementById(AVATAR_SELECTION_ID);
     this.element.style.display = 'none';
-    this.avatarsTable = document.getElementById(avatar_selection_table_id);
+    this.avatarsTable = document.getElementById(AVATAR_SELECTION_TABLE_ID);
     // Player list is needed to perform player's avatar update.
     this.playersList = playersList;
   }
@@ -79,8 +82,8 @@ class AvatarSelector {
 
   /**
    * Avatar id is necessary to change player's avatar.
-   * 
-   * @param id - The player's avatar id. 
+   *
+   * @param id - The player's avatar id.
    */
   setPlayersAvatarId(id) {
     this.element.dataset.avatarId = id;
@@ -91,31 +94,32 @@ class AvatarSelector {
   }
 
   setupEvents() {
-    let avatars = this.avatarsTable.rows;
-    for (let index = 0; index < avatars.length; index++) {
-      let avatarSelectionButton =
-        avatars[index]
-          .children[avatar_button_cell]
-          .children.item(avatar_selection_button);
+    const avatars = this.avatarsTable.rows;
+    for (let index = 0; index < avatars.length; index += 1) {
+      const avatarSelectionButton = avatars[index]
+        .children[AVATAR_BUTTON_CELL]
+        .children.item(AVATAR_SELECTION_BUTTON);
 
-      let avatarImagePath =
-        avatars[index]
-          .children[avatar_image_cell]
-          .children.item(avatar_image_pos).src;
+      const avatarImagePath = avatars[index]
+        .children[AVATAR_IMAGE_CELL]
+        .children.item(AVATAR_IMAGE_POS).src;
 
       avatarSelectionButton.addEventListener('click', () => {
-          document.getElementById(this.element.dataset.avatarId)
-            .children[players_avatar_cell]
-            .children[players_avatar_button].src = avatarImagePath;
+        document.getElementById(this.element.dataset.avatarId)
+          .children[PLAYERS_AVATAR_CELL]
+          .children[PLAYERS_AVATAR_BUTTON].src = avatarImagePath;
       });
     }
   }
 }
 
-const players_table_id = 'players-list-table';
+/**
+ * Waiting room class
+ */
+const PLAYER_TABLE_ID = 'players-list-table';
 class WaitingRoom {
   constructor() {
-    this.playerList = new PlayerList(players_table_id);
+    this.playerList = new PlayerList(PLAYER_TABLE_ID);
     this.avatarSelector = new AvatarSelector(this.playersList);
   }
 
@@ -126,7 +130,7 @@ class WaitingRoom {
 }
 
 function main() {
-  waitingRoom = new WaitingRoom();
+  const waitingRoom = new WaitingRoom();
   waitingRoom.configure();
 }
 
