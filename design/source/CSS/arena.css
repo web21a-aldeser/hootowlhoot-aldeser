@@ -11,6 +11,17 @@
     flex-flow: wrap;
 }
 
+#wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-flow: wrap;
+}
+
+#resign {
+    align-self: flex-end;
+}
+
 
 /*****************************************************************
  Turns, proximity bar
@@ -101,13 +112,6 @@
     border-collapse: collapse;
 }
 
-#wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-flow: wrap;
-}
-
 
 /*****************************************************************
  Board
@@ -144,7 +148,7 @@
 
 
 /*****************************************************************
- 
+ Player Box/ turn, hand of cards and players
 *****************************************************************/
 
 #player-box {
@@ -155,6 +159,10 @@
     margin-top: 5px;
     padding: 5px;
     position: relative;
+}
+
+th {
+    border: 1px solid black;
 }
 
 #hand {
