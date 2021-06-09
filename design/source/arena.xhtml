@@ -22,11 +22,12 @@
             </nav>
         </nav>
     </header>
-    <main>
-        <figure class="barra-proximidad">
+    <main id="main">
+        <figure class="proximity-bar">
+
             <img src="icons/galaxy.svg" alt="galaxy" width="70" height="70"> </img>
 
-            <ol class="claridad">
+            <ol class="clarity">
                 <li class="cl1"><img src="icons/meteorite.svg" alt="meteorite" width="50" height="50"></img>
                 </li>
                 <li class="cl2"></li>
@@ -44,7 +45,7 @@
                 <li class="cl14"></li>
             </ol>
             <img src="icons/planet-earth.svg" alt="planet" width="70" height="70"> </img>
-
+            <button id="resign" onclick="window.location.href='home.xhtml'">Resign</button>
         </figure>
 
         <main id="wrapper">
@@ -70,32 +71,10 @@
                                     <input type="image" src="icons/cards/cartaRoja.svg" name="carta" width="50" height="50" alt="submit" /> </td>
 
                             </tr>
-                            <tr>
-                                <td><img src="icons/triceratops.svg" alt="rex" width="50" height="50"> </img>
-                                </td>
-                                <td>Alexandra</td>
-                                <td><input type="image" src="icons/cards/cartaAzul.svg" name="carta" width="50" height="50" alt="submit" />
-                                    <input type="image" src="icons/cards/cartaNaranja.svg" name="carta" width="50" height="50" alt="submit" />
-                                    <input type="image" src="icons/cards/cartaRoja.svg" name="carta" width="50" height="50" alt="submit" /> </td>
-
-
-                            </tr>
-                            <tr>
-                                <td><img src="icons/stegosaurios.svg" alt="rex" width="50" height="50"> </img>
-                                </td>
-                                <td>Dennis</td>
-                                <td><input type="image" src="icons/cards/CartaMeteoro.svg" name="carta" width="50" height="50" alt="submit" />
-                                    <input type="image" src="icons/cards/cartaNaranja.svg" name="carta" width="50" height="50" alt="submit" />
-                                    <input type="image" src="icons/cards/cartaRoja.svg" name="carta" width="50" height="50" alt="submit" /> </td>
-                            </tr>
                         </tbody>
                     </table>
-
-
-
                     <button id="pass">Pass Turn</button>
                 </aside>
-
 
             </section>
             <!-- End of player box -->
@@ -103,10 +82,11 @@
                 <tbody>
                     <tr>
 
-                        <td class="red"><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
+                        <td class="red"><img src="icons/rex.svg" class="player" alt="rex" width="30" data-row="0" data-col="0"> </img>
                         </td>
                         <td class="light"></td>
-                        <td class="red"></td>
+                        <td class="red"><img src="icons/geyser.svg" alt="geyser" width="60"></img>
+                        </td>
                         <td class="green"></td>
                         <td class="blue"></td>
                         <td class="light"></td>
@@ -130,8 +110,7 @@
                     </tr>
                     <tr>
 
-                        <td class="yellow"><img src="icons/triceratops.svg" alt="rex" width="50" height="50"> </img>
-                        </td>
+                        <td class="yellow"></td>
                         <td class="light"></td>
                         <td class="purple"></td>
                         <td class="light"></td>
@@ -203,8 +182,9 @@
                 </tbody>
 
             </table>
+
         </main>
-        <button id="Resign" onclick="window.location.href='home.xhtml'">Resign</button>
+
     </main>
 
     <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
