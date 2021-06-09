@@ -60,7 +60,7 @@ class PlayerList {
   setUpEventForPlayersNameElement(playersNameElement) {
     playersNameElement.addEventListener('click', () => {
       const parentElementOfPlayersNameElement = playersNameElement.parentElement;
-      
+
       const containerForPlayersNameInputWithButton = document.createElement('div');
       containerForPlayersNameInputWithButton.id = DIV_FOR_INPUT_ID;
 
