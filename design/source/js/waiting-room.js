@@ -1,5 +1,5 @@
 /**
- * Players class
+ * Player class
  */
 class Player {
   constructor(avatarId, nameId) {
@@ -11,7 +11,7 @@ class Player {
 }
 
 /**
- * Player list
+ * Players list
  */
 const PLAYER_AVATAR_POS = 0;
 const PLAYER_NAME_POS = 1;
@@ -19,6 +19,8 @@ const ACCEPT_BUTTON_TEXT = 'Aceptar';
 const NAME_MAX_LENGTH = '25';
 const NAME_MIN_LENGTH = '2';
 const INPUT_DISPLAY_SIZE = '10';
+const NAME_REQUIRED = 'Name is required';
+const DIV_FOR_INPUT_ID = 'input-with-button-for-name';
 class PlayerList {
   constructor(id) {
     this.playersTableId = id;
@@ -51,50 +53,45 @@ class PlayerList {
         avatarSelector.show();
         avatarSelector.setPlayersAvatarId(this.players[index].avatarId);
       });
-
-      const playersNameElement = this.players[index].nameElement;
-      playersNameElement.addEventListener('click', () => {
-        const parentOfPlayersName = playersNameElement.parentElement;
-
-        // It creates an input to change player's name with a confirmation button.
-        const playerNameInputWithButton = document.createElement('div');
-        playerNameInputWithButton.style.cssText = 'display: flex;' +
-        'flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;' + 
-        'align-content: stretch; align-items: flex-start;'
-        const inputForPlayerName = document.createElement('input');
-        inputForPlayerName.maxLength = NAME_MAX_LENGTH;
-        inputForPlayerName.minLength = NAME_MIN_LENGTH;
-        inputForPlayerName.size = INPUT_DISPLAY_SIZE;
-
-        const inputConfirmationButton = document.createElement('button');
-        inputConfirmationButton.innerHTML = ACCEPT_BUTTON_TEXT;
-        playerNameInputWithButton.appendChild(inputForPlayerName);
-        playerNameInputWithButton.appendChild(inputConfirmationButton);
-
-        // It replaces player's current name with input and button.
-        parentOfPlayersName.replaceChild(playerNameInputWithButton,
-          playersNameElement);
-
-        playersNameElement.style.display = 'none';
-
-        inputConfirmationButton.addEventListener('click', () => {
-          const typedInput = inputForPlayerName.value;
-          if (typedInput !== '') {
-            console.log(`The new player's name is: ${typedInput}`);
-            // It creates a new element for player's name with the same id as the old one.
-            /*const newPlayersName = document.createElement('td');
-            newPlayersName.id = this.players[index].nameId;
-            newPlayersName.innerHTML = typedInput;
-            parentOfPlayersName.replaceChild(newPlayersName, playerNameInputWithButton);*/
-            playersNameElement.innerHTML = typedInput;
-            parentOfPlayersName.replaceChild(playersNameElement, playerNameInputWithButton);
-            playersNameElement.style.display = 'block';
-          } else {
-            console.log('A name must be typed.');
-          }
-        });
-      });
+      this.setUpEventForPlayersNameElement(this.players[index].nameElement);
     }
+  }
+
+  setUpEventForPlayersNameElement(playersNameElement) {
+    playersNameElement.addEventListener('click', () => {
+      const parentElementOfPlayersNameElement = playersNameElement.parentElement;
+      
+      const containerForPlayersNameInputWithButton = document.createElement('div');
+      containerForPlayersNameInputWithButton.id = DIV_FOR_INPUT_ID;
+
+      const inputForPlayerName = document.createElement('input');
+      inputForPlayerName.maxLength = NAME_MAX_LENGTH;
+      inputForPlayerName.minLength = NAME_MIN_LENGTH;
+      inputForPlayerName.size = INPUT_DISPLAY_SIZE;
+
+      const inputConfirmationButton = document.createElement('button');
+      inputConfirmationButton.innerHTML = ACCEPT_BUTTON_TEXT;
+      containerForPlayersNameInputWithButton.appendChild(inputForPlayerName);
+      containerForPlayersNameInputWithButton.appendChild(inputConfirmationButton);
+
+      parentElementOfPlayersNameElement.replaceChild(containerForPlayersNameInputWithButton,
+        playersNameElement);
+      playersNameElement.style.display = 'none';
+
+      inputConfirmationButton.addEventListener('click', () => {
+        const input = inputForPlayerName.value;
+        const inputIsEmpty = input === '';
+        if (!inputIsEmpty) {
+          playersNameElement.innerHTML = input;
+          parentElementOfPlayersNameElement.replaceChild(playersNameElement,
+            containerForPlayersNameInputWithButton);
+          playersNameElement.style.display = 'block';
+        } else {
+          inputForPlayerName.placeholder = NAME_REQUIRED;
+          inputForPlayerName.classList.add('input-error', 'text-error');
+        }
+      });
+    });
   }
 }
 

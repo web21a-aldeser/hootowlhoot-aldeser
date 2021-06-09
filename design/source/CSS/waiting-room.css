@@ -127,3 +127,21 @@ main {
 .button-for-dinosaur-selection {
   width: 150px;
 }
+
+.input-error {
+  box-shadow: 0 0 3px #CC0000;
+}
+
+.text-error {
+  color: #CC0000;
+}
+
+#input-with-button-for-name {
+  display: flex;
+  flex-direction: row; 
+  justify-content: 
+  flex-start; 
+  flex-wrap: nowrap;
+  align-content: stretch; 
+  align-items: flex-start;
+}
