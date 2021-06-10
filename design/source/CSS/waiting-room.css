@@ -6,6 +6,7 @@
 main {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 /*****************************************************************
@@ -19,18 +20,14 @@ main {
 /***********************************************************
  Waiting room article for settings and players.
 ***********************************************************/
-#waiting-room-article-for-settings-and-players {
+#settings-and-players-list {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-content: stretch;
-  align-items: center;
-}
-
-#waiting-room-title {
-  display: flex;
-  align-self: flex-start;
+  align-items: flex-start;
+  height: 100%;
 }
 
 /***********************************************************
@@ -44,27 +41,17 @@ main {
   align-content: stretch;
   align-items: center;
   background-color:#E5E5E5;
+  flex-grow: 1;
 }
 
 /***********************************************************
  Container for settings
 ***********************************************************/
-#container-for-game-settings {
+#game-settings {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-right: 100px;
-}
-
-.vertical-line {
-  border-left: 2px solid black;
-  height: 200px;
-  display: flex;
-  left: 50%;
-  margin-left: -3px;
-  top: 0;
-  padding: 10px 10px;
-  align-self: center;
+  flex: 1 1 auto;
 }
 
 /***********************************************************
@@ -75,7 +62,6 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-right: 20px;
 }
 
 /***********************************************************
@@ -89,7 +75,6 @@ main {
   justify-content: flex-start;
   align-content: stretch;
   align-items: flex-start;
-  margin-top: 35px;
 }
 
 /***********************************************************
