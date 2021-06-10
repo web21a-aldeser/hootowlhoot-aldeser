@@ -38,6 +38,62 @@ class PlayersCards {
   }
 }
 
+const PLAYER_ID = 'player-1-avatar';
+const TOP = 1;
+const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_TOP = [3, 4, 7, 8];
+const BOTTOM = 0;
+const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_BOTTOM = [1, 2, 5, 6];
+class Player {
+  constructor() {
+    this.player = document.getElementById(PLAYER_ID);
+    this.row = 0;
+    this.colum = 0;
+  }
+
+  move() {
+    const downwardsMovement = this.colum === 0 || this.colum === 4;
+    const upwardsMovement = this.colum === 2 || this.colum === 6;
+    if (downwardsMovement) {
+      this.moveDownwards();
+    } else if (upwardsMovement) {
+      this.moveUpwards();
+    }
+  }
+
+  moveDownwards() {
+    const bottomReached = this.row === 7;
+    if (bottomReached) {
+      this.moveRightwards(BOTTOM);
+    } else {
+      this.row += 1;
+    }
+  }
+
+  moveUpwards() {
+    const topReached = this.row === 0;
+    if (topReached) {
+      this.moveRightwards(TOP);
+    } else {
+      this.row -= 1;
+    }
+  }
+
+  moveRightwards(where) {
+    const tentativeMovement = this.colum + 1;
+    let validMovement = false;
+    if (where === BOTTOM) {
+      validMovement = VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_BOTTOM
+        .indexOf(tentativeMovement) !== -1;
+    } else if (where === TOP) {
+      validMovement = VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_TOP
+        .indexOf(tentativeMovement) !== -1;
+    }
+    if (validMovement) {
+      this.colum += 1
+    }
+  }
+}
+
 function main() {
   const playersCards = new PlayersCards();
   playersCards.configurePlayersCards();
