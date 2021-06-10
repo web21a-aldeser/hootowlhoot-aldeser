@@ -1,0 +1,235 @@
+@import url(common.css);
+#help {
+    cursor: pointer;
+    cursor: hand
+}
+
+
+/*****************************************************************
+ Main section.
+*****************************************************************/
+
+#main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-flow: wrap;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-flow: wrap;
+}
+
+#resign {
+    align-self: flex-end;
+}
+
+
+/*****************************************************************
+ Turns, proximity bar
+*****************************************************************/
+
+.proximity-bar {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.proximity-bar>figure {
+    width: 50px;
+    margin: 2.5px;
+    text-align: center;
+    line-height: 95px;
+    font-size: 30px;
+}
+
+.clarity {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+.clarity li {
+    content: " ";
+    width: 50px;
+}
+
+.cl1 {
+    background: #FDE6D8;
+}
+
+.cl2 {
+    background: #FCDAC5;
+}
+
+.cl3 {
+    background: #FBCEB1;
+}
+
+.cl4 {
+    background: #FAC39E;
+}
+
+.cl5 {
+    background: #F9B78B;
+}
+
+.cl6 {
+    background: #F8AB77;
+}
+
+.cl7 {
+    background: #F79F64;
+}
+
+.cl8 {
+    background: #F69351;
+}
+
+.cl9 {
+    background: #F5873D;
+}
+
+.cl10 {
+    background: #F47B2A;
+}
+
+.cl11 {
+    background: #F36F16;
+}
+
+.cl12 {
+    background: #E9640C;
+}
+
+.cl13 {
+    background: #D55C0B;
+}
+
+.cl14 {
+    background: #C2540A;
+}
+
+.board {
+    border-spacing: 1;
+    border-collapse: collapse;
+}
+
+
+/*****************************************************************
+ Board
+*****************************************************************/
+
+.board td {
+    width: 100px;
+    height: 55px;
+}
+
+.board .red {
+    background: red;
+}
+
+.board .yellow {
+    background: yellow;
+}
+
+.board .green {
+    background: green;
+}
+
+.board .blue {
+    background: blue;
+}
+
+.board .purple {
+    background: purple;
+}
+
+.board .orange {
+    background: orange;
+}
+
+
+/*****************************************************************
+ Player Box/ turn, hand of cards and players
+*****************************************************************/
+
+#player-box {
+    background-color: #d3d1d1;
+    border: 2px outset gray;
+    float: left;
+    line-height: 24px;
+    margin-top: 5px;
+    padding: 5px;
+    position: relative;
+}
+
+th {
+    border: 1px solid black;
+}
+
+#hand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#hand input:hover {
+    opacity: 0.5
+}
+
+
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+
+/* Modal Content */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+
+/* The Close Button */
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

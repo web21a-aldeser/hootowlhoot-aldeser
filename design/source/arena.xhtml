@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="CSS/board.css"></link>
+    <link rel="stylesheet" href="CSS/arena.css"></link>
     <link rel="shortcut icon" href="icons/stegosaurios.svg" type="image/x-icon"></link>
     <title>Dino Explosion</title>
 
@@ -18,15 +18,16 @@
             <a>Info</a>
             <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4" target="_blank">How to play</a>
             <nav class="nav-bar-right">
-                <a href='' onclick="show('help-dialog')">Help</a>
+                <a id="help" onclick="show('myModal')">Help</a>
             </nav>
         </nav>
     </header>
-    <main>
-        <figure class="barra-proximidad">
+    <main id="main">
+        <figure class="proximity-bar">
+
             <img src="icons/galaxy.svg" alt="galaxy" width="70" height="70"> </img>
 
-            <ol class="claridad">
+            <ol class="clarity">
                 <li class="cl1"><img src="icons/meteorite.svg" alt="meteorite" width="50" height="50"></img>
                 </li>
                 <li class="cl2"></li>
@@ -44,7 +45,6 @@
                 <li class="cl14"></li>
             </ol>
             <img src="icons/planet-earth.svg" alt="planet" width="70" height="70"> </img>
-
         </figure>
 
         <main id="wrapper">
@@ -52,7 +52,7 @@
             <section id="player-box">
                 <h2>Turn: <label id='turn'>Alexandra</label></h2>
                 <aside id="hand">
-                    <table class="GeneratedTable">
+                    <table class="generated-table">
                         <thead>
                             <tr>
                                 <th>Dinasour</th>
@@ -64,31 +64,16 @@
                             <tr>
                                 <td><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
                                 </td>
-                                <td><img src="icons/triceratops.svg" alt="rex" width="50" height="50"> </img>
-                                </td>
-                                <td><img src="icons/stegosaurios.svg" alt="rex" width="50" height="50"> </img>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td>Alexandra</td>
-                                <td>Sergio</td>
-                                <td>Dennis</td>
-                            </tr>
-                            <tr>
-                                <td><input type="image" src="icons/cards/cartaAzul.svg" name="carta" width="50" height="50" alt="submit" />
-                                    <input type="image" src="icons/cards/cartaNaranja.svg" name="carta" width="50" height="50" alt="submit" />
-                                    <input type="image" src="icons/cards/cartaRoja.svg" name="carta" width="50" height="50" alt="submit" /> </td>
-                                <td><input type="image" src="icons/cards/cartaAzul.svg" name="carta" width="50" height="50" alt="submit" /></td>
-                                <td><input type="image" src="icons/cards/cartaAzul.svg" name="carta" width="50" height="50" alt="submit" /></td>
+                                <td><input type="image" class="play-hand" src="icons/cards/cartaAzul.svg" name="carta" width="50" height="50" alt="submit" />
+                                    <input type="image" class="play-hand" src="icons/cards/cartaAmarilla.svg" name="carta" width="50" height="50" alt="submit" />
+                                    <input type="image" class="play-hand" src="icons/cards/cartaRoja.svg" name="carta" width="50" height="50" alt="submit" /> </td>
+
                             </tr>
                         </tbody>
                     </table>
-
-
-
                     <button id="pass">Pass Turn</button>
                 </aside>
-
 
             </section>
             <!-- End of player box -->
@@ -96,24 +81,25 @@
                 <tbody>
                     <tr>
 
-                        <td class="red"><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
+                        <td class="red"><img src="icons/rex.svg" class="player" alt="rex" width="50" data-row="0" data-col="0"> </img>
                         </td>
                         <td class="light"></td>
-                        <td class="red"></td>
+                        <td class="red"><img src="icons/geyser.svg" alt="geyser" width="60"></img>
+                        </td>
                         <td class="green"></td>
                         <td class="blue"></td>
                         <td class="light"></td>
                         <td class="yellow"></td>
-                        <td class="orange"></td>
+                        <td class="orange">1</td>
                         <td><img src="icons/cave.svg" alt="cave" width="100" height="60"> </img>
                         </td>
 
                     </tr>
                     <tr>
 
-                        <td class="orange"></td>
+                        <td class="orange">2</td>
                         <td class="light"></td>
-                        <td class="orange"></td>
+                        <td class="orange">3</td>
                         <td class="light"></td>
                         <td class="green"></td>
                         <td class="light"></td>
@@ -123,8 +109,7 @@
                     </tr>
                     <tr>
 
-                        <td class="yellow"><img src="icons/triceratops.svg" alt="rex" width="50" height="50"> </img>
-                        </td>
+                        <td class="yellow"></td>
                         <td class="light"></td>
                         <td class="purple"></td>
                         <td class="light"></td>
@@ -196,12 +181,23 @@
                 </tbody>
 
             </table>
+            <button id="resign" onclick="window.location.href='home.xhtml'">Resign</button>
         </main>
-        <button id="Resign" onclick="window.location.href='home.xhtml'">Resign</button>
+
     </main>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="hide('myModal')">x</span>
+            <p>Touch your cards to play and move your Dinasour, if there is a meteorite card you have to play it</p>
+        </div>
+
+    </div>
 
     <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
-
+    <script src="js/home.js " defer="defer "></script>
 </body>
 
 </html>
