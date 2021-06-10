@@ -48,6 +48,7 @@ class Player {
     this.player = document.getElementById(PLAYER_ID);
     this.row = 0;
     this.colum = 0;
+    this.currentCell = document.querySelector('td[data-row="0"][data-col="0"]');
   }
 
   configurePlayer() {
@@ -71,7 +72,7 @@ class Player {
     } else if (upwardsMovement) {
       this.moveUpwards();
     }
-    this.findCellForPlayersNewPosition();
+    this.movePlayerAvatarToNewCell();
   }
 
   moveDownwards() {
@@ -103,9 +104,9 @@ class Player {
         .indexOf(tentativeMovement) !== -1;
     }
     if (validMovement) {
-      this.colum += 1
+      this.colum += 1;
     } else {
-      const upwardsMovement = this.colum === 2 || this.colum === 6; 
+      const upwardsMovement = this.colum === 2 || this.colum === 6;
       const downwardsMovement = this.colum === 4;
       if (upwardsMovement) {
         this.moveUpwards();
@@ -116,8 +117,24 @@ class Player {
   }
 
   findCellForPlayersNewPosition() {
-    const newPos = `td[data-row="${this.row}"] td[data-col="${this.colum}"]`;
-    console.log(newPos);
+    return document.querySelector(`td[data-row="${this.row}"][data-col="${this.colum}"]`);
+  }
+
+  movePlayerAvatarToNewCell() {
+    // ToDo: check whether the new cell is inhabit for another dinosaur or if it
+    // contains a geyser.
+    const newCell = this.findCellForPlayersNewPosition();
+
+    let playerAvatar = null;
+    const thereIsAnElementInTheCell = this.currentCell.childElementCount > 1;
+    if (thereIsAnElementInTheCell) {
+      playerAvatar = this.currentCell.children.item(1);
+    } else {
+      playerAvatar = this.currentCell.children.item(0);
+    }
+    this.currentCell.removeChild(playerAvatar);
+    newCell.appendChild(playerAvatar);
+    this.currentCell = newCell;
   }
 }
 
