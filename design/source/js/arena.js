@@ -50,14 +50,28 @@ class Player {
     this.colum = 0;
   }
 
+  configurePlayer() {
+    this.player.addEventListener('click', () => {
+      this.move();
+    });
+  }
+
   move() {
     const downwardsMovement = this.colum === 0 || this.colum === 4;
     const upwardsMovement = this.colum === 2 || this.colum === 6;
-    if (downwardsMovement) {
+    const rightwardsMovementBottom = this.row === 7;
+    const rightwardsMovementTop = this.row === 0 && this.colum > 0;
+
+    if (rightwardsMovementBottom) {
+      this.moveRightwards(BOTTOM);
+    } else if (rightwardsMovementTop) {
+      this.moveRightwards(TOP);
+    } else if (downwardsMovement) {
       this.moveDownwards();
     } else if (upwardsMovement) {
       this.moveUpwards();
     }
+    this.findCellForPlayersNewPosition();
   }
 
   moveDownwards() {
@@ -90,13 +104,28 @@ class Player {
     }
     if (validMovement) {
       this.colum += 1
+    } else {
+      const upwardsMovement = this.colum === 2 || this.colum === 6; 
+      const downwardsMovement = this.colum === 4;
+      if (upwardsMovement) {
+        this.moveUpwards();
+      } else if (downwardsMovement) {
+        this.moveDownwards();
+      }
     }
+  }
+
+  findCellForPlayersNewPosition() {
+    const newPos = `td[data-row="${this.row}"] td[data-col="${this.colum}"]`;
+    console.log(newPos);
   }
 }
 
 function main() {
   const playersCards = new PlayersCards();
   playersCards.configurePlayersCards();
+  const player = new Player();
+  player.configurePlayer();
 }
 
 window.addEventListener('load', main);
