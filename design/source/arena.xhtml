@@ -18,7 +18,7 @@
             <a>Info</a>
             <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4" target="_blank">How to play</a>
             <nav class="nav-bar-right">
-                <a href='' onclick="show('help-dialog')">Help</a>
+                <a id="help" onclick="show('myModal')">Help</a>
             </nav>
         </nav>
     </header>
@@ -81,7 +81,7 @@
                 <tbody>
                     <tr>
 
-                        <td class="red"><img src="icons/rex.svg" class="player" alt="rex" width="30" data-row="0" data-col="0"> </img>
+                        <td class="red"><img src="icons/rex.svg" class="player" alt="rex" width="50" data-row="0" data-col="0"> </img>
                         </td>
                         <td class="light"></td>
                         <td class="red"><img src="icons/geyser.svg" alt="geyser" width="60"></img>
@@ -90,16 +90,16 @@
                         <td class="blue"></td>
                         <td class="light"></td>
                         <td class="yellow"></td>
-                        <td class="orange"></td>
+                        <td class="orange">1</td>
                         <td><img src="icons/cave.svg" alt="cave" width="100" height="60"> </img>
                         </td>
 
                     </tr>
                     <tr>
 
-                        <td class="orange"></td>
+                        <td class="orange">2</td>
                         <td class="light"></td>
-                        <td class="orange"></td>
+                        <td class="orange">3</td>
                         <td class="light"></td>
                         <td class="green"></td>
                         <td class="light"></td>
@@ -185,9 +185,19 @@
         </main>
 
     </main>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="hide('myModal')">x</span>
+            <p>Touch your cards to play and move your Dinasour, if there is a meteorite card you have to play it</p>
+        </div>
+
+    </div>
 
     <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
-
+    <script src="js/home.js " defer="defer "></script>
 </body>
 
 </html>
