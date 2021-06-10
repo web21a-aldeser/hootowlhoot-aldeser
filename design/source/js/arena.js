@@ -106,11 +106,11 @@ class Player {
     if (validMovement) {
       this.colum += 1;
     } else {
-      const upwardsMovement = this.colum === 2 || this.colum === 6;
-      const downwardsMovement = this.colum === 4;
-      if (upwardsMovement) {
+      const bottomEndReached = this.colum === 2 || this.colum === 6;
+      const topEndReached = this.colum === 4;
+      if (bottomEndReached) {
         this.moveUpwards();
-      } else if (downwardsMovement) {
+      } else if (topEndReached) {
         this.moveDownwards();
       }
     }
