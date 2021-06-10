@@ -117,6 +117,12 @@
     border-collapse: collapse;
 }
 
+#meteor {
+    position: absolute;
+    transition: left 1s ease-out, top 1s;
+    left: 150px;
+}
+
 
 /*****************************************************************
  Board
@@ -152,8 +158,9 @@
 }
 
 .board .light {
-    background:white;
+    background: white;
 }
+
 
 /*****************************************************************
  Player Box/ turn, hand of cards and players
