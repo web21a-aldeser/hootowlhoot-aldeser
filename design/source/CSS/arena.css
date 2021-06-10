@@ -151,6 +151,9 @@
     background: orange;
 }
 
+.board .light {
+    background:white;
+}
 
 /*****************************************************************
  Player Box/ turn, hand of cards and players
