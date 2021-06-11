@@ -62,12 +62,19 @@ class Player {
     this.row = 0;
     this.colum = 0;
     this.currentCell = document.querySelector('td[data-row="0"][data-col="0"]');
+    this.onTurn = false;
   }
 
   configurePlayer() {
     this.player.addEventListener('click', () => {
       this.move();
     });
+    // It is initialized on true for test purposes.
+    this.onTurn = true;
+  }
+
+  isOnTurn() {
+    return this.onTurn;
   }
 
   move() {
@@ -148,6 +155,8 @@ class Player {
     this.currentCell.removeChild(playerAvatar);
     newCell.appendChild(playerAvatar);
     this.currentCell = newCell;
+
+    // Rerturn this.row
   }
 }
 
@@ -155,11 +164,15 @@ class BoardCell {
   constructor(row, colum) {
     this.row = row;
     this.colum = colum;
+    this.mappingCell = `${this.row}${this.colum}`;
     this.cell = document.querySelector(`td[data-row="${this.row}"][data-col="${this.colum}"]`);
     this.color = this.cell.className;
   }
 
   isAvailable() {
+    // ToDo: Consider the cases where the parent html element has another child such as geysers.
+    // In that case, this will not work, for the cell will be available (no dinosaur in there), but 
+    // there will be an obstacle (ie a child nodes).
     const hasChildren = this.cell.hasChildNodes();
     return hasChildren;
   }
@@ -168,6 +181,8 @@ class BoardCell {
 class Board {
   constructor() {
     this.board = new Map();
+    this.flattenedGameBoard = [];
+    this.players = [];
   }
 
   configureBoard() {
@@ -176,60 +191,161 @@ class Board {
   }
 
   setUpInternalBoard() {
-    this.board.set('00', new BoardCell(0, 0));
-    this.board.set('10', new BoardCell(1, 0));
-    this.board.set('20', new BoardCell(2, 0));
-    this.board.set('30', new BoardCell(3, 0));
-    this.board.set('40', new BoardCell(4, 0));
-    this.board.set('50', new BoardCell(5, 0));
-    this.board.set('60', new BoardCell(6, 0));
+    this.board.set('00', 0);
+    this.flattenedGameBoard.push(new BoardCell(0, 0));
 
-    this.board.set('70', new BoardCell(7, 0));
-    this.board.set('71', new BoardCell(7, 1));
-    this.board.set('72', new BoardCell(7, 2));
+    this.board.set('10', 1);
+    this.flattenedGameBoard.push(new BoardCell(1, 0));
 
-    this.board.set('62', new BoardCell(6, 2));
-    this.board.set('52', new BoardCell(5, 2));
-    this.board.set('42', new BoardCell(4, 2));
-    this.board.set('32', new BoardCell(3, 2));
-    this.board.set('22', new BoardCell(2, 2));
-    this.board.set('12', new BoardCell(1, 2));
+    this.board.set('20', 2);
+    this.flattenedGameBoard.push(new BoardCell(2, 0));
 
-    this.board.set('02', new BoardCell(0, 2));
-    this.board.set('03', new BoardCell(0, 3));
-    this.board.set('04', new BoardCell(0, 4));
+    this.board.set('30', 3);
+    this.flattenedGameBoard.push(new BoardCell(3, 0));
 
-    this.board.set('14', new BoardCell(1, 4));
-    this.board.set('24', new BoardCell(2, 4));
-    this.board.set('34', new BoardCell(3, 4));
-    this.board.set('44', new BoardCell(4, 4));
-    this.board.set('54', new BoardCell(5, 4));
-    this.board.set('64', new BoardCell(6, 4));
+    this.board.set('40', 4);
+    this.flattenedGameBoard.push(new BoardCell(4, 0));
 
-    this.board.set('74', new BoardCell(7, 4));
-    this.board.set('75', new BoardCell(7, 5));
-    this.board.set('76', new BoardCell(7, 6));
+    this.board.set('50', 5);
+    this.flattenedGameBoard.push(new BoardCell(5, 0));
 
-    this.board.set('66', new BoardCell(6, 6));
-    this.board.set('56', new BoardCell(5, 6));
-    this.board.set('46', new BoardCell(4, 6));
-    this.board.set('36', new BoardCell(3, 6));
-    this.board.set('26', new BoardCell(2, 6));
-    this.board.set('16', new BoardCell(1, 6));
+    this.board.set('60', 6);
+    this.flattenedGameBoard.push(new BoardCell(6, 0));
 
-    this.board.set('06', new BoardCell(0, 6));
-    this.board.set('07', new BoardCell(0, 7));
-    this.board.set('08', new BoardCell(0, 8));
+    this.board.set('70', 7);
+    this.flattenedGameBoard.push(new BoardCell(7, 0));
+
+    this.board.set('71', 8);
+    this.flattenedGameBoard.push(new BoardCell(7, 1));
+
+    this.board.set('72', 9);
+    this.flattenedGameBoard.push(new BoardCell(7, 2));
+
+    this.board.set('62', 10);
+    this.flattenedGameBoard.push(new BoardCell(6, 2));
+
+    this.board.set('52', 11);
+    this.flattenedGameBoard.push(new BoardCell(5, 2));
+
+    this.board.set('42', 12);
+    this.flattenedGameBoard.push(new BoardCell(4, 2));
+
+    this.board.set('32', 13);
+    this.flattenedGameBoard.push(new BoardCell(3, 2));
+
+    this.board.set('22', 14);
+    this.flattenedGameBoard.push(new BoardCell(2, 2));
+
+    this.board.set('12', 15);
+    this.flattenedGameBoard.push(new BoardCell(1, 2));
+
+    this.board.set('02', 16);
+    this.flattenedGameBoard.push(new BoardCell(0, 2));
+
+    this.board.set('03', 17);
+    this.flattenedGameBoard.push(new BoardCell(0, 3));
+
+    this.board.set('04', 18);
+    this.flattenedGameBoard.push(new BoardCell(0, 4));
+
+    this.board.set('14', 19);
+    this.flattenedGameBoard.push(new BoardCell(1, 4));
+
+    this.board.set('24', 20);
+    this.flattenedGameBoard.push(new BoardCell(2, 4));
+
+    this.board.set('34', 21);
+    this.flattenedGameBoard.push(new BoardCell(3, 4));
+
+    this.board.set('44', 22);
+    this.flattenedGameBoard.push(new BoardCell(4, 4));
+
+    this.board.set('54', 23);
+    this.flattenedGameBoard.push(new BoardCell(5, 4));
+
+    this.board.set('64', 24);
+    this.flattenedGameBoard.push(new BoardCell(6, 4));
+
+    this.board.set('74', 25);
+    this.flattenedGameBoard.push(new BoardCell(7, 4));
+
+    this.board.set('75', 26);
+    this.flattenedGameBoard.push(new BoardCell(7, 5));
+
+    this.board.set('76', 27);
+    this.flattenedGameBoard.push(new BoardCell(7, 6));
+
+    this.board.set('66', 28);
+    this.flattenedGameBoard.push(new BoardCell(6, 6));
+
+    this.board.set('56', 29);
+    this.flattenedGameBoard.push(new BoardCell(5, 6));
+
+    this.board.set('46', 30);
+    this.flattenedGameBoard.push(new BoardCell(4, 6));
+
+    this.board.set('36', 31);
+    this.flattenedGameBoard.push(new BoardCell(3, 6));
+
+    this.board.set('26', 32);
+    this.flattenedGameBoard.push(new BoardCell(2, 6));
+
+    this.board.set('16', 33);
+    this.flattenedGameBoard.push(new BoardCell(1, 6));
+
+    this.board.set('06', 34);
+    this.flattenedGameBoard.push(new BoardCell(0, 6));
+
+    this.board.set('07', 35);
+    this.flattenedGameBoard.push(new BoardCell(0, 7));
+
+    this.board.set('08', 36);
+    this.flattenedGameBoard.push(new BoardCell(0, 8));
   }
 
   traverseBoard() {
     for (const [key, value] of this.board) {
-      console.log(`${key} = ${value.color}`);
+      console.log(`${key} = ${this.flattenedGameBoard[value].color}`);
     }
   }
 
-  discoverNextAvailableBoardCellOfColor(color) {
+  /**
+   * This method determines the next available board cell with the target color
+   * starting from the player's current position in the flattened game board
+   * representation.
+   * 
+   * @param {*} currentPosition The position in the form 'rowcolum' where the 
+   *                            player's avatar is currently positioned.
+   *                            For instance '71' means that the player is 
+   *                            positioned on row = 7 and colum = 1.
+   *
+   * @param {*} targetColor The color of the next available cell where the 
+   *                        player wants to move its avatar to.
+   */
+  discoverNextAvailableBoardCellFromOfColor(currentPosition, targetColor) {
+    const startIndexForFlattenedGameBoard = this.board.get(currentPosition);
 
+    for (let index = startIndexForFlattenedGameBoard;
+      index < this.flattenedGameBoard.length; index +=1) {
+        const boardCell = this.flattenedGameBoard[index];
+        const cellWithTargetColorFound = boardCell.color === targetColor;
+        if (cellWithTargetColorFound) {
+          if (boardCell.isAvailable()) {
+            // Return the board cell.
+            
+            // From here code must executed by a movePlayerToNextAvailablePosition(color);
+            // Determine elegant way to find the player who is on turn.
+            for (let player = 0; player < this.players.length; player += 1) {
+              const player = this.players[player];
+              if (player.isOnTurn()) {
+              // Move player until it reaches the available position.
+              // It must use the player.move method internally.
+                player.moveTo()
+              }
+            }
+          }
+        }
+    }
   }
 }
 
