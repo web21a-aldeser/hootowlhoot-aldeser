@@ -1,11 +1,6 @@
 const PLAYERS_CARDS_TABLE_ID = 'players-cards';
 const CARDS_CELL = 2;
 const CARDS_COUNT = 3;
-const player_start_row = 0;
-const player_start_col = 0;
-
-const game_board_rows = 8;
-const game_board_cols = 8;
 
 const CARDS = [
   'icons/cards/blue.svg',
@@ -47,7 +42,7 @@ class PlayersCards {
     const meteor = document.getElementById('meteor');
     const computedStyles = window.getComputedStyle(meteor);
     console.log(`computedStyles.left = ${computedStyles.left}`);
-    meteor.style.left = (parseInt(computedStyles.left, 10) + 50) + 'px';
+    meteor.style.left = `${parseInt(computedStyles.left, 10) + 50}px`;
   }
 
   getRandomCard() {
@@ -161,7 +156,7 @@ class BoardCell {
     this.row = row;
     this.colum = colum;
     this.cell = document.querySelector(`td[data-row="${this.row}"][data-col="${this.colum}"]`);
-    this.color = this.cell.className
+    this.color = this.cell.className;
   }
 
   isAvailable() {
@@ -170,8 +165,6 @@ class BoardCell {
   }
 }
 
-const ROWS = 8;
-const COLS = 8;
 class Board {
   constructor() {
     this.board = new Map();
@@ -183,56 +176,60 @@ class Board {
   }
 
   setUpInternalBoard() {
-    this.board.set('00', document.querySelector('td[data-row="0"][data-col="0"]'));
-    this.board.set('10', document.querySelector('td[data-row="1"][data-col="0"]'));
-    this.board.set('20', document.querySelector('td[data-row="2"][data-col="0"]'));
-    this.board.set('30', document.querySelector('td[data-row="3"][data-col="0"]'));
-    this.board.set('40', document.querySelector('td[data-row="4"][data-col="0"]'));
-    this.board.set('50', document.querySelector('td[data-row="5"][data-col="0"]'));
-    this.board.set('60', document.querySelector('td[data-row="6"][data-col="0"]'));
+    this.board.set('00', new BoardCell(0, 0));
+    this.board.set('10', new BoardCell(1, 0));
+    this.board.set('20', new BoardCell(2, 0));
+    this.board.set('30', new BoardCell(3, 0));
+    this.board.set('40', new BoardCell(4, 0));
+    this.board.set('50', new BoardCell(5, 0));
+    this.board.set('60', new BoardCell(6, 0));
 
-    this.board.set('70', document.querySelector('td[data-row="7"][data-col="0"]'));
-    this.board.set('71', document.querySelector('td[data-row="7"][data-col="1"]'));
-    this.board.set('72', document.querySelector('td[data-row="7"][data-col="2"]'));
+    this.board.set('70', new BoardCell(7, 0));
+    this.board.set('71', new BoardCell(7, 1));
+    this.board.set('72', new BoardCell(7, 2));
 
-    this.board.set('62', document.querySelector('td[data-row="6"][data-col="2"]'));
-    this.board.set('52', document.querySelector('td[data-row="5"][data-col="2"]'));
-    this.board.set('42', document.querySelector('td[data-row="4"][data-col="2"]'));
-    this.board.set('32', document.querySelector('td[data-row="3"][data-col="2"]'));
-    this.board.set('22', document.querySelector('td[data-row="2"][data-col="2"]'));
-    this.board.set('12', document.querySelector('td[data-row="1"][data-col="2"]'));
+    this.board.set('62', new BoardCell(6, 2));
+    this.board.set('52', new BoardCell(5, 2));
+    this.board.set('42', new BoardCell(4, 2));
+    this.board.set('32', new BoardCell(3, 2));
+    this.board.set('22', new BoardCell(2, 2));
+    this.board.set('12', new BoardCell(1, 2));
 
-    this.board.set('02', document.querySelector('td[data-row="0"][data-col="2"]'));
-    this.board.set('03', document.querySelector('td[data-row="0"][data-col="3"]'));
-    this.board.set('04', document.querySelector('td[data-row="0"][data-col="4"]'));
+    this.board.set('02', new BoardCell(0, 2));
+    this.board.set('03', new BoardCell(0, 3));
+    this.board.set('04', new BoardCell(0, 4));
 
-    this.board.set('14', document.querySelector('td[data-row="1"][data-col="4"]'));
-    this.board.set('24', document.querySelector('td[data-row="2"][data-col="4"]'));
-    this.board.set('34', document.querySelector('td[data-row="3"][data-col="4"]'));
-    this.board.set('44', document.querySelector('td[data-row="4"][data-col="4"]'));
-    this.board.set('54', document.querySelector('td[data-row="5"][data-col="4"]'));
-    this.board.set('64', document.querySelector('td[data-row="6"][data-col="4"]'));
+    this.board.set('14', new BoardCell(1, 4));
+    this.board.set('24', new BoardCell(2, 4));
+    this.board.set('34', new BoardCell(3, 4));
+    this.board.set('44', new BoardCell(4, 4));
+    this.board.set('54', new BoardCell(5, 4));
+    this.board.set('64', new BoardCell(6, 4));
 
-    this.board.set('74', document.querySelector('td[data-row="7"][data-col="4"]'));
-    this.board.set('75', document.querySelector('td[data-row="7"][data-col="5"]'));
-    this.board.set('76', document.querySelector('td[data-row="7"][data-col="6"]'));
+    this.board.set('74', new BoardCell(7, 4));
+    this.board.set('75', new BoardCell(7, 5));
+    this.board.set('76', new BoardCell(7, 6));
 
-    this.board.set('66', document.querySelector('td[data-row="6"][data-col="6"]'));
-    this.board.set('56', document.querySelector('td[data-row="5"][data-col="6"]'));
-    this.board.set('46', document.querySelector('td[data-row="4"][data-col="6"]'));
-    this.board.set('36', document.querySelector('td[data-row="3"][data-col="6"]'));
-    this.board.set('26', document.querySelector('td[data-row="2"][data-col="6"]'));
-    this.board.set('16', document.querySelector('td[data-row="1"][data-col="6"]'));
+    this.board.set('66', new BoardCell(6, 6));
+    this.board.set('56', new BoardCell(5, 6));
+    this.board.set('46', new BoardCell(4, 6));
+    this.board.set('36', new BoardCell(3, 6));
+    this.board.set('26', new BoardCell(2, 6));
+    this.board.set('16', new BoardCell(1, 6));
 
-    this.board.set('06', document.querySelector('td[data-row="0"][data-col="6"]'));
-    this.board.set('07', document.querySelector('td[data-row="0"][data-col="7"]'));
-    this.board.set('08', document.querySelector('td[data-row="0"][data-col="8"]'));
+    this.board.set('06', new BoardCell(0, 6));
+    this.board.set('07', new BoardCell(0, 7));
+    this.board.set('08', new BoardCell(0, 8));
   }
 
   traverseBoard() {
     for (const [key, value] of this.board) {
-      console.log(key + ' = ' + value);
+      console.log(`${key} = ${value.color}`);
     }
+  }
+
+  discoverNextAvailableBoardCellOfColor(color) {
+
   }
 }
 
@@ -244,6 +241,7 @@ function main() {
 
   const board = new Board();
   board.configureBoard();
+  board.traverseBoard();
 }
 
 window.addEventListener('load', main);
