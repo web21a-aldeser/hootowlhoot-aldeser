@@ -62,7 +62,22 @@ class Player {
     this.row = 0;
     this.colum = 0;
     this.currentCell = document.querySelector('td[data-row="0"][data-col="0"]');
-    this.onTurn = false;
+    this.onTurn = true; // To test...
+  }
+
+  destinationReached(row, colum) {
+    return this.row === row && this.colum === colum;
+  }
+
+  getPlayerPosition() {
+    return `${this.row}${this.colum}`;
+  }
+
+  async moveToDestination(row, colum) {
+    while (!this.destinationReached(row, colum)) {
+      this.move();
+      await delay(1000);
+    }
   }
 
   configurePlayer() {
@@ -173,8 +188,11 @@ class BoardCell {
     // ToDo: Consider the cases where the parent html element has another child such as geysers.
     // In that case, this will not work, for the cell will be available (no dinosaur in there), but 
     // there will be an obstacle (ie a child nodes).
-    const hasChildren = this.cell.hasChildNodes();
-    return hasChildren;
+    return !this.cell.hasChildNodes();
+  }
+
+  getCoordinate() {
+    return `${this.row}${this.colum}`;
   }
 }
 
@@ -326,25 +344,42 @@ class Board {
     const startIndexForFlattenedGameBoard = this.board.get(currentPosition);
 
     for (let index = startIndexForFlattenedGameBoard;
-      index < this.flattenedGameBoard.length; index +=1) {
-        const boardCell = this.flattenedGameBoard[index];
-        const cellWithTargetColorFound = boardCell.color === targetColor;
-        if (cellWithTargetColorFound) {
-          if (boardCell.isAvailable()) {
-            // Return the board cell.
-            
-            // From here code must executed by a movePlayerToNextAvailablePosition(color);
-            // Determine elegant way to find the player who is on turn.
-            for (let player = 0; player < this.players.length; player += 1) {
-              const player = this.players[player];
-              if (player.isOnTurn()) {
+      index < this.flattenedGameBoard.length; index += 1) {
+        
+      const boardCell = this.flattenedGameBoard[index];
+      const cellWithTargetColorFound = boardCell.color === targetColor;
+      if (cellWithTargetColorFound) {
+        if (boardCell.isAvailable()) {
+          // Return the board cell.
+
+          // From here code must executed by a movePlayerToNextAvailablePosition(color);
+          // Determine elegant way to find the player who is on turn.
+          for (let i = 0; i < this.players.length; i += 1) {
+            const player = this.players[i];
+            if (player.isOnTurn()) {
               // Move player until it reaches the available position.
               // It must use the player.move method internally.
-                player.moveTo()
-              }
+              player.moveToDestination(boardCell.row, boardCell.colum);
             }
           }
         }
+      }
+    }
+  }
+}
+
+class GameOrchestrator {
+  constructor(board,
+    player) {
+    this.board = board;
+    this.player = player;
+  }
+
+  play() {
+    for (let index = 0; index < 5; index++) {
+      this.board.discoverNextAvailableBoardCellFromOfColor(
+        this.player.getPlayerPosition(),
+        'green');
     }
   }
 }
@@ -358,6 +393,10 @@ function main() {
   const board = new Board();
   board.configureBoard();
   board.traverseBoard();
+  board.players.push(player);
+
+  orchestrator = new GameOrchestrator(board, player);
+  orchestrator.play();
 }
 
 window.addEventListener('load', main);
