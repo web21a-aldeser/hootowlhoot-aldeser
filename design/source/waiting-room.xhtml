@@ -1,73 +1,69 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="stylesheet" href="CSS/waiting-room.css" />
-        <link rel="shortcut icon" href="icons/stegosaurios.svg" type="image/x-icon"></link>
-        <title>Waiting Room</title>
-    </head>
-    <body>
-        <header>
-            <nav class="nav-bar" id="main-navigatin-menu">
-                <a>Dino Explosion</a>
-                <a>Aldeser</a>
-                <a>Info</a>
-                <a
-                    href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4">How
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="CSS/waiting-room.css" />
+    <link rel="shortcut icon" href="icons/stegosaurios.svg" type="image/x-icon"></link>
+    <title>Waiting Room</title>
+</head>
+
+<body>
+    <header>
+        <nav class="nav-bar" id="main-navigatin-menu">
+            <a>Dino Explosion</a>
+            <a>Aldeser</a>
+            <a>Info</a>
+            <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4">How
                     to play</a>
-            </nav>
-        </header>
-        <main id="waiting-room-main">
-            <h2 id="waiting-room-title">Waiting Room</h2>
-            <!-- Main container -->
-            <article id="container-for-settings-players-and-avatar-selection">
-                <article id="settings-and-players-list">
-                    <p id="game-private-key"><strong>Game key: KJKFF2</strong></p>
-                    <section id="container-for-settings-and-players-list">
-                        <!-- Game settings -->
-                        <section id="game-settings">
-                            <h3>Settings</h3>
-                            <table id="table-for-settings-configuration">
-                                <tbody>
-                                    <tr>
-                                        <td>Bomb %</td>
-                                        <td>
-                                            <input type="text"
-                                                id="bomb-probability"
-                                                minlength="3" maxlength="3"
-                                                size="1"
-                                                />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> Power ups</td>
-                                        <td>
-                                            <input type="text"
-                                                id="power-ups-probability"
-                                                minlength="3"
-                                                maxlength="3" size="1" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </section> <!-- end game-settings -->
-                        <!-- Players list -->
-                        <section id="container-for-players-list">
-                            <h3>Players</h3>
-                            <table id="players-list-table">
-                                <tbody>
-                                    <tr>
-                                        <td id="player-avatar-1">
-                                            <button class="avatar-button">
+        </nav>
+    </header>
+    <main id="waiting-room-main">
+        <h2 id="waiting-room-title">Waiting Room</h2>
+        <!-- Main container -->
+        <article id="container-for-settings-players-and-avatar-selection">
+            <article id="settings-and-players-list">
+                <p id="game-private-key"><strong>Game key: KJKFF2</strong></p>
+                <section id="container-for-settings-and-players-list">
+                    <!-- Game settings -->
+                    <section id="game-settings">
+                        <h3>Settings</h3>
+                        <table id="table-for-settings-configuration">
+                            <tbody>
+                                <tr>
+                                    <td>Bomb %</td>
+                                    <td>
+                                        <input type="text" id="bomb-probability" minlength="3" maxlength="3" size="1" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> Power ups</td>
+                                    <td>
+                                        <input type="text" id="power-ups-probability" minlength="3" maxlength="3" size="1" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <!-- end game-settings -->
+                    <!-- Players list -->
+                    <section id="container-for-players-list">
+                        <h3>Players</h3>
+                        <table id="players-list-table">
+                            <tbody>
+                                <tr>
+                                    <td id="player-avatar-1">
+                                        <button class="avatar-button">
                                                 <img
                                                     src="./icons/elasmosaurus.svg"
                                                     alt="elasmosaurus-avatar"
                                                     height="30" width="30" />
                                             </button>
-                                        </td>
-                                        <td id="player-1-name">Alexandra Siles</td>
-                                    </tr>
+                                    </td>
+                                    <td id="player-1-name">Player1</td>
+                                </tr>
+                                <!--
                                     <tr>
                                         <td id="player-avatar-2">
                                             <button class="avatar-button">
@@ -91,73 +87,77 @@
                                         </td>
                                         <td id="player-3-name">Dennis Solano</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </section> <!-- end container-for-players-list -->
-                    </section> <!-- end container-for-settings-and-players-list -->
-                    <!-- Waiting room buttons -->
-                    <section id="waiting-room-buttons">
-                        <a href="arena.xhtml"><button id="start-match-button">Start match</button></a>
-                        <a href="home.xhtml"><button id="leave-match-button">Leave match</button></a>
+                                    -->
+                            </tbody>
+                        </table>
                     </section>
-                </article>
-                <!-- Avatar selection modal -->
-                <article id="avatar-selection" data-avatar-id="none">
-                    <h3>Choose your avatar</h3>
-                    <table id="avatar-selection-table">
-                        <tr>
-                            <td>
-                                <button class="button-for-dinosaur-selection">Stegosaurios</button>
-                            </td>
-                            <td>
-                                <img src="./icons/stegosaurios.svg" alt="Stegosaurios"  height="50" width="50" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button class="button-for-dinosaur-selection">Rex</button>
-                            </td>
-                            <td>
-                                <img src="./icons/rex.svg" alt="Rex"  height="50" width="50" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button class="button-for-dinosaur-selection">Brontosaurus</button>
-                            </td>
-                            <td>
-                                <img src="./icons/brontosaurus.svg" alt="Brontosaurus"  height="50" width="50" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button class="button-for-dinosaur-selection">Triceratops</button>
-                            </td>
-                            <td>
-                                <img src="./icons/triceratops.svg" alt="Triceratops"  height="50" width="50" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button class="button-for-dinosaur-selection">Elasmosaurus</button>
-                            </td>
-                            <td>
-                                <img src="./icons/elasmosaurus.svg" alt="Plesiosaurus"  height="50" width="50" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button class="button-for-dinosaur-selection">Pterodactyl</button>
-                            </td>
-                            <td>
-                                <img src="./icons/pterodactyl.svg" alt="Pterodactyl"  height="50" width="50" />
-                            </td>
-                        </tr>
-                    </table>
-                </article>
+                    <!-- end container-for-players-list -->
+                </section>
+                <!-- end container-for-settings-and-players-list -->
+                <!-- Waiting room buttons -->
+                <section id="waiting-room-buttons">
+                    <a href="arena.xhtml"><button id="start-match-button">Start match</button></a>
+                    <a href="home.xhtml"><button id="leave-match-button">Leave match</button></a>
+                </section>
             </article>
-        </main>
-        <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
-    </body>
-    <script src="js/waiting-room.js" defer="defer"></script>
+            <!-- Avatar selection modal -->
+            <article id="avatar-selection" data-avatar-id="none">
+                <h3>Choose your avatar</h3>
+                <table id="avatar-selection-table">
+                    <tr>
+                        <td>
+                            <button class="button-for-dinosaur-selection">Stegosaurios</button>
+                        </td>
+                        <td>
+                            <img src="./icons/stegosaurios.svg" alt="Stegosaurios" height="50" width="50" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="button-for-dinosaur-selection">Rex</button>
+                        </td>
+                        <td>
+                            <img src="./icons/rex.svg" alt="Rex" height="50" width="50" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="button-for-dinosaur-selection">Brontosaurus</button>
+                        </td>
+                        <td>
+                            <img src="./icons/brontosaurus.svg" alt="Brontosaurus" height="50" width="50" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="button-for-dinosaur-selection">Triceratops</button>
+                        </td>
+                        <td>
+                            <img src="./icons/triceratops.svg" alt="Triceratops" height="50" width="50" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="button-for-dinosaur-selection">Elasmosaurus</button>
+                        </td>
+                        <td>
+                            <img src="./icons/elasmosaurus.svg" alt="Plesiosaurus" height="50" width="50" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="button-for-dinosaur-selection">Pterodactyl</button>
+                        </td>
+                        <td>
+                            <img src="./icons/pterodactyl.svg" alt="Pterodactyl" height="50" width="50" />
+                        </td>
+                    </tr>
+                </table>
+            </article>
+        </article>
+    </main>
+    <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
+</body>
+<script src="js/waiting-room.js" defer="defer"></script>
+
 </html>

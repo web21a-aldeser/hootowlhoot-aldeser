@@ -17,6 +17,7 @@ const CARDS = [
     'icons/cards/meteorite.svg'
 ];
 
+
 class PlayersCards {
     constructor() {
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
@@ -48,6 +49,9 @@ class PlayersCards {
         const computedStyles = window.getComputedStyle(meteor);
         console.log(`computedStyles.left = ${computedStyles.left}`);
         meteor.style.left = (parseInt(computedStyles.left, 10) + 50) + "px";
+        if ((parseInt(computedStyles.left, 10)) >= 790) {
+            window.location = "aftermatch.xhtml";
+        }
     }
 
     getRandomCard() {
@@ -61,105 +65,120 @@ const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_TOP = [3, 4, 7, 8];
 const BOTTOM = 0;
 const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_BOTTOM = [1, 2, 5, 6];
 class Player {
-  constructor() {
-    this.player = document.getElementById(PLAYER_ID);
-    this.row = 0;
-    this.colum = 0;
-    this.currentCell = document.querySelector('td[data-row="0"][data-col="0"]');
-  }
-
-  configurePlayer() {
-    this.player.addEventListener('click', () => {
-      this.move();
-    });
-  }
-
-  move() {
-    const downwardsMovement = this.colum === 0 || this.colum === 4;
-    const upwardsMovement = this.colum === 2 || this.colum === 6;
-    const rightwardsMovementBottom = this.row === 7;
-    const rightwardsMovementTop = this.row === 0 && this.colum > 0;
-
-    if (rightwardsMovementBottom) {
-      this.moveRightwards(BOTTOM);
-    } else if (rightwardsMovementTop) {
-      this.moveRightwards(TOP);
-    } else if (downwardsMovement) {
-      this.moveDownwards();
-    } else if (upwardsMovement) {
-      this.moveUpwards();
+    constructor() {
+        this.player = document.getElementById(PLAYER_ID);
+        console.log(this.player);
+        this.row = 0;
+        this.colum = 0;
+        this.currentCell = document.querySelector('td[data-row="0"][data-col="0"]');
+        this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
     }
-    this.movePlayerAvatarToNewCell();
-  }
 
-  moveDownwards() {
-    const bottomReached = this.row === 7;
-    if (bottomReached) {
-      this.moveRightwards(BOTTOM);
-    } else {
-      this.row += 1;
+    configurePlayer() {
+        const playerName = this.tableBodyElement.children.item(0).children.item(1);
+        const playerDino = this.tableBodyElement.children.item(0).children.item(0).children[0];
+        let retrive = localStorage.getItem(0);
+        let values = JSON.parse(retrive);
+        playerName.innerHTML = values[0];
+        playerDino.src = values[1];
+
+        this.player.addEventListener('click', () => {
+            this.move();
+        });
     }
-  }
 
-  moveUpwards() {
-    const topReached = this.row === 0;
-    if (topReached) {
-      this.moveRightwards(TOP);
-    } else {
-      this.row -= 1;
+    move() {
+        const downwardsMovement = this.colum === 0 || this.colum === 4;
+        const upwardsMovement = this.colum === 2 || this.colum === 6;
+        const rightwardsMovementBottom = this.row === 7;
+        const rightwardsMovementTop = this.row === 0 && this.colum > 0;
+
+        if (rightwardsMovementBottom) {
+            this.moveRightwards(BOTTOM);
+        } else if (rightwardsMovementTop) {
+            this.moveRightwards(TOP);
+        } else if (downwardsMovement) {
+            this.moveDownwards();
+        } else if (upwardsMovement) {
+            this.moveUpwards();
+        }
+        this.movePlayerAvatarToNewCell();
     }
-  }
 
-  moveRightwards(where) {
-    const tentativeMovement = this.colum + 1;
-    let validMovement = false;
-    if (where === BOTTOM) {
-      validMovement = VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_BOTTOM
-        .indexOf(tentativeMovement) !== -1;
-    } else if (where === TOP) {
-      validMovement = VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_TOP
-        .indexOf(tentativeMovement) !== -1;
+    moveDownwards() {
+        const bottomReached = this.row === 7;
+        if (bottomReached) {
+            this.moveRightwards(BOTTOM);
+        } else {
+            this.row += 1;
+        }
     }
-    if (validMovement) {
-      this.colum += 1;
-    } else {
-      const bottomEndReached = this.colum === 2 || this.colum === 6;
-      const topEndReached = this.colum === 4;
-      if (bottomEndReached) {
-        this.moveUpwards();
-      } else if (topEndReached) {
-        this.moveDownwards();
-      }
+
+    moveUpwards() {
+        const topReached = this.row === 0;
+        if (topReached) {
+            this.moveRightwards(TOP);
+        } else {
+            this.row -= 1;
+        }
     }
-  }
 
-  findCellForPlayersNewPosition() {
-    return document.querySelector(`td[data-row="${this.row}"][data-col="${this.colum}"]`);
-  }
-
-  movePlayerAvatarToNewCell() {
-    // ToDo: check whether the new cell is inhabit for another dinosaur or if it
-    // contains a geyser.
-    const newCell = this.findCellForPlayersNewPosition();
-
-    let playerAvatar = null;
-    const thereIsAnElementInTheCell = this.currentCell.childElementCount > 1;
-    if (thereIsAnElementInTheCell) {
-      playerAvatar = this.currentCell.children.item(1);
-    } else {
-      playerAvatar = this.currentCell.children.item(0);
+    moveRightwards(where) {
+        const tentativeMovement = this.colum + 1;
+        let validMovement = false;
+        if (where === BOTTOM) {
+            validMovement = VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_BOTTOM
+                .indexOf(tentativeMovement) !== -1;
+        } else if (where === TOP) {
+            validMovement = VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_TOP
+                .indexOf(tentativeMovement) !== -1;
+        }
+        if (validMovement) {
+            this.colum += 1;
+        } else {
+            const bottomEndReached = this.colum === 2 || this.colum === 6;
+            const topEndReached = this.colum === 4;
+            if (bottomEndReached) {
+                this.moveUpwards();
+            } else if (topEndReached) {
+                this.moveDownwards();
+            }
+        }
     }
-    this.currentCell.removeChild(playerAvatar);
-    newCell.appendChild(playerAvatar);
-    this.currentCell = newCell;
-  }
+
+    findCellForPlayersNewPosition() {
+        return document.querySelector(`td[data-row="${this.row}"][data-col="${this.colum}"]`);
+    }
+
+    movePlayerAvatarToNewCell() {
+        // ToDo: check whether the new cell is inhabit for another dinosaur or if it
+        // contains a geyser.
+        const newCell = this.findCellForPlayersNewPosition();
+
+        let playerAvatar = null;
+        const thereIsAnElementInTheCell = this.currentCell.childElementCount > 1;
+        if (thereIsAnElementInTheCell) {
+            playerAvatar = this.currentCell.children.item(1);
+        } else {
+            playerAvatar = this.currentCell.children.item(0);
+        }
+        this.currentCell.removeChild(playerAvatar);
+        newCell.appendChild(playerAvatar);
+        this.currentCell = newCell;
+    }
+}
+
+function getListPlayers() {
+    const playerList = localStorage.getItem(0);
+    // console.log(playerList);
 }
 
 function main() {
-  const playersCards = new PlayersCards();
-  playersCards.configurePlayersCards();
-  const player = new Player();
-  player.configurePlayer();
+    const playersCards = new PlayersCards();
+    playersCards.configurePlayersCards();
+    const player = new Player();
+    player.configurePlayer();
+    getListPlayers();
 }
 
 window.addEventListener('load', main);
