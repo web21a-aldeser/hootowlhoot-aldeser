@@ -64,23 +64,25 @@ const TOP = 1;
 const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_TOP = [3, 4, 7, 8];
 const BOTTOM = 0;
 const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_BOTTOM = [1, 2, 5, 6];
+const FIRST = 0;
+const SECOND = 1;
 class Player {
     constructor() {
         this.player = document.getElementById(PLAYER_ID);
         console.log(this.player);
-        this.row = 0;
-        this.colum = 0;
+        this.row = FIRST;
+        this.colum = FIRST;
         this.currentCell = document.querySelector('td[data-row="0"][data-col="0"]');
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
     }
 
     configurePlayer() {
-        const playerName = this.tableBodyElement.children.item(0).children.item(1);
-        const playerDino = this.tableBodyElement.children.item(0).children.item(0).children[0];
+        const playerName = this.tableBodyElement.children.item(FIRST).children.item(SECOND);
+        const playerDino = this.tableBodyElement.children.item(FIRST).children.item(FIRST).children[FIRST];
         let retrive = localStorage.getItem(0);
         let values = JSON.parse(retrive);
-        playerName.innerHTML = values[0];
-        playerDino.src = values[1];
+        playerName.innerHTML = values[FIRST];
+        playerDino.src = values[SECOND];
 
         this.player.addEventListener('click', () => {
             this.move();
