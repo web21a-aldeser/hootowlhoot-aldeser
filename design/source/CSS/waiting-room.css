@@ -3,130 +3,164 @@
 /*****************************************************************
  Main section.
 *****************************************************************/
+
 main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 
 /*****************************************************************
  Waiting room article for settings, players, and avatar selection.
 *****************************************************************/
+
 #container-for-settings-players-and-avatar-selection {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
+
 
 /***********************************************************
  Waiting room article for settings and players.
 ***********************************************************/
+
 #settings-and-players-list {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-content: stretch;
-  align-items: flex-start;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-start;
+    height: 100%;
 }
+
 
 /***********************************************************
  Main container for settings and players list
 ***********************************************************/
+
 #container-for-settings-and-players-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: stretch;
-  align-items: center;
-  background-color:#E5E5E5;
-  flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    align-items: center;
+    background-color: #E5E5E5;
+    flex-grow: 1;
+    justify-content: space-evenly;
 }
+
 
 /***********************************************************
  Container for settings
 ***********************************************************/
+
 #game-settings {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 1 auto;
 }
+
+#table-for-settings-configuration tr {
+    justify-content: space-between;
+}
+
 
 /***********************************************************
  Container for players
 ***********************************************************/
 
 #container-for-players-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
 }
+
 
 /***********************************************************
  Container for buttons
 ***********************************************************/
 
 #waiting-room-buttons {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-content: stretch;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-start;
 }
+
 
 /***********************************************************
  Buttons
 ***********************************************************/
+
 .button {
-  font-size: 10px;
+    font-size: 10px;
 }
 
 .avatar-button {
-  vertical-align:center;
-  width: 70px;
-  background-color: transparent;
-  border: none;
+    vertical-align: center;
+    width: 70px;
+    background-color: transparent;
+    border: none;
 }
 
 .avatar-button img {
-  align-self: center;
+    align-self: center;
 }
 
 #start-match-button {
-  margin-right: 100px;
+    margin-right: 100px;
 }
+
+.close-button {
+    margin-left: 15px;
+    font-weight: bold;
+    float: right;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
 
 /***********************************************************
  Avatar selection.
 ***********************************************************/
+
 #avatar-selection {
-  display: flex;
-  flex-direction: column;
-  margin-left: 100px;
-  background-color:#E5E5E5;
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    background-color: #E5E5E5;
 }
 
 .button-for-dinosaur-selection {
-  width: 150px;
+    width: 150px;
 }
 
 .input-error {
-  box-shadow: 0 0 3px #CC0000;
+    box-shadow: 0 0 3px #CC0000;
 }
 
 .text-error {
-  color: #CC0000;
+    color: #CC0000;
 }
 
 #input-with-button-for-name {
-  display: flex;
-  flex-direction: row; 
-  justify-content: 
-  flex-start; 
-  flex-wrap: nowrap;
-  align-content: stretch; 
-  align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    align-items: flex-start;
+}
+
+@media screen and (max-width:700px) {
+    #container-for-settings-players-and-avatar-selection {
+        flex-wrap: wrap;
+    }
 }

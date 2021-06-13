@@ -229,12 +229,26 @@ class WaitingRoom {
     constructor() {
         this.playerList = new PlayerList(PLAYER_TABLE_ID);
         this.avatarSelector = new AvatarSelector(this.playersList);
+
     }
 
     configure() {
         this.avatarSelector.configure();
         this.playerList.configurePlayersList(this.avatarSelector);
+        let options = [];
 
+        //When the match is starting it saves the configuration of the settings
+        document.getElementById('start-match-button').addEventListener('click', () => {
+
+            options.push(document.getElementById('geyser-probability').value);
+            options.push(document.getElementById('eggs-probability').value);
+            options.push(document.getElementById('binoculars-probability').value);
+            localStorage.setItem('Geysers', JSON.stringify(options[0]));
+            localStorage.setItem('Eggs', JSON.stringify(options[1]));
+            localStorage.setItem('Binoculars', JSON.stringify(options[2]));
+
+            window.location = "arena.xhtml";
+        });
     }
 
 

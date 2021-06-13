@@ -32,19 +32,32 @@
                         <table id="table-for-settings-configuration">
                             <tbody>
                                 <tr>
-                                    <td>Bomb %</td>
+                                    <td>Geysers %</td>
                                     <td>
-                                        <input type="text" id="bomb-probability" minlength="3" maxlength="3" size="1" />
+                                        <input type="number" id="geyser-probability" minlength="3" maxlength="3" size="1" min="0" max="70" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td> Power ups</td>
+                                    <td> Eggs %</td>
                                     <td>
-                                        <input type="text" id="power-ups-probability" minlength="3" maxlength="3" size="1" />
+                                        <input type="number" id="eggs-probability" minlength="3" maxlength="3" size="1" min="0" max="70" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> Binoculars %</td>
+                                    <td>
+                                        <input type="number" id="binoculars-probability" minlength="3" maxlength="3" size="1" min="0" max="70" />
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <article id="settings-description">
+                            <p><strong>Geysers:</strong> The geysers represent an obstacle, when you fall into a geyser you will be returned to the square where you were previously.</p>
+                            <p><strong>Eggs:</strong> the dinosaur eggs allows you to play again in the same turn. </p>
+                            <p><strong>Binoculars:</strong> you to see the closest geyser to your position.</p>
+
+                            <p><strong> The calculation is made the percentage of 36 boxes, like 20% of eggs in 36 boxes = 7 eggs randomly in the game</strong></p>
+                        </article>
                     </section>
                     <!-- end game-settings -->
                     <!-- Players list -->
@@ -58,7 +71,7 @@
                                                 <img
                                                     src="./icons/elasmosaurus.svg"
                                                     alt="elasmosaurus-avatar"
-                                                    height="30" width="30" />
+                                                    height="50" width="50" />
                                             </button>
                                     </td>
                                     <td id="player-1-name">Player1</td>
@@ -96,12 +109,13 @@
                 <!-- end container-for-settings-and-players-list -->
                 <!-- Waiting room buttons -->
                 <section id="waiting-room-buttons">
-                    <a href="arena.xhtml"><button id="start-match-button">Start match</button></a>
+                    <a><button id="start-match-button">Start match</button></a>
                     <a href="home.xhtml"><button id="leave-match-button">Leave match</button></a>
                 </section>
             </article>
             <!-- Avatar selection modal -->
             <article id="avatar-selection" data-avatar-id="none">
+                <button class="close-button" onclick="hide('avatar-selection')">x</button>
                 <h3>Choose your avatar</h3>
                 <table id="avatar-selection-table">
                     <tr>
@@ -158,6 +172,8 @@
     </main>
     <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
 </body>
+<script src="js/common.js" defer="defer"></script>
+
 <script src="js/waiting-room.js" defer="defer"></script>
 
 </html>
