@@ -40,7 +40,6 @@ class PlayerList {
 
     retrieveDataFromPlayersTable() {
         const players = this.playersTable.rows;
-        console.log("retrive data")
 
         for (let index = 0; index < players.length; index += 1) {
             const row = players.item(index);
@@ -53,13 +52,12 @@ class PlayerList {
                 row.cells.item(PLAYER_NAME_POS).id, name, dino, index);
             this.addPlayerToList(player);
         }
-        for (let i = 0; i < this.players.length; i++) {
-            console.log(this.players[i]);
-        }
+        //localStorage.setItem('players-lenght', JSON.stringify(this.players.length));
     }
 
     addPlayerToList(player) {
         this.players.push(player);
+
     }
 
     setupEventsForPlayersList(avatarSelector) {
@@ -197,6 +195,7 @@ function passListPlayers(players) {
         items.push(players[i].avatar);
         localStorage.setItem(i, JSON.stringify(items));
     }
+    localStorage.setItem("players-quantity", JSON.stringify(players.length));
 }
 /**
  *Local Storage functions
@@ -246,7 +245,6 @@ class WaitingRoom {
             localStorage.setItem('Geysers', JSON.stringify(options[0]));
             localStorage.setItem('Eggs', JSON.stringify(options[1]));
             localStorage.setItem('Binoculars', JSON.stringify(options[2]));
-
             window.location = "arena.xhtml";
         });
     }

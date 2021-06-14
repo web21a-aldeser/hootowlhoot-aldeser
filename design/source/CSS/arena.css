@@ -115,12 +115,19 @@
 .board {
     border-spacing: 1;
     border-collapse: collapse;
+    display: inline;
+    position: relative;
 }
 
 #meteor {
     position: absolute;
     transition: left 1s ease-out, top 1s;
     left: 150px;
+}
+
+#cave {
+    position: absolute;
+    top: 5px;
 }
 
 

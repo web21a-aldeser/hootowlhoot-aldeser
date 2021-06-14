@@ -21,9 +21,12 @@ const CARDS = [
 class PlayersCards {
     constructor() {
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
+        this.player = new Player();
+
     }
 
     configurePlayersCards() {
+        this.setFirstTurn();
         this.setupEventsForCards();
     }
 
@@ -37,11 +40,39 @@ class PlayersCards {
                     // ToDo: Implement logic to move dinosaur.
                     if (card.src.indexOf('meteorite') != -1) {
                         this.meteorite();
+                    } else {
+                        this.player.move();
                     }
+                    console.log('index');
+                    console.log(i);
+
+                    this.chageTurn(i);
                     card.src = this.getRandomCard();
                 });
             }
         }
+    }
+
+    setFirstTurn() {
+        let turn = document.getElementById('turn');
+        let retrive = localStorage.getItem(0);
+        let values = JSON.parse(retrive);
+        turn.innerText = values[0];
+    }
+
+    chageTurn(index) {
+        let turn = document.getElementById('turn');
+        let playersLength = JSON.parse(localStorage.getItem("players-quantity"));
+        playersLength = playersLength - 1;
+        if (index < playersLength) {
+            index++;
+        } else {
+            index = 0;
+        }
+
+        let retrive = localStorage.getItem(index);
+        let values = JSON.parse(retrive);
+        turn.innerText = values[0];
     }
 
     meteorite() {
@@ -69,7 +100,6 @@ const SECOND = 1;
 class Player {
     constructor() {
         this.player = document.getElementById(PLAYER_ID);
-        console.log(this.player);
         this.row = FIRST;
         this.colum = FIRST;
         this.currentCell = document.querySelector('td[data-row="0"][data-col="0"]');
@@ -79,14 +109,18 @@ class Player {
     configurePlayer() {
         const playerName = this.tableBodyElement.children.item(FIRST).children.item(SECOND);
         const playerDino = this.tableBodyElement.children.item(FIRST).children.item(FIRST).children[FIRST];
-        let retrive = localStorage.getItem(0);
-        let values = JSON.parse(retrive);
-        playerName.innerHTML = values[FIRST];
-        playerDino.src = values[SECOND];
 
-        this.player.addEventListener('click', () => {
-            this.move();
-        });
+        let index = localStorage.getItem("index");
+        let retrive = localStorage.getItem(parseInt(index));
+
+        let values = JSON.parse(retrive);
+        console.log(this.player.children[0].src);
+        playerName.innerHTML = values[0];
+        playerDino.src = values[1];
+        this.player.children[0].src = values[1];
+        //this.player.addEventListener('click', () => {
+        //  this.move();
+        //});
     }
 
     move() {
@@ -170,17 +204,58 @@ class Player {
     }
 }
 
+
 function getListPlayers() {
-    const playerList = localStorage.getItem(0);
-    // console.log(playerList);
+    const playerList = [];
+    console.log(JSON.parse(localStorage.getItem("players-quantity")));
+    for (let i = 0; i < JSON.parse(localStorage.getItem("players-quantity")); i++) {
+        localStorage.setItem("index", i);
+        const player = new Player();
+        player.configurePlayer();
+        playerList.push(player);
+    }
+    console.log(playerList);
+    return playerList;
+
 }
+const GEYSERLIST = [];
+const CELLS = 36;
+
+function createGeyser() {
+    let num = (localStorage.getItem('Geysers'));
+    num = JSON.parse(num);
+    const geyserTotal = (num * CELLS) / 100;
+    //posiciones iniciales
+    let posLeft = 60;
+    let posTop = 100;
+    for (let i = 0; i < geyserTotal; i++) {
+        //crea imagenes con estilos
+        let mine = document.createElement("img");
+        mine.src = 'icons/geyser.svg';
+        mine.width = '50';
+        mine.style.position = 'absolute';
+        mine.style.display = 'block';
+        //Asignar posiciones
+        mine.style.left = posLeft + "px";
+        mine.style.top = posTop + 'px';
+        posTop += 50;
+        posLeft += 50;
+        //
+        var wrapper = document.getElementById('tablero');
+        wrapper.appendChild(mine);
+        GEYSERLIST.push(mine);
+    }
+}
+
 
 function main() {
     const playersCards = new PlayersCards();
     playersCards.configurePlayersCards();
-    const player = new Player();
-    player.configurePlayer();
-    getListPlayers();
+    const playerList = this.getListPlayers();;
+    //const player = new Player();
+    //player.configurePlayer();
+    createGeyser();
+
 }
 
 window.addEventListener('load', main);

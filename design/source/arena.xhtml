@@ -49,7 +49,7 @@
         <main id="wrapper">
 
             <section id="player-box">
-                <h2>Turn: <label id='turn'>Alexandra</label></h2>
+                <h2>Turn: <label id='turn'>Player</label></h2>
                 <aside id="hand">
                     <table class="generated-table">
                         <thead>
@@ -63,7 +63,7 @@
                             <tr>
                                 <td><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
                                 </td>
-                                <td>Alexandra</td>
+                                <td>Player</td>
                                 <td><input type="image" class="play-hand" src="icons/cards/blue.svg" name="carta" width="50" height="50" alt="submit" />
                                     <input type="image" class="play-hand" src="icons/cards/yellow.svg" name="carta" width="50" height="50" alt="submit" />
                                     <input type="image" class="play-hand" src="icons/cards/red.svg" name="carta" width="50" height="50" alt="submit" /> </td>
@@ -77,18 +77,18 @@
             </section>
             <!-- End of player box -->
             <table class="board">
-                <tbody>
+                <tbody id="tablero">
                     <tr>
                         <!-- B(0,0) -->
-                        <td class="red" data-row="0" data-col="0">
-                          <div id="player-1-avatar">
-                            <img src="icons/rex.svg" class="player" alt="rex" width="50" data-row="0" data-col="0"> </img>
-                          </div>
+                        <td class="red" id="first" data-row="0" data-col="0">
+                            <div id="player-1-avatar">
+                                <img src="icons/rex.svg" class="player" alt="rex" width="50" data-row="0" data-col="0"> </img>
+                            </div>
                         </td>
                         <!-- B(0,1) -->
                         <td class="light" data-row="0" data-col="1"></td>
                         <!-- B(0,2) -->
-                        <td class="red" data-row="0" data-col="2"><img src="icons/geyser.svg" alt="geyser" width="60"></img>
+                        <td class="red" data-row="0" data-col="2">
                         </td>
                         <!-- B(0,3) -->
                         <td class="green" data-row="0" data-col="3"></td>
@@ -99,20 +99,20 @@
                         <!-- B(0,6) -->
                         <td class="yellow" data-row="0" data-col="6"></td>
                         <!-- B(0,7) -->
-                        <td class="orange" data-row="0" data-col="7">1</td>
+                        <td class="orange" data-row="0" data-col="7"></td>
                         <!-- B(0,8) -->
                         <td data-row="0" data-col="8">
-                          <img src="icons/cave.svg" alt="cave" width="100" height="60"> </img>
+                            <img src="icons/cave.svg" alt="cave" id="cave" width="100" height="60"> </img>
                         </td>
 
                     </tr>
                     <tr>
                         <!-- B(1,0) -->
-                        <td class="orange" data-row="1" data-col="0">2</td>
+                        <td class="orange" data-row="1" data-col="0"></td>
                         <!-- B(1,1) -->
                         <td class="light" data-row="1" data-col="1"></td>
                         <!-- B(1,2) -->
-                        <td class="orange" data-row="1" data-col="2">3</td>
+                        <td class="orange" data-row="1" data-col="2"></td>
                         <!-- B(1,3) -->
                         <td class="light" data-row="1" data-col="3"></td>
                         <!-- B(1,4) -->
@@ -209,7 +209,7 @@
                     <tr>
                         <!-- B(6,0) -->
                         <td class="yellow" data-row="6" data-col="0"></td>
-                         <!-- B(6,1) -->
+                        <!-- B(6,1) -->
                         <td class="light" data-row="6" data-col="1"></td>
                         <!-- B(6,2) -->
                         <td class="orange" data-row="6" data-col="2"></td>
