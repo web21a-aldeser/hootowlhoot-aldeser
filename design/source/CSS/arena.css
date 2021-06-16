@@ -49,67 +49,13 @@
     display: flex;
     flex-direction: row;
     list-style-type: none;
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
 }
 
 .clarity li {
     content: " ";
     width: 50px;
-}
-
-.cl1 {
-    background: #FDE6D8;
-}
-
-.cl2 {
-    background: #FCDAC5;
-}
-
-.cl3 {
-    background: #FBCEB1;
-}
-
-.cl4 {
-    background: #FAC39E;
-}
-
-.cl5 {
-    background: #F9B78B;
-}
-
-.cl6 {
-    background: #F8AB77;
-}
-
-.cl7 {
-    background: #F79F64;
-}
-
-.cl8 {
-    background: #F69351;
-}
-
-.cl9 {
-    background: #F5873D;
-}
-
-.cl10 {
-    background: #F47B2A;
-}
-
-.cl11 {
-    background: #F36F16;
-}
-
-.cl12 {
-    background: #E9640C;
-}
-
-.cl13 {
-    background: #D55C0B;
-}
-
-.cl14 {
-    background: #C2540A;
+    border: 1px solid black;
 }
 
 .board {
@@ -120,9 +66,8 @@
 }
 
 #meteor {
-    position: absolute;
+    position: relative;
     transition: left 1s ease-out, top 1s;
-    left: 150px;
 }
 
 #cave {
@@ -135,9 +80,26 @@
  Board
 *****************************************************************/
 
+.player {
+    display: inline;
+}
+
+#board-body {
+    flex-grow: 1;
+    border-collapse: collapse;
+    position: relative;
+}
+
 .board td {
     width: 100px;
     height: 55px;
+    max-height: 100px;
+    min-width: 100px;
+    min-height: 55px;
+}
+
+.board tr {
+    max-height: 10px;
 }
 
 .board .red {
@@ -164,17 +126,14 @@
     background: orange;
 }
 
-.board .light {
-    background: white;
-}
-
 
 /*****************************************************************
  Player Box/ turn, hand of cards and players
 *****************************************************************/
 
 #player-box {
-    background-color: #d3d1d1;
+    background: rgb(255, 238, 218);
+    background: linear-gradient(90deg, rgba(255, 238, 218, 0.9472163865546218) 0%, rgba(250, 197, 122, 0.9108018207282913) 100%);
     border: 2px outset gray;
     float: left;
     line-height: 24px;

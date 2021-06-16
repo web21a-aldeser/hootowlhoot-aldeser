@@ -46,7 +46,8 @@ main {
     flex-wrap: nowrap;
     align-content: stretch;
     align-items: center;
-    background-color: #E5E5E5;
+    background: rgb(255, 238, 218);
+    background: linear-gradient(90deg, rgba(255, 238, 218, 0.9472163865546218) 0%, rgba(250, 197, 122, 0.9108018207282913) 100%);
     flex-grow: 1;
     justify-content: space-evenly;
 }
@@ -135,7 +136,8 @@ main {
     display: flex;
     flex-direction: column;
     margin-left: 100px;
-    background-color: #E5E5E5;
+    background: rgb(255, 238, 218);
+    background: linear-gradient(90deg, rgba(255, 238, 218, 0.9472163865546218) 0%, rgba(250, 197, 122, 0.9108018207282913) 100%);
 }
 
 .button-for-dinosaur-selection {

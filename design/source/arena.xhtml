@@ -24,9 +24,8 @@
     </header>
     <main id="main">
         <figure class="proximity-bar">
-
             <img src="icons/galaxy.svg" alt="galaxy" width="70" height="70"> </img>
-            <ol class="clarity">
+            <ul class="clarity" id="clarity">
                 <li class="cl1"><img src="icons/meteorite.svg" id="meteor" alt="meteorite" width="50" height="50"></img>
                 </li>
                 <li class="cl2"></li>
@@ -42,7 +41,7 @@
                 <li class="cl12"></li>
                 <li class="cl13"></li>
                 <li class="cl14"></li>
-            </ol>
+            </ul>
             <img src="icons/planet-earth.svg" alt="planet" width="70" height="70"> </img>
         </figure>
 
@@ -63,6 +62,7 @@
                             <tr>
                                 <td><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
                                 </td>
+
                                 <td>Player</td>
                                 <td><input type="image" class="play-hand" src="icons/cards/blue.svg" name="carta" width="50" height="50" alt="submit" />
                                     <input type="image" class="play-hand" src="icons/cards/yellow.svg" name="carta" width="50" height="50" alt="submit" />
@@ -77,13 +77,14 @@
             </section>
             <!-- End of player box -->
             <table class="board">
-                <tbody id="tablero">
+                <tbody id="board-body">
                     <tr>
                         <!-- B(0,0) -->
                         <td class="red" id="first" data-row="0" data-col="0">
                             <div id="player-1-avatar">
                                 <img src="icons/rex.svg" class="player" alt="rex" width="50" data-row="0" data-col="0"> </img>
                             </div>
+
                         </td>
                         <!-- B(0,1) -->
                         <td class="light" data-row="0" data-col="1"></td>

@@ -12,6 +12,9 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
+    background: url(background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 header {
@@ -32,7 +35,7 @@ footer {
     align-self: auto;
     height: 2em;
     width: 100%;
-    background-color: rgba(240, 240, 240, 0.966);
+    background-color: #f9cd7a;
     text-align: center;
     position: relative;
     bottom: 0px;
@@ -51,7 +54,7 @@ ul {
 }
 
 .nav-bar {
-    background-color: rgba(240, 240, 240, 0.966);
+    background-color: #f9cd7a;
     overflow: hidden;
 }
 

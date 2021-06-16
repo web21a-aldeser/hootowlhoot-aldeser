@@ -17,7 +17,6 @@ const CARDS = [
     'icons/cards/meteorite.svg'
 ];
 
-
 class PlayersCards {
     constructor() {
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
@@ -41,11 +40,13 @@ class PlayersCards {
                     if (card.src.indexOf('meteorite') != -1) {
                         this.meteorite();
                     } else {
-                        this.player.move();
+                        let color = this.player.currentCell.className;
+                        console.log(color);
+                        do {
+                            this.player.move();
+                            color = this.player.currentCell.className;
+                        } while (card.src.indexOf(color) === -1)
                     }
-                    console.log('index');
-                    console.log(i);
-
                     this.chageTurn(i);
                     card.src = this.getRandomCard();
                 });
@@ -76,13 +77,34 @@ class PlayersCards {
     }
 
     meteorite() {
+        const proximity = document.getElementById("clarity");
+        let elements = proximity.children;
         const meteor = document.getElementById("meteor");
-        const computedStyles = window.getComputedStyle(meteor);
-        console.log(`computedStyles.left = ${computedStyles.left}`);
-        meteor.style.left = (parseInt(computedStyles.left, 10) + 50) + "px";
-        if ((parseInt(computedStyles.left, 10)) >= 790) {
+        let index;
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].children.length === 1) {
+                index = i;
+            }
+        }
+        if (index !== elements.length - 1) {
+            elements[index].removeChild(meteor);
+            elements[index + 1].appendChild(meteor);
+        } else {
+            meteor.style.position = "absolute";
+            meteor.style.left = "850px";
+            meteor.style.top = '100px';
             window.location = "aftermatch.xhtml";
         }
+        //esto es con la claridad en tipo ol
+        /*const meteor = document.getElementById("meteor");
+        const computedStyles = window.getComputedStyle(meteor);
+        console.log(`computedStyles.left = ${computedStyles.left}`);
+        meteor.style.left = (parseInt(computedStyles.left, 10) + 55) + "px";
+        
+        if ((parseInt(computedStyles.left, 10)) >= 750) {
+            window.location = "aftermatch.xhtml";
+        }
+        */
     }
 
     getRandomCard() {
@@ -106,24 +128,19 @@ class Player {
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
     }
 
-    configurePlayer() {
+    configurePlayer(key) {
+
         const playerName = this.tableBodyElement.children.item(FIRST).children.item(SECOND);
         const playerDino = this.tableBodyElement.children.item(FIRST).children.item(FIRST).children[FIRST];
-
-        let index = localStorage.getItem("index");
-        let retrive = localStorage.getItem(parseInt(index));
-
+        let retrive = localStorage.getItem(parseInt(key));
         let values = JSON.parse(retrive);
-        console.log(this.player.children[0].src);
         playerName.innerHTML = values[0];
         playerDino.src = values[1];
         this.player.children[0].src = values[1];
-        //this.player.addEventListener('click', () => {
-        //  this.move();
-        //});
-    }
 
+    }
     move() {
+
         const downwardsMovement = this.colum === 0 || this.colum === 4;
         const upwardsMovement = this.colum === 2 || this.colum === 6;
         const rightwardsMovementBottom = this.row === 7;
@@ -190,7 +207,7 @@ class Player {
         // ToDo: check whether the new cell is inhabit for another dinosaur or if it
         // contains a geyser.
         const newCell = this.findCellForPlayersNewPosition();
-
+        console.log(newCell.className);
         let playerAvatar = null;
         const thereIsAnElementInTheCell = this.currentCell.childElementCount > 1;
         if (thereIsAnElementInTheCell) {
@@ -207,20 +224,19 @@ class Player {
 
 function getListPlayers() {
     const playerList = [];
-    console.log(JSON.parse(localStorage.getItem("players-quantity")));
     for (let i = 0; i < JSON.parse(localStorage.getItem("players-quantity")); i++) {
-        localStorage.setItem("index", i);
         const player = new Player();
-        player.configurePlayer();
+        console.log("Funcion global");
+        console.log(i);
+        player.configurePlayer(i);
         playerList.push(player);
     }
-    console.log(playerList);
     return playerList;
-
 }
 const GEYSERLIST = [];
 const CELLS = 36;
 
+//Falta
 function createGeyser() {
     let num = (localStorage.getItem('Geysers'));
     num = JSON.parse(num);
@@ -241,17 +257,16 @@ function createGeyser() {
         posTop += 50;
         posLeft += 50;
         //
-        var wrapper = document.getElementById('tablero');
+        var wrapper = document.getElementById('board-body');
         wrapper.appendChild(mine);
         GEYSERLIST.push(mine);
     }
 }
 
-
 function main() {
     const playersCards = new PlayersCards();
     playersCards.configurePlayersCards();
-    const playerList = this.getListPlayers();;
+    const playerList = this.getListPlayers();
     //const player = new Player();
     //player.configurePlayer();
     createGeyser();
