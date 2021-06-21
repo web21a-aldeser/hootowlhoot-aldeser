@@ -8,6 +8,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: white;
 }
 
 
@@ -31,7 +32,7 @@ main {
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-content: stretch;
-    align-items: flex-start;
+    align-items: center;
     height: 100%;
 }
 
@@ -46,10 +47,11 @@ main {
     flex-wrap: nowrap;
     align-content: stretch;
     align-items: center;
-    background: rgb(255, 238, 218);
-    background: linear-gradient(90deg, rgba(255, 238, 218, 0.9472163865546218) 0%, rgba(250, 197, 122, 0.9108018207282913) 100%);
+    background: rgb(255, 238, 218, 0.6);
     flex-grow: 1;
+    border-radius: 25px;
     justify-content: space-evenly;
+    color: black;
 }
 
 
@@ -62,10 +64,15 @@ main {
     flex-direction: column;
     align-items: flex-start;
     flex: 1 1 auto;
+    padding: 10px;
 }
 
 #table-for-settings-configuration tr {
     justify-content: space-between;
+}
+
+.probabilities {
+    size: 3;
 }
 
 
@@ -92,6 +99,7 @@ main {
     justify-content: flex-start;
     align-content: stretch;
     align-items: flex-start;
+    padding: 15px;
 }
 
 
@@ -99,8 +107,9 @@ main {
  Buttons
 ***********************************************************/
 
-.button {
-    font-size: 10px;
+.buttons {
+    padding: 15px;
+    border-radius: 25px;
 }
 
 .avatar-button {
@@ -136,8 +145,10 @@ main {
     display: flex;
     flex-direction: column;
     margin-left: 100px;
-    background: rgb(255, 238, 218);
-    background: linear-gradient(90deg, rgba(255, 238, 218, 0.9472163865546218) 0%, rgba(250, 197, 122, 0.9108018207282913) 100%);
+    background: rgb(255, 238, 218, 0.6);
+    padding: 15px;
+    border-radius: 25px;
+    color: black;
 }
 
 .button-for-dinosaur-selection {

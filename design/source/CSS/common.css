@@ -12,9 +12,10 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
-    background: url(background.png);
+    background: url(background2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 header {
@@ -33,12 +34,14 @@ footer {
     order: 3;
     flex: 0 1 auto;
     align-self: auto;
-    height: 2em;
+    height: 2.5em;
     width: 100%;
-    background-color: #f9cd7a;
+    background: linear-gradient(90deg, rgba(39, 61, 175, 1) 0%, rgba(200, 53, 83, 1) 100%);
+    ;
     text-align: center;
     position: relative;
     bottom: 0px;
+    color: white;
 }
 
 h1 {
@@ -54,12 +57,12 @@ ul {
 }
 
 .nav-bar {
-    background-color: #f9cd7a;
+    background: linear-gradient(90deg, rgba(39, 61, 175, 1) 0%, rgba(200, 53, 83, 1) 100%);
     overflow: hidden;
 }
 
 .nav-bar a {
-    color: #000;
+    color: white;
     float: left;
     text-align: center;
     padding: 14px 16px;
@@ -72,5 +75,7 @@ ul {
 }
 
 button {
+    cursor: pointer;
+    border-radius: 25px;
     font-family: 'Open Sans', sans-serif;
 }

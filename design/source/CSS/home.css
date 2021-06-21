@@ -8,6 +8,11 @@ main {
     display: flex;
     align-items: center;
     flex-direction: column;
+    color: white;
+}
+
+h1 {
+    margin-top: 10%;
 }
 
 
@@ -51,6 +56,7 @@ main {
 
 input {
     text-align: center;
+    border-radius: 25px;
 }
 
 #join-key {
@@ -64,10 +70,13 @@ input {
 ***********************************************************/
 
 #help-dialog {
+    padding: 10px;
     display: none;
     width: 40%;
-    background-color: rgba(240, 240, 240, 0.966);
+    background-color: rgb(255, 238, 218, 0.6);
     align-self: flex-start;
+    color: black;
+    border-radius: 25px;
 }
 
 .close-button {

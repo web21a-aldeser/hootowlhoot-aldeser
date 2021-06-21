@@ -21,6 +21,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     flex-flow: wrap;
+    padding: 50px;
 }
 
 #resign {
@@ -132,8 +133,8 @@
 *****************************************************************/
 
 #player-box {
-    background: rgb(255, 238, 218);
-    background: linear-gradient(90deg, rgba(255, 238, 218, 0.9472163865546218) 0%, rgba(250, 197, 122, 0.9108018207282913) 100%);
+    background: rgb(255, 238, 218, 0.6);
+    border-radius: 25px;
     border: 2px outset gray;
     float: left;
     line-height: 24px;
@@ -156,30 +157,30 @@ th {
     opacity: 0.5
 }
 
+button {
+    padding: 10px;
+    border-radius: 25px;
+}
+
+#pass {
+    padding: 5px;
+}
+
 
 /* The Modal (background) */
 
 .modal {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     z-index: 1;
-    /* Sit on top */
     padding-top: 100px;
-    /* Location of the box */
     left: 0;
     top: 0;
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
     overflow: auto;
-    /* Enable scroll if needed */
     background-color: rgb(0, 0, 0);
-    /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
 }
 
 
