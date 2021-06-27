@@ -22,10 +22,10 @@
     <main id="waiting-room-main">
         <h2 id="waiting-room-title">Waiting Room</h2>
         <!-- Main container -->
-        <article id="container-for-settings-players-and-avatar-selection">
-            <article id="settings-and-players-list">
+        <div id="container-for-settings-players-and-avatar-selection">
+            <div id="settings-and-players-list">
                 <p id="game-private-key"><strong>Game key: KJKFF2</strong> : Share this key with your friends</p>
-                <section id="container-for-settings-and-players-list">
+                <div id="container-for-settings-and-players-list">
                     <!-- Game settings -->
                     <section id="game-settings">
                         <h3>Settings</h3>
@@ -34,30 +34,31 @@
                                 <tr>
                                     <td>Geysers %</td>
                                     <td>
-                                        <input type="number" class="probabilities" id="geyser-probability" min="0" max="70" />
+                                        <input type="range" min="1" max="12" value="12" class="probabilities" id="geyser-probability" />
+                                        <a id="geyser"></a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td> Eggs %</td>
                                     <td>
-                                        <input type="number" class="probabilities" id="eggs-probability" min="0" max="70" />
+                                        <input type="range" min="1" max="8" value="8" class="probabilities" id="eggs-probability" />
+                                        <a id="eggs"></a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td> Binoculars %</td>
                                     <td>
-                                        <input type="number" class="probabilities" id="binoculars-probability" min="0" max="70" />
+                                        <input type="range" min="1" max="8" value="8" class="probabilities" id="binoculars-probability" />
+                                        <a id="binoculars"></a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <article id="settings-description">
+                        <div id="settings-description">
                             <p><strong>Geysers:</strong> The geysers represent an obstacle, when you fall into a geyser you will be returned to the square where you were previously.</p>
                             <p><strong>Eggs:</strong> the dinosaur eggs allows you to play again in the same turn. </p>
                             <p><strong>Binoculars:</strong> you to see the closest geyser to your position.</p>
-
-                            <p><strong> The calculation is made the percentage of 36 boxes, like 20% of eggs in 36 boxes = 7 eggs randomly in the game</strong></p>
-                        </article>
+                        </div>
                     </section>
                     <!-- end game-settings -->
                     <!-- Players list -->
@@ -105,14 +106,14 @@
                         </table>
                     </section>
                     <!-- end container-for-players-list -->
-                </section>
+                </div>
                 <!-- end container-for-settings-and-players-list -->
                 <!-- Waiting room buttons -->
-                <section id="waiting-room-buttons">
-                    <a><button id="start-match-button" class= "buttons">Start match</button></a>
-                    <a href="home.xhtml"><button id="leave-match-button" class= "buttons">Leave match</button></a>
-                </section>
-            </article>
+                <div id="waiting-room-buttons">
+                    <button id="start-match-button" class="buttons">Start match</button>
+                    <button id="leave-match-button" class="buttons" onclick="window.location.href='home.xhtml'">Leave match</button>
+                </div>
+            </div>
             <!-- Avatar selection modal -->
             <article id="avatar-selection" data-avatar-id="none">
                 <button class="close-button" onclick="hide('avatar-selection')">x</button>
@@ -168,12 +169,13 @@
                     </tr>
                 </table>
             </article>
-        </article>
+        </div>
     </main>
     <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
-</body>
-<script src="js/common.js" defer="defer"></script>
 
-<script src="js/waiting-room.js" defer="defer"></script>
+    <script src="js/common.js"></script>
+    <script src="js/waiting-room.js"></script>
+</body>
+
 
 </html>

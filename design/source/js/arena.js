@@ -41,11 +41,30 @@ class PlayersCards {
                         this.meteorite();
                     } else {
                         let color = this.player.currentCell.className;
-                        console.log(color);
+                        this.player.previusCell = this.player.currentCell;
+                        console.log('principio', this.player.currentCell);
                         do {
                             this.player.move();
                             color = this.player.currentCell.className;
+                            console.log(color);
                         } while (card.src.indexOf(color) === -1)
+                        if (this.player.currentCell.children[0].src !== null) {
+                            this.player.currentCell.children[0].style.display = 'block';
+                        }
+                        /* let avatar = this.player.currentCell.children[1];
+                            this.player.currentCell.removeChild(avatar);
+                            this.player.previusCell.appendChild(avatar);
+                            this.player.currentCell = this.player.previusCell;
+                            console.log('salioGeyx2', this.player.previusCell);
+
+                            console.log('salioGey', this.player.currentCell);
+                        } else {
+                            console.log('Current', this.player.currentCell);
+                            this.player.previusCell = this.player.currentCell;
+                            console.log('PreviusFine', this.player.previusCell);
+
+                        }
+                        */
                     }
                     this.chageTurn(i);
                     card.src = this.getRandomCard();
@@ -66,9 +85,9 @@ class PlayersCards {
         let playersLength = JSON.parse(localStorage.getItem("players-quantity"));
         playersLength = playersLength - 1;
         if (index < playersLength) {
-            index++;
+            this.index++;
         } else {
-            index = 0;
+            this.index = 0;
         }
 
         let retrive = localStorage.getItem(index);
@@ -95,16 +114,6 @@ class PlayersCards {
             meteor.style.top = '100px';
             window.location = "aftermatch.xhtml";
         }
-        //esto es con la claridad en tipo ol
-        /*const meteor = document.getElementById("meteor");
-        const computedStyles = window.getComputedStyle(meteor);
-        console.log(`computedStyles.left = ${computedStyles.left}`);
-        meteor.style.left = (parseInt(computedStyles.left, 10) + 55) + "px";
-        
-        if ((parseInt(computedStyles.left, 10)) >= 750) {
-            window.location = "aftermatch.xhtml";
-        }
-        */
     }
 
     getRandomCard() {
@@ -126,6 +135,7 @@ class Player {
         this.colum = FIRST;
         this.currentCell = document.querySelector('td[data-row="0"][data-col="0"]');
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
+        this.previusCell = this.currentCell;
     }
 
     configurePlayer(key) {
@@ -207,7 +217,6 @@ class Player {
         // ToDo: check whether the new cell is inhabit for another dinosaur or if it
         // contains a geyser.
         const newCell = this.findCellForPlayersNewPosition();
-        console.log(newCell.className);
         let playerAvatar = null;
         const thereIsAnElementInTheCell = this.currentCell.childElementCount > 1;
         if (thereIsAnElementInTheCell) {
@@ -217,6 +226,8 @@ class Player {
         }
         this.currentCell.removeChild(playerAvatar);
         newCell.appendChild(playerAvatar);
+        let color = newCell.className;
+        console.log('Mov', color);
         this.currentCell = newCell;
     }
 }
@@ -226,8 +237,6 @@ function getListPlayers() {
     const playerList = [];
     for (let i = 0; i < JSON.parse(localStorage.getItem("players-quantity")); i++) {
         const player = new Player();
-        console.log("Funcion global");
-        console.log(i);
         player.configurePlayer(i);
         playerList.push(player);
     }
@@ -235,33 +244,101 @@ function getListPlayers() {
 }
 const GEYSERLIST = [];
 const CELLS = 36;
+const EGGLIST = [];
+const SEELIST = [];
 
-//Falta
+function randomCell() {
+    let num = [0, 2, 4, 6];
+    let row;
+    let col;
+    row = Math.floor(Math.random() * 8);
+    if (row === 0) {
+        num.push(3);
+        num.push(7);
+        col = num[Math.floor(Math.random() * 6)]
+    } else if (row === 7) {
+        num.push(1);
+        num.push(5);
+        col = num[Math.floor(Math.random() * 6)]
+    } else {
+        col = num[Math.floor(Math.random() * 4)]
+    }
+    return document.querySelector(`td[data-row="${row}"][data-col="${col}"]`);
+}
+//
 function createGeyser() {
-    let num = (localStorage.getItem('Geysers'));
-    num = JSON.parse(num);
-    const geyserTotal = (num * CELLS) / 100;
-    //posiciones iniciales
-    let posLeft = 60;
-    let posTop = 100;
+    const geyserTotal = JSON.parse(localStorage.getItem('Geysers'));
+    //num = JSON.parse(num);
+    // const geyserTotal = (num * CELLS) / 100;
+
     for (let i = 0; i < geyserTotal; i++) {
-        //crea imagenes con estilos
+        //create geysers
         let mine = document.createElement("img");
         mine.src = 'icons/geyser.svg';
-        mine.width = '50';
+        mine.width = '60';
         mine.style.position = 'absolute';
-        mine.style.display = 'block';
-        //Asignar posiciones
-        mine.style.left = posLeft + "px";
-        mine.style.top = posTop + 'px';
-        posTop += 50;
-        posLeft += 50;
-        //
-        var wrapper = document.getElementById('board-body');
-        wrapper.appendChild(mine);
+        //Asign positions
+        let newCell = this.randomCell();
+        while (newCell.children.length !== 0) {
+            newCell = this.randomCell();
+        }
+        newCell.appendChild(mine);
+        const computedStyles = window.getComputedStyle(mine);
+        mine.style.top = (parseInt(computedStyles.top, 10) - 25) + "px";
+        mine.style.left = (parseInt(computedStyles.left, 10) + 20) + "px";
+        mine.style.display = 'none';
         GEYSERLIST.push(mine);
     }
 }
+
+function createEggs() {
+    const eggsTotal = JSON.parse(localStorage.getItem('Eggs'));
+    //num = JSON.parse(num);
+    // const eggsTotal = (num * CELLS) / 100;
+
+    for (let i = 0; i < eggsTotal; i++) {
+        //create egg
+        let egg = document.createElement("img");
+        egg.src = 'icons/egg.svg';
+        egg.width = '50';
+        egg.style.position = 'absolute';
+        //Asign positions
+        let newCell = this.randomCell();
+        while (newCell.children.length !== 0) {
+            newCell = this.randomCell();
+        }
+        newCell.appendChild(egg);
+        const computedStyles = window.getComputedStyle(egg);
+        egg.style.top = (parseInt(computedStyles.top, 10) - 20) + "px";
+        egg.style.left = (parseInt(computedStyles.left, 10) + 22) + "px";
+        egg.style.display = 'none';
+        EGGLIST.push(egg);
+    }
+}
+
+function createBino() {
+    const binoTotal = JSON.parse(localStorage.getItem('Binoculars'));
+
+    for (let i = 0; i < binoTotal; i++) {
+        //create Binoculars
+        let bino = document.createElement("img");
+        bino.src = 'icons/see.svg';
+        bino.width = '50';
+        bino.style.position = 'absolute';
+        //Asign positions
+        let newCell = this.randomCell();
+        while (newCell.children.length !== 0) {
+            newCell = this.randomCell();
+        }
+        newCell.appendChild(bino);
+        const computedStyles = window.getComputedStyle(bino);
+        bino.style.top = (parseInt(computedStyles.top, 10) - 25) + "px";
+        bino.style.left = (parseInt(computedStyles.left, 10) + 22) + "px";
+        bino.style.display = 'none';
+        SEELIST.push(bino);
+    }
+}
+
 
 function main() {
     const playersCards = new PlayersCards();
@@ -270,6 +347,8 @@ function main() {
     //const player = new Player();
     //player.configurePlayer();
     createGeyser();
+    createEggs();
+    createBino();
 
 }
 

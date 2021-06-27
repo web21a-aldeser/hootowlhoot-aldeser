@@ -96,10 +96,10 @@ class PlayerList {
                 const inputIsEmpty = input === '';
                 if (!inputIsEmpty) {
                     playersNameElement.innerHTML = input;
-                    name = input;
+                    this.name = input;
                     //actualizar localstorage
                     updateName(index, name);
-                    this.players[index].name = name;
+                    this.players[index].name = this.name;
                     parentElementOfPlayersNameElement.replaceChild(playersNameElement,
                         containerForPlayersNameInputWithButton);
                     playersNameElement.style.display = 'block';
@@ -230,8 +230,31 @@ class WaitingRoom {
         this.avatarSelector = new AvatarSelector(this.playersList);
 
     }
+    sliders() {
 
+        var slider1 = document.getElementById("geyser-probability");
+        var output1 = document.getElementById("geyser");
+        output1.innerHTML = slider1.value;
+        slider1.oninput = function() {
+            output1.innerHTML = this.value;
+        }
+        console.log("alooo");
+        var slider2 = document.getElementById("eggs-probability");
+        var output2 = document.getElementById("eggs");
+        output2.innerHTML = slider2.value;
+        slider2.oninput = function() {
+            output2.innerHTML = this.value;
+        }
+
+        var slider3 = document.getElementById("binoculars-probability");
+        var output3 = document.getElementById("binoculars");
+        output3.innerHTML = slider3.value;
+        slider3.oninput = function() {
+            output3.innerHTML = this.value;
+        }
+    }
     configure() {
+        this.sliders();
         this.avatarSelector.configure();
         this.playerList.configurePlayersList(this.avatarSelector);
         let options = [];
