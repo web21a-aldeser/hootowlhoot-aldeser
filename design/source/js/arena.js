@@ -14,19 +14,40 @@ const CARDS = [
     'icons/cards/green.svg',
     'icons/cards/orange.svg',
     'icons/cards/purple.svg',
-    'icons/cards/meteorite.svg'
+    'icons/cards/meteorite.svg',
 ];
 
 class PlayersCards {
     constructor() {
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
         this.player = new Player();
-
     }
 
     configurePlayersCards() {
         this.setFirstTurn();
         this.setupEventsForCards();
+    }
+
+    events(src) {
+        if (src.indexOf('see') !== -1) {
+            // this.player.previusCell = this.player.currentCell;
+            // search next 
+            const audio1 = new Audio('sounds/achivement.wav');
+            audio1.play();
+        } else if (src.indexOf('egg') !== -1) {
+            // this.turn = this.player.name;
+            const audio2 = new Audio('sounds/achivement.wav');
+            audio2.play();
+        } else if (src.indexOf('geyser') !== -1) {
+            this.player.currentCell.removeChild(this.player.avatar);
+            this.player.previusCell.appendChild(this.player.avatar);
+            this.player.currentCell = this.player.previusCell;
+            this.player.row = this.player.prevRow;
+            this.player.colum = this.player.prevCol;
+            // unvalidate cell
+            const audio3 = new Audio('sounds/explosion.wav');
+            audio3.play();
+        }
     }
 
     setupEventsForCards() {
@@ -37,34 +58,24 @@ class PlayersCards {
                 const card = playersCards.children[j];
                 card.addEventListener('click', () => {
                     // ToDo: Implement logic to move dinosaur.
-                    if (card.src.indexOf('meteorite') != -1) {
+                    if (card.src.indexOf('meteorite') !== -1) {
                         this.meteorite();
                     } else {
                         let color = this.player.currentCell.className;
                         this.player.previusCell = this.player.currentCell;
-                        console.log('principio', this.player.currentCell);
                         do {
                             this.player.move();
                             color = this.player.currentCell.className;
-                            console.log(color);
-                        } while (card.src.indexOf(color) === -1)
-                        if (this.player.currentCell.children[0].src !== null) {
+                        } while (card.src.indexOf(color) === -1);
+
+                        if (this.player.currentCell.children[0].src != null) {
                             this.player.currentCell.children[0].style.display = 'block';
-                        }
-                        /* let avatar = this.player.currentCell.children[1];
-                            this.player.currentCell.removeChild(avatar);
-                            this.player.previusCell.appendChild(avatar);
-                            this.player.currentCell = this.player.previusCell;
-                            console.log('salioGeyx2', this.player.previusCell);
-
-                            console.log('salioGey', this.player.currentCell);
+                            this.events(this.player.currentCell.children[0].src);
                         } else {
-                            console.log('Current', this.player.currentCell);
                             this.player.previusCell = this.player.currentCell;
-                            console.log('PreviusFine', this.player.previusCell);
-
                         }
-                        */
+                        this.player.prevCol = this.player.colum;
+                        this.player.prevRow = this.player.row;
                     }
                     this.chageTurn(i);
                     card.src = this.getRandomCard();
@@ -74,33 +85,33 @@ class PlayersCards {
     }
 
     setFirstTurn() {
-        let turn = document.getElementById('turn');
-        let retrive = localStorage.getItem(0);
-        let values = JSON.parse(retrive);
+        const turn = document.getElementById('turn');
+        const retrive = localStorage.getItem(0);
+        const values = JSON.parse(retrive);
         turn.innerText = values[0];
     }
 
     chageTurn(index) {
-        let turn = document.getElementById('turn');
-        let playersLength = JSON.parse(localStorage.getItem("players-quantity"));
-        playersLength = playersLength - 1;
+        const turn = document.getElementById('turn');
+        let playersLength = JSON.parse(localStorage.getItem('players-quantity'));
+        playersLength -= 1;
         if (index < playersLength) {
-            this.index++;
+            this.index += 1;
         } else {
             this.index = 0;
         }
 
-        let retrive = localStorage.getItem(index);
-        let values = JSON.parse(retrive);
+        const retrive = localStorage.getItem(index);
+        const values = JSON.parse(retrive);
         turn.innerText = values[0];
     }
 
     meteorite() {
-        const proximity = document.getElementById("clarity");
-        let elements = proximity.children;
-        const meteor = document.getElementById("meteor");
+        const proximity = document.getElementById('clarity');
+        const elements = proximity.children;
+        const meteor = document.getElementById('meteor');
         let index;
-        for (let i = 0; i < elements.length; i++) {
+        for (let i = 0; i < elements.length; i += 1) {
             if (elements[i].children.length === 1) {
                 index = i;
             }
@@ -109,10 +120,10 @@ class PlayersCards {
             elements[index].removeChild(meteor);
             elements[index + 1].appendChild(meteor);
         } else {
-            meteor.style.position = "absolute";
-            meteor.style.left = "850px";
+            meteor.style.position = 'absolute';
+            meteor.style.left = '850px';
             meteor.style.top = '100px';
-            window.location = "aftermatch.xhtml";
+            window.location = 'aftermatch.xhtml';
         }
     }
 
@@ -136,21 +147,23 @@ class Player {
         this.currentCell = document.querySelector('td[data-row="0"][data-col="0"]');
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
         this.previusCell = this.currentCell;
+        this.avatar = this.currentCell.children.item(0);
+        this.prevRow = this.row;
+        this.prevCol = this.colum;
     }
 
+    // Configure avatar and name in player box
     configurePlayer(key) {
-
         const playerName = this.tableBodyElement.children.item(FIRST).children.item(SECOND);
         const playerDino = this.tableBodyElement.children.item(FIRST).children.item(FIRST).children[FIRST];
-        let retrive = localStorage.getItem(parseInt(key));
-        let values = JSON.parse(retrive);
-        playerName.innerHTML = values[0];
-        playerDino.src = values[1];
-        this.player.children[0].src = values[1];
-
+        const retrive = localStorage.getItem(parseInt(key, 10));
+        const values = JSON.parse(retrive);
+        playerName.innerHTML = values[FIRST];
+        playerDino.src = values[SECOND];
+        this.player.children[FIRST].src = values[SECOND];
     }
-    move() {
 
+    move() {
         const downwardsMovement = this.colum === 0 || this.colum === 4;
         const upwardsMovement = this.colum === 2 || this.colum === 6;
         const rightwardsMovementBottom = this.row === 7;
@@ -217,25 +230,18 @@ class Player {
         // ToDo: check whether the new cell is inhabit for another dinosaur or if it
         // contains a geyser.
         const newCell = this.findCellForPlayersNewPosition();
-        let playerAvatar = null;
-        const thereIsAnElementInTheCell = this.currentCell.childElementCount > 1;
-        if (thereIsAnElementInTheCell) {
-            playerAvatar = this.currentCell.children.item(1);
-        } else {
-            playerAvatar = this.currentCell.children.item(0);
-        }
-        this.currentCell.removeChild(playerAvatar);
-        newCell.appendChild(playerAvatar);
-        let color = newCell.className;
-        console.log('Mov', color);
+        this.currentCell.removeChild(this.avatar);
+        newCell.appendChild(this.avatar);
         this.currentCell = newCell;
+        if (this.currentCell === document.getElementById('final')) {
+            window.location = 'aftermatch.xhtml';
+        }
     }
 }
 
-
 function getListPlayers() {
     const playerList = [];
-    for (let i = 0; i < JSON.parse(localStorage.getItem("players-quantity")); i++) {
+    for (let i = 0; i < JSON.parse(localStorage.getItem('players-quantity')); i += 1) {
         const player = new Player();
         player.configurePlayer(i);
         playerList.push(player);
@@ -243,49 +249,47 @@ function getListPlayers() {
     return playerList;
 }
 const GEYSERLIST = [];
-const CELLS = 36;
 const EGGLIST = [];
 const SEELIST = [];
 
 function randomCell() {
-    let num = [0, 2, 4, 6];
-    let row;
+    const num = [0, 2, 4, 6];
     let col;
-    row = Math.floor(Math.random() * 8);
+    const row = Math.floor(Math.random() * 8);
     if (row === 0) {
         num.push(3);
         num.push(7);
-        col = num[Math.floor(Math.random() * 6)]
+        col = num[Math.floor(Math.random() * 6)];
     } else if (row === 7) {
         num.push(1);
         num.push(5);
-        col = num[Math.floor(Math.random() * 6)]
+        col = num[Math.floor(Math.random() * 6)];
     } else {
-        col = num[Math.floor(Math.random() * 4)]
+        col = num[Math.floor(Math.random() * 4)];
     }
     return document.querySelector(`td[data-row="${row}"][data-col="${col}"]`);
 }
 //
 function createGeyser() {
     const geyserTotal = JSON.parse(localStorage.getItem('Geysers'));
-    //num = JSON.parse(num);
+    // num = JSON.parse(num);
     // const geyserTotal = (num * CELLS) / 100;
 
-    for (let i = 0; i < geyserTotal; i++) {
-        //create geysers
-        let mine = document.createElement("img");
+    for (let i = 0; i < geyserTotal; i += 1) {
+        // create geysers
+        const mine = document.createElement('img');
         mine.src = 'icons/geyser.svg';
         mine.width = '60';
         mine.style.position = 'absolute';
-        //Asign positions
+        // Asign positions
         let newCell = this.randomCell();
         while (newCell.children.length !== 0) {
             newCell = this.randomCell();
         }
         newCell.appendChild(mine);
         const computedStyles = window.getComputedStyle(mine);
-        mine.style.top = (parseInt(computedStyles.top, 10) - 25) + "px";
-        mine.style.left = (parseInt(computedStyles.left, 10) + 20) + "px";
+        mine.style.top = `${parseInt(computedStyles.top, 10) - 25}px`;
+        mine.style.left = `${parseInt(computedStyles.left, 10) + 20}px`;
         mine.style.display = 'none';
         GEYSERLIST.push(mine);
     }
@@ -293,24 +297,24 @@ function createGeyser() {
 
 function createEggs() {
     const eggsTotal = JSON.parse(localStorage.getItem('Eggs'));
-    //num = JSON.parse(num);
+    // num = JSON.parse(num);
     // const eggsTotal = (num * CELLS) / 100;
 
-    for (let i = 0; i < eggsTotal; i++) {
-        //create egg
-        let egg = document.createElement("img");
+    for (let i = 0; i < eggsTotal; i += 1) {
+        // create egg
+        const egg = document.createElement('img');
         egg.src = 'icons/egg.svg';
         egg.width = '50';
         egg.style.position = 'absolute';
-        //Asign positions
+        // Asign positions
         let newCell = this.randomCell();
         while (newCell.children.length !== 0) {
             newCell = this.randomCell();
         }
         newCell.appendChild(egg);
         const computedStyles = window.getComputedStyle(egg);
-        egg.style.top = (parseInt(computedStyles.top, 10) - 20) + "px";
-        egg.style.left = (parseInt(computedStyles.left, 10) + 22) + "px";
+        egg.style.top = `${parseInt(computedStyles.top, 10) - 20}px`;
+        egg.style.left = `${parseInt(computedStyles.left, 10) + 22}px`;
         egg.style.display = 'none';
         EGGLIST.push(egg);
     }
@@ -319,37 +323,35 @@ function createEggs() {
 function createBino() {
     const binoTotal = JSON.parse(localStorage.getItem('Binoculars'));
 
-    for (let i = 0; i < binoTotal; i++) {
-        //create Binoculars
-        let bino = document.createElement("img");
+    for (let i = 0; i < binoTotal; i += 1) {
+        // create Binoculars
+        const bino = document.createElement('img');
         bino.src = 'icons/see.svg';
         bino.width = '50';
         bino.style.position = 'absolute';
-        //Asign positions
+        // Asign positions
         let newCell = this.randomCell();
         while (newCell.children.length !== 0) {
             newCell = this.randomCell();
         }
         newCell.appendChild(bino);
         const computedStyles = window.getComputedStyle(bino);
-        bino.style.top = (parseInt(computedStyles.top, 10) - 25) + "px";
-        bino.style.left = (parseInt(computedStyles.left, 10) + 22) + "px";
+        bino.style.top = `${parseInt(computedStyles.top, 10) - 25}px`;
+        bino.style.left = `${parseInt(computedStyles.left, 10) + 22}px`;
         bino.style.display = 'none';
         SEELIST.push(bino);
     }
 }
 
-
 function main() {
     const playersCards = new PlayersCards();
     playersCards.configurePlayersCards();
     const playerList = this.getListPlayers();
-    //const player = new Player();
-    //player.configurePlayer();
+    // const player = new Player();
+    // player.configurePlayer();
     createGeyser();
     createEggs();
     createBino();
-
 }
 
 window.addEventListener('load', main);
