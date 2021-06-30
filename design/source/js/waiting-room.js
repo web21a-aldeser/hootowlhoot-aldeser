@@ -10,7 +10,6 @@ class Player {
         this.name = name;
         this.avatar = avatar;
         this.key = key;
-
     }
 }
 
@@ -35,7 +34,6 @@ class PlayerList {
     configurePlayersList(avatarSelector) {
         this.retrieveDataFromPlayersTable();
         this.setupEventsForPlayersList(avatarSelector);
-
     }
 
     retrieveDataFromPlayersTable() {
@@ -52,12 +50,11 @@ class PlayerList {
                 row.cells.item(PLAYER_NAME_POS).id, name, dino, index);
             this.addPlayerToList(player);
         }
-        //localStorage.setItem('players-lenght', JSON.stringify(this.players.length));
+        // localStorage.setItem('players-lenght', JSON.stringify(this.players.length));
     }
 
     addPlayerToList(player) {
         this.players.push(player);
-
     }
 
     setupEventsForPlayersList(avatarSelector) {
@@ -68,7 +65,7 @@ class PlayerList {
                 avatarSelector.setPlayerAvatar(this.players[index].avatarId, index);
             });
             this.setUpEventForPlayersNameElement(this.players[index].nameElement, this.players[index].name, index);
-            passListPlayers(this.players)
+            passListPlayers(this.players);
         }
     }
     setUpEventForPlayersNameElement(playersNameElement, name, index) {
@@ -96,15 +93,13 @@ class PlayerList {
                 const inputIsEmpty = input === '';
                 if (!inputIsEmpty) {
                     playersNameElement.innerHTML = input;
-                    this.name = input;
-                    //actualizar localstorage
+                    name = input;
+                    // actualizar localstorage
                     updateName(index, name);
-                    this.players[index].name = this.name;
+                    this.players[index].name = name;
                     parentElementOfPlayersNameElement.replaceChild(playersNameElement,
                         containerForPlayersNameInputWithButton);
                     playersNameElement.style.display = 'block';
-
-
                 } else {
                     inputForPlayerName.placeholder = NAME_REQUIRED;
                     inputForPlayerName.classList.add('input-error', 'text-error');
@@ -180,7 +175,7 @@ class AvatarSelector {
                 console.log("boton de dinos");
                 console.log(this.element.dataset.key);
                 updateAvatar(this.element.dataset.key, avatarImagePath);
-                //this.playersList[this.element.dataset.key].avatar = avatarImagePath;
+                // this.playersList[this.element.dataset.key].avatar = avatarImagePath;
             });
         }
     }
@@ -207,7 +202,6 @@ function updateName(index, name) {
     items.push(name);
     items.push(avatar[1]);
     localStorage.setItem(index, JSON.stringify(items));
-
 }
 
 function updateAvatar(index, avatar) {
@@ -217,7 +211,6 @@ function updateAvatar(index, avatar) {
     items.push(name[0]);
     items.push(avatar);
     localStorage.setItem(index, JSON.stringify(items));
-
 }
 const PLAYER_TABLE_ID = 'players-list-table';
 
@@ -228,30 +221,29 @@ class WaitingRoom {
     constructor() {
         this.playerList = new PlayerList(PLAYER_TABLE_ID);
         this.avatarSelector = new AvatarSelector(this.playersList);
-
     }
-    sliders() {
 
+    sliders() {
         var slider1 = document.getElementById("geyser-probability");
         var output1 = document.getElementById("geyser");
         output1.innerHTML = slider1.value;
         slider1.oninput = function() {
             output1.innerHTML = this.value;
-        }
+        };
         console.log("alooo");
         var slider2 = document.getElementById("eggs-probability");
         var output2 = document.getElementById("eggs");
         output2.innerHTML = slider2.value;
         slider2.oninput = function() {
             output2.innerHTML = this.value;
-        }
+        };
 
         var slider3 = document.getElementById("binoculars-probability");
         var output3 = document.getElementById("binoculars");
         output3.innerHTML = slider3.value;
         slider3.oninput = function() {
             output3.innerHTML = this.value;
-        }
+        };
     }
     configure() {
         this.sliders();
@@ -259,9 +251,8 @@ class WaitingRoom {
         this.playerList.configurePlayersList(this.avatarSelector);
         let options = [];
 
-        //When the match is starting it saves the configuration of the settings
+        // When the match is starting it saves the configuration of the settings
         document.getElementById('start-match-button').addEventListener('click', () => {
-
             options.push(document.getElementById('geyser-probability').value);
             options.push(document.getElementById('eggs-probability').value);
             options.push(document.getElementById('binoculars-probability').value);
@@ -271,14 +262,11 @@ class WaitingRoom {
             window.location = "arena.xhtml";
         });
     }
-
-
 }
 
 function main() {
     const waitingRoom = new WaitingRoom();
     waitingRoom.configure();
-
 }
 
 window.addEventListener('load', main);
