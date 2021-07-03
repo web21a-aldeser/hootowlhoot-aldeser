@@ -60,7 +60,7 @@
 }
 
 .board {
-    border-spacing: 1;
+    border-spacing: 1px;
     border-collapse: collapse;
     display: inline;
     position: relative;
@@ -138,7 +138,7 @@
     border: 2px outset gray;
     float: left;
     line-height: 24px;
-    margin-right: 50px;
+    margin-right: 30px;
     padding: 5px;
     position: relative;
 }
