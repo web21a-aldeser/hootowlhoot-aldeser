@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 class Player {
     constructor(avatarId, nameId, name, avatar, key) {
         this.avatarId = avatarId;
@@ -38,10 +39,10 @@ export default class PlayerList {
 
         for (let index = 0; index < players.length; index += 1) {
             const row = players.item(index);
-            let avatarHolder = document.getElementById(row.cells.item(PLAYER_AVATAR_POS).id);
-            let dino = avatarHolder.children[0].children[0].src;
-            let nameHolder = document.getElementById(row.cells.item(PLAYER_NAME_POS).id);
-            let name = nameHolder.textContent;
+            const avatarHolder = document.getElementById(row.cells.item(PLAYER_AVATAR_POS).id);
+            const dino = avatarHolder.children[0].children[0].src;
+            const nameHolder = document.getElementById(row.cells.item(PLAYER_NAME_POS).id);
+            const name = nameHolder.textContent;
 
             const player = new Player(row.cells.item(PLAYER_AVATAR_POS).id,
                 row.cells.item(PLAYER_NAME_POS).id, name, dino, index);
@@ -55,9 +56,9 @@ export default class PlayerList {
     }
 
     updateName(index, name) {
-        let items = [];
-        let lista = localStorage.getItem(index);
-        let avatar = JSON.parse(lista);
+        const items = [];
+        const lista = localStorage.getItem(index);
+        const avatar = JSON.parse(lista);
         items.push(name);
         items.push(avatar[1]);
         localStorage.setItem(index, JSON.stringify(items));
@@ -71,7 +72,7 @@ export default class PlayerList {
             items.push(players[i].avatar);
             localStorage.setItem(i, JSON.stringify(items));
         }
-        localStorage.setItem("players-quantity", JSON.stringify(players.length));
+        localStorage.setItem('players-quantity', JSON.stringify(players.length));
     }
 
     setupEventsForPlayersList(avatarSelector) {
@@ -81,6 +82,7 @@ export default class PlayerList {
                 avatarSelector.setPlayersAvatarId(this.players[index].avatarId);
                 avatarSelector.setPlayerAvatar(this.players[index].avatarId, index);
             });
+            // eslint-disable-next-line max-len
             this.setUpEventForPlayersNameElement(this.players[index].nameElement, this.players[index].name, index);
             this.passListPlayers(this.players);
         }
@@ -111,10 +113,10 @@ export default class PlayerList {
                 const inputIsEmpty = input === '';
                 if (!inputIsEmpty) {
                     playersNameElement.innerHTML = input;
-                    name = input;
+                    // name = input;
                     // actualizar localstorage
-                    this.updateName(index, name);
-                    this.players[index].name = name;
+                    this.updateName(index, input);
+                    this.players[index].name = input;
                     parentElementOfPlayersNameElement.replaceChild(playersNameElement,
                         containerForPlayersNameInputWithButton);
                     playersNameElement.style.display = 'block';

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 const PLAYERS_CARDS_TABLE_ID = 'players-cards';
 const CARDS_CELL = 2;
 const CARDS_COUNT = 3;
@@ -35,6 +36,7 @@ class Player {
     // Configure avatar and name in player box
     configurePlayer(key) {
         const playerName = this.tableBodyElement.children.item(FIRST).children.item(SECOND);
+        // eslint-disable-next-line max-len
         const playerDino = this.tableBodyElement.children.item(FIRST).children.item(FIRST).children[FIRST];
         const retrive = localStorage.getItem(parseInt(key, 10));
         const values = JSON.parse(retrive);
@@ -157,7 +159,7 @@ class PlayersCards {
             // search next
             this.showGeysers();
             const list = this.currentList;
-            setTimeout(function() {
+            setTimeout(() => {
                 for (let i = 0; i < list.length; i += 1) {
                     list[i].style.display = 'none';
                 }

@@ -1,3 +1,12 @@
+const AVATAR_SELECTION_ID = 'avatar-selection';
+const AVATAR_SELECTION_TABLE_ID = 'avatar-selection-table';
+const AVATAR_IMAGE_CELL = 1;
+const AVATAR_IMAGE_POS = 0;
+const AVATAR_BUTTON_CELL = 0;
+const AVATAR_SELECTION_BUTTON = 0;
+const PLAYERS_AVATAR_CELL = 0;
+const PLAYERS_AVATAR_BUTTON = 0;
+
 export default class AvatarSelector {
     constructor(playersList) {
         this.element = document.getElementById(AVATAR_SELECTION_ID);
@@ -24,7 +33,7 @@ export default class AvatarSelector {
     }
 
     setPlayerAvatar(id, index) {
-        let temp = document.getElementById(id);
+        const temp = document.getElementById(id);
         this.element.dataset.avatar = temp.children[0].children[0].src;
         this.element.dataset.key = index;
     }
@@ -44,22 +53,22 @@ export default class AvatarSelector {
                 .children[AVATAR_IMAGE_CELL]
                 .children.item(AVATAR_IMAGE_POS).src;
 
-
             avatarSelectionButton.addEventListener('click', () => {
                 document.getElementById(this.element.dataset.avatarId)
                     .children[PLAYERS_AVATAR_CELL]
                     .children[PLAYERS_AVATAR_BUTTON].src = avatarImagePath;
                 console.log(this.element.dataset.key);
-                updateAvatar(this.element.dataset.key, avatarImagePath);
+                this.updateAvatar(this.element.dataset.key, avatarImagePath);
                 // this.playersList[this.element.dataset.key].avatar = avatarImagePath;
             });
         }
     }
 
+    // eslint-disable-next-line class-methods-use-this
     updateAvatar(index, avatar) {
-        let items = [];
-        let lista = localStorage.getItem(index);
-        let name = JSON.parse(lista);
+        const items = [];
+        const lista = localStorage.getItem(index);
+        const name = JSON.parse(lista);
         items.push(name[0]);
         items.push(avatar);
         localStorage.setItem(index, JSON.stringify(items));

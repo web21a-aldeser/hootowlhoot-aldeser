@@ -1,3 +1,5 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable func-names */
 /**
  * Player/Rivals class
  */
@@ -41,10 +43,10 @@ class PlayerList {
 
         for (let index = 0; index < players.length; index += 1) {
             const row = players.item(index);
-            let avatarHolder = document.getElementById(row.cells.item(PLAYER_AVATAR_POS).id);
-            let dino = avatarHolder.children[0].children[0].src;
-            let nameHolder = document.getElementById(row.cells.item(PLAYER_NAME_POS).id);
-            let name = nameHolder.textContent;
+            const avatarHolder = document.getElementById(row.cells.item(PLAYER_AVATAR_POS).id);
+            const dino = avatarHolder.children[0].children[0].src;
+            const nameHolder = document.getElementById(row.cells.item(PLAYER_NAME_POS).id);
+            const name = nameHolder.textContent;
 
             const player = new Player(row.cells.item(PLAYER_AVATAR_POS).id,
                 row.cells.item(PLAYER_NAME_POS).id, name, dino, index);
@@ -57,6 +59,17 @@ class PlayerList {
         this.players.push(player);
     }
 
+    passListPlayers(players) {
+        localStorage.clear();
+        for (let i = 0; i < players.length; i += 1) {
+            const items = [];
+            items.push(players[i].name);
+            items.push(players[i].avatar);
+            localStorage.setItem(i, JSON.stringify(items));
+        }
+        localStorage.setItem('players-quantity', JSON.stringify(players.length));
+    }
+
     setupEventsForPlayersList(avatarSelector) {
         for (let index = 0; index < this.players.length; index += 1) {
             this.players[index].avatarElement.addEventListener('click', () => {
@@ -64,9 +77,19 @@ class PlayerList {
                 avatarSelector.setPlayersAvatarId(this.players[index].avatarId);
                 avatarSelector.setPlayerAvatar(this.players[index].avatarId, index);
             });
+            // eslint-disable-next-line max-len
             this.setUpEventForPlayersNameElement(this.players[index].nameElement, this.players[index].name, index);
-            passListPlayers(this.players);
+            this.passListPlayers(this.players);
         }
+    }
+
+    updateName(index, name) {
+        const items = [];
+        const lista = localStorage.getItem(index);
+        const avatar = JSON.parse(lista);
+        items.push(name);
+        items.push(avatar[1]);
+        localStorage.setItem(index, JSON.stringify(items));
     }
 
     setUpEventForPlayersNameElement(playersNameElement, name, index) {
@@ -94,10 +117,10 @@ class PlayerList {
                 const inputIsEmpty = input === '';
                 if (!inputIsEmpty) {
                     playersNameElement.innerHTML = input;
-                    name = input;
+                    // name = input;
                     // actualizar localstorage
-                    updateName(index, name);
-                    this.players[index].name = name;
+                    this.updateName(index, input);
+                    this.players[index].name = input;
                     parentElementOfPlayersNameElement.replaceChild(playersNameElement,
                         containerForPlayersNameInputWithButton);
                     playersNameElement.style.display = 'block';
@@ -148,13 +171,22 @@ class AvatarSelector {
     }
 
     setPlayerAvatar(id, index) {
-        let temp = document.getElementById(id);
+        const temp = document.getElementById(id);
         this.element.dataset.avatar = temp.children[0].children[0].src;
         this.element.dataset.key = index;
     }
 
     configure() {
         this.setupEvents();
+    }
+
+    updateAvatar(index, avatar) {
+        const items = [];
+        const lista = localStorage.getItem(index);
+        const name = JSON.parse(lista);
+        items.push(name[0]);
+        items.push(avatar);
+        localStorage.setItem(index, JSON.stringify(items));
     }
 
     setupEvents() {
@@ -169,50 +201,18 @@ class AvatarSelector {
                 .children.item(AVATAR_IMAGE_POS).src;
 
 
+            // eslint-disable-next-line no-loop-func
             avatarSelectionButton.addEventListener('click', () => {
                 document.getElementById(this.element.dataset.avatarId)
                     .children[PLAYERS_AVATAR_CELL]
                     .children[PLAYERS_AVATAR_BUTTON].src = avatarImagePath;
-                console.log("boton de dinos");
-                console.log(this.element.dataset.key);
-                updateAvatar(this.element.dataset.key, avatarImagePath);
+                this.updateAvatar(this.element.dataset.key, avatarImagePath);
                 // this.playersList[this.element.dataset.key].avatar = avatarImagePath;
             });
         }
     }
 }
 
-
-function passListPlayers(players) {
-    localStorage.clear();
-    for (let i = 0; i < players.length; i += 1) {
-        const items = [];
-        items.push(players[i].name);
-        items.push(players[i].avatar);
-        localStorage.setItem(i, JSON.stringify(items));
-    }
-    localStorage.setItem("players-quantity", JSON.stringify(players.length));
-}
-/**
- *Local Storage functions
- */
-function updateName(index, name) {
-    let items = [];
-    let lista = localStorage.getItem(index);
-    let avatar = JSON.parse(lista);
-    items.push(name);
-    items.push(avatar[1]);
-    localStorage.setItem(index, JSON.stringify(items));
-}
-
-function updateAvatar(index, avatar) {
-    let items = [];
-    let lista = localStorage.getItem(index);
-    let name = JSON.parse(lista);
-    items.push(name[0]);
-    items.push(avatar);
-    localStorage.setItem(index, JSON.stringify(items));
-}
 const PLAYER_TABLE_ID = 'players-list-table';
 
 /**
@@ -222,24 +222,24 @@ class WaitingRoom {
     constructor() {
         this.playerList = new PlayerList(PLAYER_TABLE_ID);
         this.avatarSelector = new AvatarSelector(this.playersList);
-        this.slider1 = document.getElementById("geyser-probability");
+        this.slider1 = document.getElementById('geyser-probability');
     }
 
     sliders() {
-        const output1 = document.getElementById("geyser");
+        const output1 = document.getElementById('geyser');
         output1.innerHTML = this.slider1.value;
         this.slider1.oninput = function() {
             output1.innerHTML = this.value;
         };
-        var slider2 = document.getElementById("eggs-probability");
-        var output2 = document.getElementById("eggs");
+        const slider2 = document.getElementById('eggs-probability');
+        const output2 = document.getElementById('eggs');
         output2.innerHTML = slider2.value;
         slider2.oninput = function() {
             output2.innerHTML = this.value;
         };
 
-        var slider3 = document.getElementById("binoculars-probability");
-        var output3 = document.getElementById("binoculars");
+        const slider3 = document.getElementById('binoculars-probability');
+        const output3 = document.getElementById('binoculars');
         output3.innerHTML = slider3.value;
         slider3.oninput = function() {
             output3.innerHTML = this.value;
@@ -250,7 +250,7 @@ class WaitingRoom {
         this.sliders();
         this.avatarSelector.configure();
         this.playerList.configurePlayersList(this.avatarSelector);
-        let options = [];
+        const options = [];
 
         // When the match is starting it saves the configuration of the settings
         document.getElementById('start-match-button').addEventListener('click', () => {
@@ -260,7 +260,7 @@ class WaitingRoom {
             localStorage.setItem('Geysers', JSON.stringify(options[0]));
             localStorage.setItem('Eggs', JSON.stringify(options[1]));
             localStorage.setItem('Binoculars', JSON.stringify(options[2]));
-            window.location = "arena.xhtml";
+            window.location = 'arena.xhtml';
         });
     }
 }
