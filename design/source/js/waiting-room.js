@@ -1,5 +1,5 @@
 /**
- * Player class
+ * Player/Rivals class
  */
 class Player {
     constructor(avatarId, nameId, name, avatar, key) {
@@ -68,6 +68,7 @@ class PlayerList {
             passListPlayers(this.players);
         }
     }
+
     setUpEventForPlayersNameElement(playersNameElement, name, index) {
         playersNameElement.addEventListener('click', () => {
             const parentElementOfPlayersNameElement = playersNameElement.parentElement;
@@ -184,8 +185,8 @@ class AvatarSelector {
 
 function passListPlayers(players) {
     localStorage.clear();
-    for (let i = 0; i < players.length; i++) {
-        let items = [];
+    for (let i = 0; i < players.length; i += 1) {
+        const items = [];
         items.push(players[i].name);
         items.push(players[i].avatar);
         localStorage.setItem(i, JSON.stringify(items));
@@ -221,16 +222,15 @@ class WaitingRoom {
     constructor() {
         this.playerList = new PlayerList(PLAYER_TABLE_ID);
         this.avatarSelector = new AvatarSelector(this.playersList);
+        this.slider1 = document.getElementById("geyser-probability");
     }
 
     sliders() {
-        var slider1 = document.getElementById("geyser-probability");
-        var output1 = document.getElementById("geyser");
-        output1.innerHTML = slider1.value;
-        slider1.oninput = function() {
+        const output1 = document.getElementById("geyser");
+        output1.innerHTML = this.slider1.value;
+        this.slider1.oninput = function() {
             output1.innerHTML = this.value;
         };
-        console.log("alooo");
         var slider2 = document.getElementById("eggs-probability");
         var output2 = document.getElementById("eggs");
         output2.innerHTML = slider2.value;
@@ -245,6 +245,7 @@ class WaitingRoom {
             output3.innerHTML = this.value;
         };
     }
+
     configure() {
         this.sliders();
         this.avatarSelector.configure();
