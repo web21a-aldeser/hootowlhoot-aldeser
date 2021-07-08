@@ -1,10 +1,7 @@
 import express from 'express';
-import path from 'path';
+import router from './routes/routes.js';
 
 const port = 3000;
 const app = express();
-
-const publicMiddleware = express.static(path.join(process.cwd(), 'public'));
-app.use('/', publicMiddleware);
-
+app.use(router);
 app.listen(port);
