@@ -1,4 +1,4 @@
-import Player from './player.js';
+import Player from './Player.js';
 
 const PLAYERS_CARDS_TABLE_ID = 'players-cards';
 const CARDS_COUNT = 3;

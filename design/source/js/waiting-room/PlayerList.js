@@ -1,19 +1,6 @@
-/* eslint-disable class-methods-use-this */
-class Player {
-    constructor(avatarId, nameId, name, avatar, key) {
-        this.avatarId = avatarId;
-        this.nameId = nameId;
-        this.avatarElement = document.getElementById(avatarId);
-        this.nameElement = document.getElementById(nameId);
-        this.name = name;
-        this.avatar = avatar;
-        this.key = key;
-    }
-}
 
-/**
- * Players list
- */
+import Player from './Player.js';
+
 const PLAYER_AVATAR_POS = 0;
 const PLAYER_NAME_POS = 1;
 const ACCEPT_BUTTON_TEXT = 'Aceptar';
