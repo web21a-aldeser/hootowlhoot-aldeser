@@ -58,15 +58,12 @@ Figura 7. Calificación final
 
 Al finalizar el juego o el tiempo se presentan las calificaciones y el scoreboard, un botón para regresar a la pantalla principal o para volver a jugar si el anfitrión no salio.
 
-##Paso de mensajes 
+## Paso de mensajes 
 Estado de paso de mensajes por broadcast
 ![paso de mensajes ](./state-machine/message-passing.svg)
 
 Estado de paso de mensajes del waiting room
-![paso de mensajes ](./state-machine/waiting-room-message.svg)
-
-Estado de paso de mensajes por broadcast
-![paso de mensajes ](./state-machine/message-passing.svg)
+![paso de mensajes waiting ](./state-machine/waiting-room-message.svg)
 
 Maquina de estados del cliente
 ![maquina de estados de cliente ](./state-machine/client-state.svg)
