@@ -16,7 +16,6 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
-	  "max-classes-per-file": ["error", 4],
 	  // Allow modifying properties through function's params
     'no-param-reassign': ["error", { "props": false }],
     // Allow defensive programming
@@ -24,5 +23,6 @@ module.exports = {
 	 "indent": ["error", 4],
 	'no-loop-func': ["error"],
 	'class-methods-use-this': ["error"],
+	"import/extensions": ['error', 'always', {"ignorePackages": true} ],
   },
 };

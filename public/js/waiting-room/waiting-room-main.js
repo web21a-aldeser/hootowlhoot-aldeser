@@ -1,4 +1,4 @@
-import WaitingRoom from './WaitingRoom.js'
+import WaitingRoom from './WaitingRoom.js';
 
 function main() {
   const socket = new WebSocket('ws://localhost:3000');
