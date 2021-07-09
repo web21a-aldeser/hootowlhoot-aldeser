@@ -18,8 +18,10 @@ wsServer.on('connection', (socket) => {
   console.log('A new web socket client has connected');
 
   socket.on('message', (message) => {
+    console.log(message);
     const json = JSON.parse(message);
-    console.log(json);
+    const player = json.value.players_list[0];
+    console.log(player);
   });
 
   socket.on('close', () => {
