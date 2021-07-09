@@ -1,65 +1,59 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="CSS/aftermatch.css" />
     <link rel="shortcut icon" href="icons/stegosaurios.svg" type="image/x-icon"></link>
-  </head>
-  <body>
+</head>
+
+<body>
     <header>
-      <nav class="nav-bar" id="main-navigatin-menu">
-        <a>Dino Explosion</a>
-        <a>Aldeser</a>
-        <a>Info</a>
-        <a
-          href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4">How
+        <nav class="nav-bar" id="main-navigatin-menu">
+            <a>Dino Explosion</a>
+            <a>Aldeser</a>
+            <a>Info</a>
+            <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4">How
           to play</a>
-      </nav>
+        </nav>
     </header>
     <main>
-      <section id="main-group">
-        <div class="enclosing">
-          <div class="title">Results</div>
-          <hr style="border:3px solid #f1f1f1" />
-          <div class="row">
-            <div class="column">
-              <img src="./icons/elasmosaurus.svg" alt="elasmosaurus-avatar" height="30" width="30"/>
-              <p>Alexandra Siles</p>
-              <div class="bar-container">
-              <div class="bar-1">
-                <p>400</p>
-              </div>
-              </div>
+        <section id="main-group">
+            <div class="enclosing">
+                <div class="title">Results</div>
+                <hr style="border:3px solid #f1f1f1" />
+                <div class="row">
+                    <table id="stats">
+                        <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th>Turns</th>
+                                <th>Meteors</th>
+                                <th>Geysers</th>
+                            </tr>
+                        </thead>
+                        <tbody id="players-stats">
+                            <tr>
+                                <td>
+                                    <p>Player1</p><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
+                                </td>
+
+                                <td>10</td>
+                                <td>4</td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="column">
+                        <a href="home.xhtml"><button class="button" id="leave-game-button">Leave game</button></a>
+                        <a href="arena.xhtml"><button class="button" id="rematch-button">Rematch</button></a>
+                    </div>
+                </div>
             </div>
-            <div class="column">
-              <img src="./icons/tyrannosaurus-rex.svg" alt="elasmosaurus-avatar" height="30" width="30"/>
-              <p>Dennis Solano</p>
-              <div class="bar-container">
-              <div class="bar-2">
-                <p>655</p>
-              </div>
-              </div>
-            </div>
-            <div class="column">
-              <img src="./icons/brontosaurus.svg" alt="elasmosaurus-avatar" height="30" width="30"/>
-              <p>Sergio Fernández</p>	
-              <div class="bar-container">
-              <div class="bar-3">
-                <p>200</p>
-              </div>
-              </div>
-            </div>
-            <div class="column">
-            </div>
-            <div class="column">
-              <a href="home.xhtml"><button class="button" id="leave-game-button">Leave game</button></a>
-              <a href="arena.xhtml"><button class="button" id="rematch-button">Rematch</button></a>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
     </main>
     <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
-  </body>
+</body>
+
 </html>
