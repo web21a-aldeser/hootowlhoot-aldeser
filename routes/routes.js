@@ -3,7 +3,6 @@ import express from 'express';
 import path from 'path';
 import log from '../controllers/LogController.js';
 import error from '../controllers/ErrorController.js';
-import arena from '../controllers/ArenaController.js';
 
 const router = express.Router();
 
@@ -18,9 +17,6 @@ router.use(express.json())
 
 // serve public content
 router.use('/', express.static(path.join(process.cwd(), 'public')));
-
-// Arena controller.
-router.post('/game', (req, res, next) => { arena.renderArena(req, res, next); });
 
 // Error controller.
 router.use((req, res) => { error.getNotFound(req, res); });
