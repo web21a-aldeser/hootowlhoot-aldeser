@@ -4,7 +4,8 @@ import AvatarSelector from './AvatarSelector.js';
 const PLAYER_TABLE_ID = 'players-list-table';
 
 export default class WaitingRoom {
-  constructor() {
+  constructor(socket) {
+    this.socket = socket;
     this.playerList = new PlayerList(PLAYER_TABLE_ID);
     this.avatarSelector = new AvatarSelector(this.playersList);
     this.slider1 = document.getElementById('geyser-probability');
@@ -45,6 +46,31 @@ export default class WaitingRoom {
       localStorage.setItem('Geysers', JSON.stringify(options[0]));
       localStorage.setItem('Eggs', JSON.stringify(options[1]));
       localStorage.setItem('Binoculars', JSON.stringify(options[2]));
+
+      const geyser_probability = document.getElementById('geyser-probability').value;
+      const eggs_probability = document.getElementById('eggs-probability').value;
+      const binoculars_probability = document.getElementById('binoculars-probability').value;
+
+      const data = {
+        "type": "arena_data",
+        "value": {
+          "game_settings": {
+            "binoculars_probability": binoculars_probability,
+            "eggs_probability": eggs_probability,
+            "geyser_probability": geyser_probability
+          },
+          "players_list": [
+          ]
+        }
+      };
+
+      const players = this.playerList.getPlayers();
+      players.forEach(player => {
+        console.log(player);
+        data.value.players_list.push(player.toJson());
+      });
+
+      this.socket.send(JSON.stringify(data));
       window.location = 'arena.xhtml';
     });
   }

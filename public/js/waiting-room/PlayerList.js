@@ -42,6 +42,10 @@ export default class PlayerList {
         this.players.push(player);
     }
 
+    getPlayers() {
+      return this.players;
+    }
+
     updateName(index, name) {
         const items = [];
         const lista = localStorage.getItem(index);
