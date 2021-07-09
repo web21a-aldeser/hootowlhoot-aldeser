@@ -63,7 +63,7 @@ Estado de paso de mensajes por broadcast
 ![paso de mensajes ](./state-machine/message-passing.svg)
 
 Estado de paso de mensajes del waiting room
-![paso de mensajes waiting ](./state-machine/waiting-room-message.svg)
+![paso de mensajes waiting ](./state-machine/waitin-room-message.svg)
 
 Maquina de estados del cliente
 ![maquina de estados de cliente ](./state-machine/client-state.svg)
