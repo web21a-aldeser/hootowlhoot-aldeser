@@ -1,4 +1,4 @@
-
+/* eslint-disable class-methods-use-this */
 import Player from './Player.js';
 
 const PLAYER_AVATAR_POS = 0;
