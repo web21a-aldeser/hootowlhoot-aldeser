@@ -7,27 +7,28 @@ export default class WaitingRoom {
     constructor() {
         this.playerList = new PlayerList(PLAYER_TABLE_ID);
         this.avatarSelector = new AvatarSelector(this.playersList);
-        this.slider1 = document.getElementById('geyser-probability');
     }
 
+    // eslint-disable-next-line class-methods-use-this
     sliders() {
+        const slider1 = document.getElementById('geyser-probability');
         const output1 = document.getElementById('geyser');
-        output1.innerHTML = this.slider1.value;
-        this.slider1.oninput = () => {
-            output1.innerHTML = this.value;
+        output1.innerHTML = slider1.value;
+        slider1.oninput = () => {
+            output1.innerHTML = slider1.value;
         };
         const slider2 = document.getElementById('eggs-probability');
         const output2 = document.getElementById('eggs');
         output2.innerHTML = slider2.value;
         slider2.oninput = () => {
-            output2.innerHTML = this.value;
+            output2.innerHTML = slider2.value;
         };
 
         const slider3 = document.getElementById('binoculars-probability');
         const output3 = document.getElementById('binoculars');
         output3.innerHTML = slider3.value;
         slider3.oninput = () => {
-            output3.innerHTML = this.value;
+            output3.innerHTML = slider3.value;
         };
     }
 
