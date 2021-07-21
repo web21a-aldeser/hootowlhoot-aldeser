@@ -32,32 +32,36 @@
                         <table id="table-for-settings-configuration">
                             <tbody>
                                 <tr>
-                                    <td>Geysers %</td>
+                                    <td>Geysers</td>
                                     <td>
                                         <input type="range" min="1" max="12" value="12" class="probabilities" id="geyser-probability" />
                                         <a id="geyser"></a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td> Eggs %</td>
+                                    <td> Eggs</td>
                                     <td>
                                         <input type="range" min="1" max="8" value="8" class="probabilities" id="eggs-probability" />
                                         <a id="eggs"></a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td> Binoculars %</td>
+                                    <td> Binoculars</td>
                                     <td>
                                         <input type="range" min="1" max="8" value="8" class="probabilities" id="binoculars-probability" />
                                         <a id="binoculars"></a>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td>Automatic Binoculars Time</td>
+                                    <input type="checkbox" id="html" name="fav_language" value="HTML" />    Seconds
                                 </tr>
                             </tbody>
                         </table>
                         <div id="settings-description">
                             <p><strong>Geysers:</strong> The geysers represent an obstacle, when you fall into a geyser you will be returned to the square where you were previously.</p>
                             <p><strong>Eggs:</strong> the dinosaur eggs allows you to play again in the same turn. </p>
-                            <p><strong>Binoculars:</strong> you to see the closest geyser to your position.</p>
+                            <p><strong>Binoculars:</strong> you to see geysers in the board for an specific time.</p>
                         </div>
                     </section>
                     <!-- end game-settings -->
@@ -172,8 +176,9 @@
         </div>
     </main>
     <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
-    
+
     <script src="js/common.js"></script>
     <script src="js/waiting-room/waiting-room-main.js" type="module"></script>
 </body>
+
 </html>
