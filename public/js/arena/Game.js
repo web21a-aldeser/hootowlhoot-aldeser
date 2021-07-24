@@ -350,4 +350,57 @@ export default class Game {
       this.binoList.push(bino);
     }
   }
+
+  //Given a tile in a position(x,y in format 'xy'),
+  //adds the corresponding custom elements to that tile.
+  //The possible custom elements are an int that represents the element:
+  //1: adds a geyser, 2: adds binoculars, 3: adds and egg
+  AddTileElements(position, customElements) {
+    let newCell = document.querySelector(`td[data-row="${parseInt(position.substr(0,1))}"][data-col="${parseInt(position.substr(1,2))}"]`);
+    var computedStyles;
+    switch(parseInt(customElements)){
+      //Add geyser
+      case 1:
+        const mine = document.createElement('img');
+        mine.src = 'icons/geyser.svg';
+        mine.width = '60';
+        mine.style.position = 'absolute';
+
+        newCell.appendChild(mine);
+        computedStyles = window.getComputedStyle(mine);
+        mine.style.top = `${parseInt(computedStyles.top, 10) - 25}px`;
+        mine.style.left = `${parseInt(computedStyles.left, 10) + 20}px`;
+        mine.style.display = 'none';
+        this.geyserList.push(mine);
+        break;
+      //Add binocular
+      case 2:
+        const bino = document.createElement('img');
+        bino.src = 'icons/see.svg';
+        bino.width = '50';
+        bino.style.position = 'absolute';
+        
+        newCell.appendChild(bino);
+        computedStyles = window.getComputedStyle(bino);
+        bino.style.top = `${parseInt(computedStyles.top, 10) - 25}px`;
+        bino.style.left = `${parseInt(computedStyles.left, 10) + 22}px`;
+        bino.style.display = 'none';
+        this.binoList.push(bino);
+        break;
+      //Add egg
+      case 3:
+        const egg = document.createElement('img');
+        egg.src = 'icons/egg.svg';
+        egg.width = '50';
+        egg.style.position = 'absolute';
+
+        newCell.appendChild(egg);
+        computedStyles = window.getComputedStyle(egg);
+        egg.style.top = `${parseInt(computedStyles.top, 10) - 20}px`;
+        egg.style.left = `${parseInt(computedStyles.left, 10) + 22}px`;
+        egg.style.display = 'none';
+        this.eggList.push(egg);
+        break;
+    }
+  }
 }
