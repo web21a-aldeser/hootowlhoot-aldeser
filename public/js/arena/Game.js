@@ -199,7 +199,7 @@ export default class Game {
     const localList=JSON.parse(localStorage.getItem('players'));
     // crea y configura los jugadores
     for (let i = 0; i < localList.length; i += 1) {
-      const player = new Player(localList[i].name, localList.avatar, i);
+      const player = new Player(localList[i].name, localList[i].avatar, i);
       player.configurePlayer();
       this.playerList.push(player);
       const playersCards = this.tableBodyElement.children.item(i).children.item(CARDS_CELL);

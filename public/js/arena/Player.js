@@ -1,12 +1,19 @@
 const PLAYERS_CARDS_TABLE_ID = 'players-cards';
-const PLAYER_ID = 'player-1-avatar';
 const TOP = 1;
 const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_TOP = [3, 4, 7, 8];
 const BOTTOM = 0;
 const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_BOTTOM = [1, 2, 5, 6];
 const FIRST = 0;
-const SECOND = 1;
 
+const DINOSAURS = [
+  'icons/elasmosaurus.svg',
+  'icons/brontosaurus.svg',
+  'icons/pterodactyl.svg',
+  'icons/rex.svg',
+  'icons/stegosaurios.svg',
+  'icons/triceratops.svg',
+  'icons/tyrannosaurus.svg',
+];
 class Player {
     constructor(name,dino,row) {
         //this.player = document.getElementById(PLAYER_ID); esto es el div donde esta la imagen
@@ -16,6 +23,7 @@ class Player {
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
         this.previusCell = this.currentCell;
         this.avatar = document.createElement('img');
+        console.log(dino);
         this.avatar.src = dino;
         this.prevRow = this.row;
         this.prevCol = this.colum;
@@ -24,11 +32,16 @@ class Player {
 
     // Configure avatar and name in player box
     configurePlayer() {
+      //avatar en el tablero
+      this.avatar.setAttribute('width',50);
       this.currentCell.append(this.avatar);
+
+      //elementos del player box
       const tr = document.createElement('tr');
       const dinos =  document.createElement('td');
       const img = document.createElement("img");
       img.setAttribute("src",this.avatar.src);
+      img.setAttribute('width',50);
       dinos.append(img);
       tr.append(dinos);
       const playName =  document.createElement('td');
