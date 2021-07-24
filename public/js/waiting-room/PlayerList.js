@@ -43,27 +43,34 @@ export default class PlayerList {
     }
 
     getPlayers() {
-      return this.players;
+        return this.players;
     }
 
     updateName(index, name) {
-        const items = [];
+        this.players[index].name = name;
+        localStorage.setItem('players', JSON.stringify(this.players));
+        console.log(localStorage.getItem('players'));
+        /*const items = [];
         const lista = localStorage.getItem(index);
         const avatar = JSON.parse(lista);
         items.push(name);
         items.push(avatar[1]);
         localStorage.setItem(index, JSON.stringify(items));
+        */
     }
 
-    passListPlayers(players) {
+    passListPlayers() {
         localStorage.clear();
+        localStorage.setItem('players', JSON.stringify(this.players));
+        /*
         for (let i = 0; i < players.length; i += 1) {
             const items = [];
             items.push(players[i].name);
             items.push(players[i].avatar);
             localStorage.setItem(i, JSON.stringify(items));
         }
-        localStorage.setItem('players-quantity', JSON.stringify(players.length));
+        */
+        localStorage.setItem('players-quantity', JSON.stringify(this.players.length));
     }
 
     setupEventsForPlayersList(avatarSelector) {
@@ -75,7 +82,7 @@ export default class PlayerList {
             });
             // eslint-disable-next-line max-len
             this.setUpEventForPlayersNameElement(this.players[index].nameElement, this.players[index].name, index);
-            this.passListPlayers(this.players);
+            this.passListPlayers();
         }
     }
 
