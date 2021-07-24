@@ -18,7 +18,7 @@ class AuthenticationController {
       console.log('The session does not exist');
       const error = {
         error_code: 700,
-        message: 'Session not found'
+        message: 'The session does not exist'
       };
       res.json(JSON.stringify(error));
     }
