@@ -33,6 +33,16 @@ class SessionManager {
     // It sends player identity and session key to host player..
     socket.send(JSON.stringify(sessionAndHostIdentity));
   }
+
+  doesTheSessionExists(sessionKey) {
+    const foundSession = this.sessions.find((session) => session.key === sessionKey);
+    if (foundSession === undefined) {
+      // Deny access to session.
+      return false;
+    }
+    // Grant access to session.
+    return true;
+  }
 }
 
 const sessionManager = new SessionManager();

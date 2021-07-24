@@ -10,6 +10,7 @@ class WebSocketServerManager {
   configure(wsServer) {
     this.wsServer = wsServer;
     this.wsServer.on('connection', (socket) => {
+      // ToDo: Handle reconnection after changing to arena.
       socket.on('message', (rawMessage) => {
         // Get message type.
         const message = JSON.parse(rawMessage);
