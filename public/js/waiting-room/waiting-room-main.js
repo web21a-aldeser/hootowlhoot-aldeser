@@ -6,7 +6,8 @@ const messagesTypes = {
   sessionCreated: 'sessionCreated',
   playerIdentity: 'playerIdentity',
   guestPlayerSuccessfullyJoined: 'joinedSuccessfully',
-  newPlayer: 'newPlayer'
+  newPlayer: 'newPlayer',
+  currentPlayers: 'currentPlayers'
 };
 
 function main() {
@@ -17,7 +18,7 @@ function main() {
 
   socket.onmessage = (event) => {
     processMessage(JSON.parse(event.data));
-    updatePlayersList(waitingRoom);
+    configureEventsForPlayersList(waitingRoom);
   };
 
   if (amIHost) {
@@ -48,26 +49,36 @@ function disableControlsForGuestPlayer() {
   document.getElementById('geyser-probability').disabled = true;
   document.getElementById('eggs-probability').disabled = true;
   document.getElementById('binoculars-probability').disabled = true;
+  document.getElementById('start-match-button').style.display = 'none';
 }
 
 function processMessage(message) {
   console.log(message);
 
+  // These conditions might be managed as the default case.
   const sessionCreated = message.type === messagesTypes.sessionCreated;
   const joinedToSession = message.type === messagesTypes.guestPlayerSuccessfullyJoined;
   const newPlayerHasJoined = message.type === messagesTypes.newPlayer;
+  const currentPlayersReceived = message.type === messagesTypes.currentPlayers;
 
   const requirementsSatisfiedToUpdateWaitingRoom =
     sessionCreated || joinedToSession || newPlayerHasJoined;
 
   if (requirementsSatisfiedToUpdateWaitingRoom) {
     updateWaitingRoom(message.value);
+  } else if (currentPlayersReceived) {
+    addNewPlayersToList(message.value.players);
   }
 }
 
 function updateWaitingRoom(message) {
-  const gameKey = document.getElementById('game-private-key');
-  gameKey.innerHTML = `Game key: ${message.session_key}`;
+  const amIHost = JSON.parse(localStorage.getItem(isHostKey));
+
+  if (amIHost) {
+    const gameKey = document.getElementById('game-private-key');
+    gameKey.innerHTML = `Game key: ${message.session_key}`;
+  }
+
   addPlayerToPlayersList(message);
 
   // It saves this player identity so the next time a socket is created it can
@@ -78,6 +89,12 @@ function updateWaitingRoom(message) {
   };
 
   localStorage.setItem(messagesTypes, JSON.stringify(playerIdentity));
+}
+
+function addNewPlayersToList(players) {
+  players.forEach((player) => {
+    addPlayerToPlayersList(player);
+  });
 }
 
 function addPlayerToPlayersList(message) {
@@ -110,7 +127,7 @@ function addPlayerToPlayersList(message) {
   playersTable.appendChild(playerTr);
 }
 
-function updatePlayersList(waitingRoom) {
+function configureEventsForPlayersList(waitingRoom) {
   waitingRoom.playerList.configurePlayersList(waitingRoom.avatarSelector);
 }
 

@@ -4,8 +4,6 @@ import messagesTypes from '../utilities/MessagesTypes.js';
 import broadcaster from '../utilities/Broadcaster.js';
 
 const hostPlayerId = 1;
-const defaultAvatar = '../../icons/elasmosaurus.svg';
-
 class SessionManager {
   constructor() {
     this.sessions = [];
@@ -33,7 +31,7 @@ class SessionManager {
         player_id: player.id,
         player_name: player.name,
         session_key: session.key,
-        player_avatar: defaultAvatar
+        player_avatar: player.avatar
       }
     };
 
@@ -64,15 +62,17 @@ class SessionManager {
         player_id: player.id,
         player_name: player.name,
         session_key: session.key,
-        player_avatar: defaultAvatar
+        player_avatar: player.avatar
       }
     };
 
     socket.send(JSON.stringify(guestPlayerIdentity));
+
     // Send this player via broadcast to all clients.
     this.sendNewPlayerToEveryone(socket, player);
 
     // Send all other players data to the new player.
+    this.sendCurrentSessionPlayersToNewPlayer(socket, session, player.id);
   }
 
   sendNewPlayerToEveryone(socket, player) {
@@ -81,11 +81,28 @@ class SessionManager {
       value: {
         player_id: player.id,
         player_name: player.name,
-        player_avatar: defaultAvatar
+        player_avatar: player.avatar
       }
     };
 
     broadcaster.broadcastToAllExcept(socket, newPlayerMessage);
+  }
+
+  sendCurrentSessionPlayersToNewPlayer(socket, session, newPlayerId) {
+    const currentPlayersOnWaitingRoom = {
+      type: messagesTypes.currentPlayers,
+      value: {
+        players: []
+      }
+    };
+
+    session.players.forEach((player) => {
+      if (player.id !== newPlayerId) {
+        currentPlayersOnWaitingRoom.value.players.push(player.toJSON());
+      }
+    });
+
+    socket.send(JSON.stringify(currentPlayersOnWaitingRoom));
   }
 
   findSessionByKey(sessionKey) {

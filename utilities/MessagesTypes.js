@@ -3,6 +3,7 @@ const messagesTypes = {
   sessionCreated: 'sessionCreated',
   guestPlayerInitialRequest: 'guestPlayerInitialRequest',
   guestPlayerSuccessfullyJoined: 'joinedSuccessfully',
-  newPlayerHasJoined: 'newPlayer'
+  newPlayerHasJoined: 'newPlayer',
+  currentPlayers: 'currentPlayers'
 };
 export default messagesTypes;
