@@ -30,7 +30,15 @@ function main() {
     };
   } else {
     // Identify myself to the server as player.
+    disableControlsForGuestPlayer();
   }
+}
+
+function disableControlsForGuestPlayer() {
+  document.getElementById('game-private-key').style.display = 'none';
+  document.getElementById('geyser-probability').disabled = true;
+  document.getElementById('eggs-probability').disabled = true;
+  document.getElementById('binoculars-probability').disabled = true;
 }
 
 function processMessage(message) {
