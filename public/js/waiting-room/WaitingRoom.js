@@ -8,7 +8,7 @@ export default class WaitingRoom {
   constructor(socket) {
     this.socket = socket;
     this.playerList = new PlayerList(PLAYER_TABLE_ID);
-    this.avatarSelector = new AvatarSelector(this.playersList);
+    this.avatarSelector = new AvatarSelector();
   }
 
     // eslint-disable-next-line class-methods-use-this
