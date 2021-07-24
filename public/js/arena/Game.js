@@ -70,7 +70,7 @@ export default class Game {
         // caso de huevos, duplican turno
       case (src.indexOf('egg') !== -1):
         this.playerList[index].currentCell.children[0].style.display = 'block';
-        // this.turn = this.player.name;
+        this.turn = this.player.name;
         const audio2 = new Audio('sounds/achivement.wav');
         audio2.play();
         break;
@@ -110,6 +110,47 @@ export default class Game {
     }
   }
 
+  // desactiva las cartas de los jugadores a los que no les corresponde el turno
+  disableCards(){
+    const playersCount = this.tableBodyElement.children.length;
+    for (let i = 0; i < playersCount; i += 1) {
+      const playersCards = this.tableBodyElement.children.item(i).children.item(CARDS_CELL);
+      for (let j = 0; j < CARDS_COUNT; j += 1) {
+        playersCards.children[j].disabled = true;
+        playersCards.children[j].style.opacity = "0.5"; 
+        if( this.currentPlayer === i){
+        playersCards.children[j].disabled = false;
+        playersCards.children[j].style.opacity = "1"; 
+
+        }
+      }
+    }
+  }
+
+     //desactiva las cartas si se encuentra 1 de meteorito
+     searchMeteorite(index) {
+      const playersCards = this.tableBodyElement.children.item(index).children.item(CARDS_CELL);
+      let found = false;
+      for (let j = 0; j < CARDS_COUNT; j += 1) {
+        if (playersCards.children[j].src.indexOf('meteorite') !== -1){
+          found = true;
+          console.log('found');
+        }
+      }
+      if (found){
+        for (let j = 0; j < CARDS_COUNT; j += 1) {
+          playersCards.children[j].disabled = true;
+          playersCards.children[j].style.opacity = "0.5"; 
+          if (playersCards.children[j].src.indexOf('meteorite') !== -1){
+            playersCards.children[j].disabled = false;
+            playersCards.children[j].style.opacity = "1"; 
+
+          }
+      }
+    }
+  }
+
+
   setupEventsForCards() {
     const playersCount = this.tableBodyElement.children.length;
     for (let i = 0; i < playersCount; i += 1) {
@@ -122,14 +163,13 @@ export default class Game {
           } else {
             // 
             let color = this.playerList[i].currentCell.className;
-            // this.playerList[i].previusCell = this.playerList[i].currentCell;
             this.playerList[i].previusCell =this.playerList[i].currentCell;
+            // el jugador se mueve hasta encontrar el color que tocó
             do {
-              // this.playerList[i].move();
               this.playerList[i].move();
-              // this.playerList[i].currentCell.classname;
               color = this.playerList[i].currentCell.className;
             } while (card.src.indexOf(color) === -1);
+            // si encuentra un objeto en la celda actual realiza su evento si no solo se mueve
             if (this.playerList[i].currentCell.children[0].src != null) {
               this.objectActions(this.playerList[i].currentCell.children[0].src, card, i);
             } else {
@@ -145,23 +185,25 @@ export default class Game {
     }
   }
 
+
   // pone el primer turno al empezar la partida
   setFirstTurn() {
     this.turn.innerText =this.playerList[0].name;
+    this.disableCards();
+    this.searchMeteorite(this.currentPlayer);
   }
 
   // cambia de turno 
   chageTurn(index) {
-    
     if (index < this.playerList.length - 1) {
       index += 1;
     } else {
       index = 0;
     }
-    //const retrive = localStorage.getItem(index);
-    //const values = JSON.parse(retrive);
     this.turn.innerText = this.playerList[index].name;
     this.currentPlayer = index;
+    this.disableCards();
+    this.searchMeteorite(this.currentPlayer);
   }
 
   //mueve el meteorito cada vez que sale una carta
@@ -186,6 +228,7 @@ export default class Game {
       this.meteor.style.top = '100px';
       window.location = 'aftermatch.xhtml';
     }
+    this.chageTurn(this.currentPlayer);
   }
 
   // retorna una carta al azar
@@ -194,7 +237,7 @@ export default class Game {
     return CARDS[Math.floor(Math.random() * CARDS.length)];
   }
 
-  // pasa la lista de jugadores falta
+  // pasa la lista de jugadores 
   getListPlayers() {
     const localList=JSON.parse(localStorage.getItem('players'));
     // crea y configura los jugadores
@@ -203,6 +246,7 @@ export default class Game {
       player.configurePlayer();
       this.playerList.push(player);
       const playersCards = this.tableBodyElement.children.item(i).children.item(CARDS_CELL);
+      //asigna cartas al azar
       for (let j = 0; j < CARDS_COUNT; j += 1) {
         const card = playersCards.children[j];
         card.src = this.getRandomCard();
@@ -210,25 +254,29 @@ export default class Game {
   }
 }
 
+  // asigna una celda aleatoria para la insercion de los objetos
   // eslint-disable-next-line class-methods-use-this
   randomCell() {
-    const num = [0, 2, 4, 6];
+    // arreglo de los numeros de columnas del tablero
+    // ya que estas son las que cambian respecto a las filas en nuestro tablero
+    const validCol = [0, 2, 4, 6];
     let col = 0;
     const row = Math.floor(Math.random() * 8);
     if (row === 0) {
-      num.push(3);
-      num.push(7);
+      validCol.push(3);
+      validCol.push(7);
       // dependiendo de la cantidad de jugadores este valor cambia
-      col = num[Math.floor(Math.random() * 6) + 1];
+      // ya que los jugadores se posicionan en las primeras casillas
+      col = validCol[Math.floor(Math.random() * 6) + 1];
       while (col === undefined) {
-        col = num[Math.floor(Math.random() * 6) + 1];
+        col = validCol[Math.floor(Math.random() * 6) + 1];
       }
     } else if (row === 7) {
-      num.push(1);
-      num.push(5);
-      col = num[Math.floor(Math.random() * 6)];
+      validCol.push(1);
+      validCol.push(5);
+      col = validCol[Math.floor(Math.random() * 6)];
     } else {
-      col = num[Math.floor(Math.random() * 4)];
+      col = validCol[Math.floor(Math.random() * 4)];
     }
     return document.querySelector(`td[data-row="${row}"][data-col="${col}"]`);
   }

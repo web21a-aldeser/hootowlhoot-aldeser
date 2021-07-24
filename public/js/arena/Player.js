@@ -4,26 +4,15 @@ const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_TOP = [3, 4, 7, 8];
 const BOTTOM = 0;
 const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_BOTTOM = [1, 2, 5, 6];
 const FIRST = 0;
-
-const DINOSAURS = [
-  'icons/elasmosaurus.svg',
-  'icons/brontosaurus.svg',
-  'icons/pterodactyl.svg',
-  'icons/rex.svg',
-  'icons/stegosaurios.svg',
-  'icons/triceratops.svg',
-  'icons/tyrannosaurus.svg',
-];
 class Player {
-    constructor(name,dino,row) {
+    constructor(name, dino, row) {
         //this.player = document.getElementById(PLAYER_ID); esto es el div donde esta la imagen
         this.row = row;
         this.colum = FIRST;
-        this.currentCell = document.querySelector('td[data-row='+ '"' +row+'"' +'][data-col="0"]');
+        this.currentCell = document.querySelector('td[data-row=' + '"' + row + '"' + '][data-col="0"]');
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
         this.previusCell = this.currentCell;
         this.avatar = document.createElement('img');
-        console.log(dino);
         this.avatar.src = dino;
         this.prevRow = this.row;
         this.prevCol = this.colum;
@@ -32,33 +21,34 @@ class Player {
 
     // Configure avatar and name in player box
     configurePlayer() {
-      //avatar en el tablero
-      this.avatar.setAttribute('width',50);
-      this.currentCell.append(this.avatar);
+        //avatar en el tablero
+        this.avatar.setAttribute('width', 40);
+        this.currentCell.append(this.avatar);
 
-      //elementos del player box
-      const tr = document.createElement('tr');
-      const dinos =  document.createElement('td');
-      const img = document.createElement("img");
-      img.setAttribute("src",this.avatar.src);
-      img.setAttribute('width',50);
-      dinos.append(img);
-      tr.append(dinos);
-      const playName =  document.createElement('td');
-      let textName =  document.createTextNode(this.name);
-      playName.append(textName);
-      tr.append(playName);
-      const cards =  document.createElement('td');
-      for (let i = 0; i < 3 ; i += 1){
-        let card = document.createElement('input');
-        card.setAttribute('type','image');
-        card.setAttribute('width',50);
-        card.setAttribute( 'height',50);
-        cards.append(card);
-      }
-      tr.append(cards);
-      this.tableBodyElement.append(tr);
-      //return tr;
+        //elementos del player box
+        const tr = document.createElement('tr');
+        const dinos = document.createElement('td');
+        const img = document.createElement("img");
+        img.setAttribute("src", this.avatar.src);
+        img.setAttribute('width', 50);
+        dinos.append(img);
+        tr.append(dinos);
+        const playName = document.createElement('td');
+        let textName = document.createTextNode(this.name);
+        playName.append(textName);
+        tr.append(playName);
+        const cards = document.createElement('td');
+        for (let i = 0; i < 3; i += 1) {
+            let card = document.createElement('input');
+            card.setAttribute('type', 'image');
+            card.setAttribute('width', 50);
+            card.setAttribute('height', 50);
+           // card.setAttribute('onmouseover', 'image');
+            cards.append(card);
+        }
+        tr.append(cards);
+        this.tableBodyElement.append(tr);
+        //return tr;
     }
 
     move() {
@@ -129,10 +119,11 @@ class Player {
         this.currentCell.removeChild(this.avatar);
         newCell.appendChild(this.avatar);
         this.currentCell = newCell;
-        if (this.currentCell === document.getElementById('final')) {
+        const finalCell = document.getElementById('final').childElementCount;
+        if (finalCell === JSON.parse(localStorage.getItem('players-quantity')) + 1) {
             const audio = new Audio('sounds/levelComplete.wav');
             audio.play();
-            //window.location = 'aftermatch.xhtml';
+            window.location = 'aftermatch.xhtml';
         }
     }
 }
