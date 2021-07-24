@@ -7,6 +7,10 @@ const hostPlayerId = 1;
 class SessionManager {
   constructor() {
     this.sessions = [];
+    // This queue is used to enqueue a session key in which a new player must be
+    // assigned. That is a new player has authenticated but it needs to be assign
+    // to the session.
+    this.sessionsKeysToBeAssigned = [];
   }
 
   createNewSession(socket, webSocketsToPlayers) {
@@ -42,6 +46,34 @@ class SessionManager {
     }
     // Grant access to session.
     return true;
+  }
+
+  addPlayerToSession(socket, webSocketsToPlayers) {
+    const session = this.findSessionByKey(this.sessionsKeysToBeAssigned.shift());
+    const player = new Player(session.players.length + 1);
+
+    session.players.push(player);
+    webSocketsToPlayers.set(socket, player);
+
+    const guestPlayerIdentity = {
+      type: messagesTypes.guestPlayerSuccessfullyJoined,
+      value: {
+        player_id: player.id,
+        player_name: player.name,
+        session_key: session.key
+      }
+    };
+
+    socket.send(JSON.stringify(guestPlayerIdentity));
+  }
+
+  findSessionByKey(sessionKey) {
+    // It is assumed that the session always exists.
+    return this.sessions.find((session) => session.key === sessionKey);
+  }
+
+  rememberToAssignPlayerToSession(sessionKey) {
+    this.sessionsKeysToBeAssigned.push(sessionKey);
   }
 }
 

@@ -4,7 +4,8 @@ import PlayerList from './PlayerList.js';
 const isHostKey = 'isHost';
 const messagesTypes = {
   sessionCreated: 'sessionCreated',
-  playerIdentity: 'playerIdentity'
+  playerIdentity: 'playerIdentity',
+  guestPlayerSuccessfullyJoined: 'joinedSuccessfully'
 };
 
 function main() {
@@ -13,24 +14,31 @@ function main() {
   const waitingRoom = new WaitingRoom(socket);
   waitingRoom.configure();
 
+  socket.onmessage = (event) => {
+    processMessage(JSON.parse(event.data));
+    updatePlayersList(waitingRoom);
+  };
+
   if (amIHost) {
     // Identify myself to the server as host player.
     socket.onopen = () => {
-      console.log('The socket was opened');
+      console.log('The socket was opened for host player');
       const message = {
         type: 'createSession'
       };
       socket.send(JSON.stringify(message));
     };
-
-    socket.onmessage = (event) => {
-      processMessage(JSON.parse(event.data));
-      // In the meantime this configuration is here. It must be moved to another place.
-      waitingRoom.playerList.configurePlayersList(waitingRoom.avatarSelector);
-    };
   } else {
+    // Guest
     // Identify myself to the server as player.
     disableControlsForGuestPlayer();
+    socket.onopen = () => {
+      console.log('The socket was opened for guest player');
+      const message = {
+        type: 'guestPlayerInitialRequest'
+      };
+      socket.send(JSON.stringify(message));
+    };
   }
 }
 
@@ -42,9 +50,12 @@ function disableControlsForGuestPlayer() {
 }
 
 function processMessage(message) {
-  const sessionCreated = message.type === messagesTypes.sessionCreated;
+  console.log(message);
 
-  if (sessionCreated) {
+  const sessionCreated = message.type === messagesTypes.sessionCreated;
+  const joinedToSession = message.type === messagesTypes.guestPlayerSuccessfullyJoined;
+
+  if (sessionCreated || joinedToSession) {
     updateWaitingRoom(message.value);
   }
 }
@@ -92,6 +103,10 @@ function addPlayerToPlayersList(message) {
   playerTr.appendChild(playerAvatarTd);
   playerTr.appendChild(playerNameTd);
   playersTable.appendChild(playerTr);
+}
+
+function updatePlayersList(waitingRoom) {
+  waitingRoom.playerList.configurePlayersList(waitingRoom.avatarSelector);
 }
 
 window.addEventListener('load', main);

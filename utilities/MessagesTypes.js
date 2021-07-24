@@ -1,5 +1,7 @@
 const messagesTypes = {
   createSession: 'createSession',
-  sessionCreated: 'sessionCreated'
+  sessionCreated: 'sessionCreated',
+  guestPlayerInitialRequest: 'guestPlayerInitialRequest',
+  guestPlayerSuccessfullyJoined: 'joinedSuccessfully'
 };
 export default messagesTypes;

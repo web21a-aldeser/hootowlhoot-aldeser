@@ -12,8 +12,8 @@ class AuthenticationController {
         success: true
       };
       res.json(JSON.stringify(success));
-      // ToDo: Create new controller to handle players who join the match to create them
-      // and render them in the waiting room.
+      // This will tell session manager that when the client opens the websocket it must create a new player.
+      sessionManager.rememberToAssignPlayerToSession(credentials.session_key);
     } else {
       console.log('The session does not exist');
       const error = {

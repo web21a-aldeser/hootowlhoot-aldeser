@@ -10,6 +10,7 @@ class WebSocketServerManager {
   configure(wsServer) {
     this.wsServer = wsServer;
     this.wsServer.on('connection', (socket) => {
+      console.log('HEY YOU');
       // ToDo: Handle reconnection after changing to arena.
       socket.on('message', (rawMessage) => {
         // Get message type.
@@ -18,6 +19,9 @@ class WebSocketServerManager {
 
         if (messageType === messagesTypes.createSession) {
           sessionManager.createNewSession(socket, this.clientsWebsockets);
+        } else if (messageType === messagesTypes.guestPlayerInitialRequest) {
+          console.log('Guest player has arrived');
+          sessionManager.addPlayerToSession(socket, this.clientsWebsockets);
         }
       });
 
