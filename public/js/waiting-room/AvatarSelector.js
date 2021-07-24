@@ -70,13 +70,5 @@ export default class AvatarSelector {
       this.playersList[index].avatar = avatar;
       localStorage.setItem('players', JSON.stringify(this.playersList));
       console.log(localStorage.getItem('players'));
-      /*
-        const items = [];
-        const lista = localStorage.getItem(index);
-        const name = JSON.parse(lista);
-        items.push(name[0]);
-        items.push(avatar);
-        localStorage.setItem(index, JSON.stringify(items));
-        */
     }
 }
