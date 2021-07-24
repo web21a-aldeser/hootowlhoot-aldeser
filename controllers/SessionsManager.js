@@ -1,8 +1,10 @@
 import GameSession from '../models/GameSession.js';
 import Player from '../models/Player.js';
 import messagesTypes from '../utilities/MessagesTypes.js';
+import broadcaster from '../utilities/Broadcaster.js';
 
 const hostPlayerId = 1;
+const defaultAvatar = '../../icons/elasmosaurus.svg';
 
 class SessionManager {
   constructor() {
@@ -30,7 +32,8 @@ class SessionManager {
       value: {
         player_id: player.id,
         player_name: player.name,
-        session_key: session.key
+        session_key: session.key,
+        player_avatar: defaultAvatar
       }
     };
 
@@ -60,11 +63,29 @@ class SessionManager {
       value: {
         player_id: player.id,
         player_name: player.name,
-        session_key: session.key
+        session_key: session.key,
+        player_avatar: defaultAvatar
       }
     };
 
     socket.send(JSON.stringify(guestPlayerIdentity));
+    // Send this player via broadcast to all clients.
+    this.sendNewPlayerToEveryone(socket, player);
+
+    // Send all other players data to the new player.
+  }
+
+  sendNewPlayerToEveryone(socket, player) {
+    const newPlayerMessage = {
+      type: messagesTypes.newPlayerHasJoined,
+      value: {
+        player_id: player.id,
+        player_name: player.name,
+        player_avatar: defaultAvatar
+      }
+    };
+
+    broadcaster.broadcastToAllExcept(socket, newPlayerMessage);
   }
 
   findSessionByKey(sessionKey) {

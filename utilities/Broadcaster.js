@@ -1,20 +1,25 @@
+import WebSocket from 'ws';
 class Broadcaster {
   constructor() {
     this.wsServer = null;
   }
 
+  configure(wsServer) {
+    this.wsServer = wsServer;
+  }
+
   broadcastToEveryone(message) {
-    this.wsServer.forEach((client) => {
+    this.wsServer.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
-        client.send(message);
+        client.send(JSON.stringify(message));
       }
     });
   }
 
   broadcastToAllExcept(socket, message) {
-    this.wsServer.forEach((client) => {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(message);
+    this.wsServer.clients.forEach((client) => {
+      if (client !== socket && client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify(message));
       }
     });
   }

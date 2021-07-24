@@ -5,7 +5,8 @@ const isHostKey = 'isHost';
 const messagesTypes = {
   sessionCreated: 'sessionCreated',
   playerIdentity: 'playerIdentity',
-  guestPlayerSuccessfullyJoined: 'joinedSuccessfully'
+  guestPlayerSuccessfullyJoined: 'joinedSuccessfully',
+  newPlayer: 'newPlayer'
 };
 
 function main() {
@@ -54,8 +55,12 @@ function processMessage(message) {
 
   const sessionCreated = message.type === messagesTypes.sessionCreated;
   const joinedToSession = message.type === messagesTypes.guestPlayerSuccessfullyJoined;
+  const newPlayerHasJoined = message.type === messagesTypes.newPlayer;
 
-  if (sessionCreated || joinedToSession) {
+  const requirementsSatisfiedToUpdateWaitingRoom =
+    sessionCreated || joinedToSession || newPlayerHasJoined;
+
+  if (requirementsSatisfiedToUpdateWaitingRoom) {
     updateWaitingRoom(message.value);
   }
 }
@@ -88,7 +93,7 @@ function addPlayerToPlayersList(message) {
   const playerAvatarButton = document.createElement('button');
   playerAvatarButton.classList.add('avatar-button');
   const playerAvatarImage = document.createElement('img');
-  playerAvatarImage.setAttribute('src', '../../icons/elasmosaurus.svg');
+  playerAvatarImage.setAttribute('src', message.player_avatar);
   playerAvatarImage.setAttribute('alt', 'elasmosaurus-avatar');
   playerAvatarImage.setAttribute('height', '50');
   playerAvatarImage.setAttribute('width', '50');

@@ -2,6 +2,7 @@ import express from 'express';
 import router from './routes/routes.js';
 import ws from 'ws';
 import webSocketServerManager from './controllers/WebSocketServerManager.js';
+import broadcaster from './utilities/Broadcaster.js';
 
 const port = 3000;
 const app = express();
@@ -11,6 +12,7 @@ app.use(router);
 // Set up a headless websocket server that prints any
 // events that come in.
 const wsServer = new ws.Server({noServer: true});
+broadcaster.configure(wsServer);
 webSocketServerManager.configure(wsServer);
 
 // `server` is a vanilla Node.js HTTP server, so use
