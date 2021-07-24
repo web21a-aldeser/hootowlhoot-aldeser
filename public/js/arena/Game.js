@@ -16,7 +16,6 @@ const CARDS = [
 export default class Game {
   constructor() {
     this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
-    this.player = new Player();
     this.playerList = [];
     this.geyserList = [];
     this.eggList = [];
@@ -24,14 +23,20 @@ export default class Game {
     this.turn = document.getElementById('turn');
     this.meteor = document.getElementById('meteor');
     this.currentList = [];
+    this.currentPlayer = 0;
   }
 
   configurePlayersCards() {
     this.getListPlayers();
+    localStorage.setItem('players-arena', JSON.stringify(this.playerList));
     this.setFirstTurn();
     this.createGeyser();
     this.createEggs();
     this.createBino();
+    const pass = document.getElementById('pass');
+    pass.addEventListener('click', () => {
+      this.chageTurn(this.currentPlayer);
+    });
     this.setupEventsForCards();
   }
 
@@ -45,51 +50,107 @@ export default class Game {
     }
   }
 
-  events(src, card) {
-    if (src.indexOf('see') !== -1) {
-      this.player.currentCell.children[0].style.display = 'block';
-      // this.player.previusCell = this.player.currentCell;
-      this.showGeysers();
-      const list = this.currentList;
-      setTimeout(() => {
-        for (let i = 0; i < list.length; i += 1) {
-          list[i].style.display = 'none';
-        }
-      }, 1000);
-      const audio1 = new Audio('sounds/achivement.wav');
-      audio1.play();
-    } else if (src.indexOf('egg') !== -1) {
-      this.player.currentCell.children[0].style.display = 'block';
-      // this.turn = this.player.name;
-      const audio2 = new Audio('sounds/achivement.wav');
-      audio2.play();
-    } else if (src.indexOf('geyser') !== -1) {
-      if (this.player.currentCell.children[0].style.display === 'block') {
-        let color = this.player.currentCell.className;
-        do {
-          this.player.move();
-          color = this.player.currentCell.className;
-        } while (card.src.indexOf(color) === -1);
-      } else {
-        const geyser = this.player.currentCell.children[0];
-        geyser.style.display = 'block';
-        geyser.style.filter = 'brightness(1.75)';
-        this.player.avatar.style.filter = 'brightness(0)';
+  // evalua el objeto en el que el jugador cae para ejecutar su determinada accion
+  objectActions(src, card, index) {
+    switch (true) {
+      // caso de binoculares, permite ver geysers por un tiempo determinado
+      case (src.indexOf('see') !== -1):
+        this.playerList[index].currentCell.children[0].style.display = 'block';
+        // this.player.previusCell = this.player.currentCell;
+        this.showGeysers();
+        const list = this.currentList;
         setTimeout(() => {
-          geyser.style.filter = 'brightness(1)';
-          this.player.avatar.style.filter = 'brightness(1)';
-        }, 1000);
-        this.player.currentCell.removeChild(this.player.avatar);
-        this.player.currentCell = this.player.previusCell;
-        this.player.previusCell.appendChild(this.player.avatar);
-        this.player.row = this.player.prevRow;
-        this.player.colum = this.player.prevCol;
-        // unvalidate cell
-        const audio3 = new Audio('sounds/explosion.wav');
-        audio3.play();
+          for (let i = 0; i < list.length; i += 1) {
+            list[i].style.display = 'none';
+          }
+        }, 10000);
+        const audio1 = new Audio('sounds/achivement.wav');
+        audio1.play();
+        break;
+
+        // caso de huevos, duplican turno
+      case (src.indexOf('egg') !== -1):
+        this.playerList[index].currentCell.children[0].style.display = 'block';
+        this.turn = this.player.name;
+        const audio2 = new Audio('sounds/achivement.wav');
+        audio2.play();
+        break;
+
+        // caso de geyser, el jugador vuelve a su posicion inicial
+        // si escoge un color que ya tenia un geyser descubierto lo salta al siguiente color
+      case (src.indexOf('geyser') !== -1):
+        // caso de que el geyser ya este descubierto en el color al que escogio
+        if ( this.playerList[index].currentCell.children[0].style.display === 'block') {
+          let color =  this.playerList[index].currentCell.className;
+          do {
+            this.playerList[index].move();
+            color =  this.playerList[index].currentCell.className;
+          } while (card.src.indexOf(color) === -1);
+        } else {
+          const geyser =  this.playerList[index].currentCell.children[0];
+          geyser.style.display = 'block';
+          geyser.style.filter = 'brightness(1.75)';
+          this.playerList[index].avatar.style.filter = 'brightness(0)';
+          setTimeout(() => {
+            geyser.style.filter = 'brightness(1)';
+            this.playerList[index].avatar.style.filter = 'brightness(1)';
+          }, 1000);
+          this.playerList[index].currentCell.removeChild( this.playerList[index].avatar);
+          this.playerList[index].currentCell =  this.playerList[index].previusCell;
+          this.playerList[index].previusCell.appendChild( this.playerList[index].avatar);
+          this.playerList[index].row =  this.playerList[index].prevRow;
+          this.playerList[index].colum =  this.playerList[index].prevCol;
+          // unvalidate cell
+          const audio3 = new Audio('sounds/explosion.wav');
+          audio3.play();
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  // desactiva las cartas de los jugadores a los que no les corresponde el turno
+  disableCards(){
+    const playersCount = this.tableBodyElement.children.length;
+    for (let i = 0; i < playersCount; i += 1) {
+      const playersCards = this.tableBodyElement.children.item(i).children.item(CARDS_CELL);
+      for (let j = 0; j < CARDS_COUNT; j += 1) {
+        playersCards.children[j].disabled = true;
+        playersCards.children[j].style.opacity = "0.5"; 
+        if( this.currentPlayer === i){
+        playersCards.children[j].disabled = false;
+        playersCards.children[j].style.opacity = "1"; 
+
+        }
       }
     }
   }
+
+     //desactiva las cartas si se encuentra 1 de meteorito
+     searchMeteorite(index) {
+      const playersCards = this.tableBodyElement.children.item(index).children.item(CARDS_CELL);
+      let found = false;
+      for (let j = 0; j < CARDS_COUNT; j += 1) {
+        if (playersCards.children[j].src.indexOf('meteorite') !== -1){
+          found = true;
+          console.log('found');
+        }
+      }
+      if (found){
+        for (let j = 0; j < CARDS_COUNT; j += 1) {
+          playersCards.children[j].disabled = true;
+          playersCards.children[j].style.opacity = "0.5"; 
+          if (playersCards.children[j].src.indexOf('meteorite') !== -1){
+            playersCards.children[j].disabled = false;
+            playersCards.children[j].style.opacity = "1"; 
+
+          }
+      }
+    }
+  }
+
 
   setupEventsForCards() {
     const playersCount = this.tableBodyElement.children.length;
@@ -101,20 +162,22 @@ export default class Game {
           if (card.src.indexOf('meteorite') !== -1) {
             this.meteorite();
           } else {
-            let color = this.player.currentCell.className;
-            this.player.previusCell = this.player.currentCell;
+            // 
+            let color = this.playerList[i].currentCell.className;
+            this.playerList[i].previusCell =this.playerList[i].currentCell;
+            // el jugador se mueve hasta encontrar el color que tocó
             do {
-              this.player.move();
-              color = this.player.currentCell.className;
+              this.playerList[i].move();
+              color = this.playerList[i].currentCell.className;
             } while (card.src.indexOf(color) === -1);
-
-            if (this.player.currentCell.children[0].src != null) {
-              this.events(this.player.currentCell.children[0].src, card);
+            // si encuentra un objeto en la celda actual realiza su evento si no solo se mueve
+            if (this.playerList[i].currentCell.children[0].src != null) {
+              this.objectActions(this.playerList[i].currentCell.children[0].src, card, i);
             } else {
-              this.player.previusCell = this.player.currentCell;
+              this.playerList[i].previusCell = this.playerList[i].currentCell;
             }
-            this.player.prevCol = this.player.colum;
-            this.player.prevRow = this.player.row;
+            this.playerList[i].prevCol = this.playerList[i].colum;
+            this.playerList[i].prevRow = this.playerList[i].row;
           }
           this.chageTurn(i);
           card.src = this.getRandomCard();
@@ -123,26 +186,29 @@ export default class Game {
     }
   }
 
+
+  // pone el primer turno al empezar la partida
   setFirstTurn() {
-    const retrive = localStorage.getItem(0);
-    const values = JSON.parse(retrive);
-    this.turn.innerText = values[BOTTOM];
+    this.turn.innerText =this.playerList[0].name;
+    this.disableCards();
+    this.searchMeteorite(this.currentPlayer);
   }
 
+  // cambia de turno 
   chageTurn(index) {
-    let playersLength = JSON.parse(localStorage.getItem('players-quantity'));
-    playersLength -= 1;
-    if (index < playersLength) {
-      this.index += 1;
+    if (index < this.playerList.length - 1) {
+      index += 1;
     } else {
-      this.index = 0;
+      index = 0;
     }
-
-    const retrive = localStorage.getItem(index);
-    const values = JSON.parse(retrive);
-    this.turn.innerText = values[BOTTOM];
+    this.turn.innerText = this.playerList[index].name;
+    this.currentPlayer = index;
+    this.disableCards();
+    this.searchMeteorite(this.currentPlayer);
+    localStorage.setItem('players-arena', JSON.stringify(this.playerList));
   }
 
+  //mueve el meteorito cada vez que sale una carta
   meteorite() {
     const proximity = document.getElementById('clarity');
     const elements = proximity.children;
@@ -164,40 +230,55 @@ export default class Game {
       this.meteor.style.top = '100px';
       window.location = 'aftermatch.xhtml';
     }
+    this.chageTurn(this.currentPlayer);
   }
 
+  // retorna una carta al azar
   // eslint-disable-next-line class-methods-use-this
   getRandomCard() {
     return CARDS[Math.floor(Math.random() * CARDS.length)];
   }
 
+  // pasa la lista de jugadores 
   getListPlayers() {
-    for (let i = 0; i < JSON.parse(localStorage.getItem('players-quantity')); i += 1) {
-      const player = new Player();
-      player.configurePlayer(i);
+    const localList=JSON.parse(localStorage.getItem('players'));
+    // crea y configura los jugadores
+    for (let i = 0; i < localList.length; i += 1) {
+      const player = new Player(localList[i].name, localList[i].avatar, i);
+      player.configurePlayer();
       this.playerList.push(player);
+      const playersCards = this.tableBodyElement.children.item(i).children.item(CARDS_CELL);
+      //asigna cartas al azar
+      for (let j = 0; j < CARDS_COUNT; j += 1) {
+        const card = playersCards.children[j];
+        card.src = this.getRandomCard();
     }
   }
+}
 
+  // asigna una celda aleatoria para la insercion de los objetos
   // eslint-disable-next-line class-methods-use-this
   randomCell() {
-    const num = [0, 2, 4, 6];
+    // arreglo de los numeros de columnas del tablero
+    // ya que estas son las que cambian respecto a las filas en nuestro tablero
+    const validCol = [0, 2, 4, 6];
     let col = 0;
     const row = Math.floor(Math.random() * 8);
     if (row === 0) {
-      num.push(3);
-      num.push(7);
+      validCol.push(3);
+      validCol.push(7);
       // dependiendo de la cantidad de jugadores este valor cambia
-      col = num[Math.floor(Math.random() * 6) + 1];
+      // ya que los jugadores se posicionan en las primeras casillas
+      col = validCol[Math.floor(Math.random() * 6) + 1];
       while (col === undefined) {
-        col = num[Math.floor(Math.random() * 6) + 1];
+        col = validCol[Math.floor(Math.random() * 6) + 1];
       }
     } else if (row === 7) {
-      num.push(1);
-      num.push(5);
-      col = num[Math.floor(Math.random() * 6)];
+      validCol.push(1);
+      validCol.push(5);
+      col = validCol[Math.floor(Math.random() * 6)];
     } else {
-      col = num[Math.floor(Math.random() * 4)];
+      col = validCol[Math.floor(Math.random() * 4)];
     }
     return document.querySelector(`td[data-row="${row}"][data-col="${col}"]`);
   }
@@ -267,6 +348,59 @@ export default class Game {
       bino.style.left = `${parseInt(computedStyles.left, 10) + 22}px`;
       bino.style.display = 'none';
       this.binoList.push(bino);
+    }
+  }
+
+  //Given a tile in a position(x,y in format 'xy'),
+  //adds the corresponding custom elements to that tile.
+  //The possible custom elements are an int that represents the element:
+  //1: adds a geyser, 2: adds binoculars, 3: adds and egg
+  AddTileElements(position, customElements) {
+    let newCell = document.querySelector(`td[data-row="${parseInt(position.substr(0,1))}"][data-col="${parseInt(position.substr(1,2))}"]`);
+    var computedStyles;
+    switch(parseInt(customElements)){
+      //Add geyser
+      case 1:
+        const mine = document.createElement('img');
+        mine.src = 'icons/geyser.svg';
+        mine.width = '60';
+        mine.style.position = 'absolute';
+
+        newCell.appendChild(mine);
+        computedStyles = window.getComputedStyle(mine);
+        mine.style.top = `${parseInt(computedStyles.top, 10) - 25}px`;
+        mine.style.left = `${parseInt(computedStyles.left, 10) + 20}px`;
+        mine.style.display = 'none';
+        this.geyserList.push(mine);
+        break;
+      //Add binocular
+      case 2:
+        const bino = document.createElement('img');
+        bino.src = 'icons/see.svg';
+        bino.width = '50';
+        bino.style.position = 'absolute';
+        
+        newCell.appendChild(bino);
+        computedStyles = window.getComputedStyle(bino);
+        bino.style.top = `${parseInt(computedStyles.top, 10) - 25}px`;
+        bino.style.left = `${parseInt(computedStyles.left, 10) + 22}px`;
+        bino.style.display = 'none';
+        this.binoList.push(bino);
+        break;
+      //Add egg
+      case 3:
+        const egg = document.createElement('img');
+        egg.src = 'icons/egg.svg';
+        egg.width = '50';
+        egg.style.position = 'absolute';
+
+        newCell.appendChild(egg);
+        computedStyles = window.getComputedStyle(egg);
+        egg.style.top = `${parseInt(computedStyles.top, 10) - 20}px`;
+        egg.style.left = `${parseInt(computedStyles.left, 10) + 22}px`;
+        egg.style.display = 'none';
+        this.eggList.push(egg);
+        break;
     }
   }
 }

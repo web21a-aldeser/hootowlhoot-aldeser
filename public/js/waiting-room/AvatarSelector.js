@@ -8,11 +8,11 @@ const PLAYERS_AVATAR_CELL = 0;
 const PLAYERS_AVATAR_BUTTON = 0;
 
 export default class AvatarSelector {
-  constructor(playersList) {
+  constructor() {
     this.element = document.getElementById(AVATAR_SELECTION_ID);
     this.element.style.display = 'none';
     this.avatarsTable = document.getElementById(AVATAR_SELECTION_TABLE_ID);
-    this.playersList = playersList;
+    this.playersList = [];
   }
 
   show() {
@@ -40,6 +40,7 @@ export default class AvatarSelector {
 
   configure() {
     this.setupEvents();
+    this.playersList = JSON.parse(localStorage.getItem('players'));
   }
 
   setupEvents() {
@@ -64,11 +65,8 @@ export default class AvatarSelector {
 
   // eslint-disable-next-line class-methods-use-this
   updateAvatar(index, avatar) {
-    const items = [];
-    const lista = localStorage.getItem(index);
-    const name = JSON.parse(lista);
-    items.push(name[0]);
-    items.push(avatar);
-    localStorage.setItem(index, JSON.stringify(items));
+    this.playersList[index].avatar = avatar;
+    localStorage.setItem('players', JSON.stringify(this.playersList));
+    console.log(localStorage.getItem('players'));
   }
 }

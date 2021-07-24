@@ -1,35 +1,54 @@
 const PLAYERS_CARDS_TABLE_ID = 'players-cards';
-const PLAYER_ID = 'player-1-avatar';
 const TOP = 1;
 const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_TOP = [3, 4, 7, 8];
 const BOTTOM = 0;
 const VALID_COLUMNS_FOR_RIGHTWARDS_MOVEMENTS_IN_BOTTOM = [1, 2, 5, 6];
 const FIRST = 0;
-const SECOND = 1;
-
 class Player {
-    constructor() {
-        this.player = document.getElementById(PLAYER_ID);
-        this.row = FIRST;
+    constructor(name, dino, row) {
+        //this.player = document.getElementById(PLAYER_ID); esto es el div donde esta la imagen
+        this.row = row;
         this.colum = FIRST;
-        this.currentCell = document.querySelector('td[data-row="0"][data-col="0"]');
+        this.currentCell = document.querySelector('td[data-row=' + '"' + row + '"' + '][data-col="0"]');
         this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
         this.previusCell = this.currentCell;
-        this.avatar = this.currentCell.children.item(0);
+        this.avatar = document.createElement('img');
+        this.avatar.src = dino;
         this.prevRow = this.row;
         this.prevCol = this.colum;
+        this.name = name;
     }
 
     // Configure avatar and name in player box
-    configurePlayer(key) {
-        const playerName = this.tableBodyElement.children.item(FIRST).children.item(SECOND);
-        // eslint-disable-next-line max-len
-        const playerDino = this.tableBodyElement.children.item(FIRST).children.item(FIRST).children[FIRST];
-        const retrive = localStorage.getItem(parseInt(key, 10));
-        const values = JSON.parse(retrive);
-        playerName.innerHTML = values[FIRST];
-        playerDino.src = values[SECOND];
-        this.player.children[FIRST].src = values[SECOND];
+    configurePlayer() {
+        //avatar en el tablero
+        this.avatar.setAttribute('width', 40);
+        this.currentCell.append(this.avatar);
+
+        //elementos del player box
+        const tr = document.createElement('tr');
+        const dinos = document.createElement('td');
+        const img = document.createElement("img");
+        img.setAttribute("src", this.avatar.src);
+        img.setAttribute('width', 50);
+        dinos.append(img);
+        tr.append(dinos);
+        const playName = document.createElement('td');
+        let textName = document.createTextNode(this.name);
+        playName.append(textName);
+        tr.append(playName);
+        const cards = document.createElement('td');
+        for (let i = 0; i < 3; i += 1) {
+            let card = document.createElement('input');
+            card.setAttribute('type', 'image');
+            card.setAttribute('width', 50);
+            card.setAttribute('height', 50);
+           // card.setAttribute('onmouseover', 'image');
+            cards.append(card);
+        }
+        tr.append(cards);
+        this.tableBodyElement.append(tr);
+        //return tr;
     }
 
     move() {
@@ -96,13 +115,12 @@ class Player {
     }
 
     movePlayerAvatarToNewCell() {
-        // ToDo: check whether the new cell is inhabit for another dinosaur or if it
-        // contains a geyser.
         const newCell = this.findCellForPlayersNewPosition();
         this.currentCell.removeChild(this.avatar);
         newCell.appendChild(this.avatar);
         this.currentCell = newCell;
-        if (this.currentCell === document.getElementById('final')) {
+        const finalCell = document.getElementById('final').childElementCount;
+        if (finalCell === JSON.parse(localStorage.getItem('players-quantity')) + 1) {
             const audio = new Audio('sounds/levelComplete.wav');
             audio.play();
             window.location = 'aftermatch.xhtml';
