@@ -28,6 +28,7 @@ export default class Game {
 
   configurePlayersCards() {
     this.getListPlayers();
+    localStorage.setItem('players-arena', JSON.stringify(this.playerList));
     this.setFirstTurn();
     this.createGeyser();
     this.createEggs();
@@ -204,6 +205,7 @@ export default class Game {
     this.currentPlayer = index;
     this.disableCards();
     this.searchMeteorite(this.currentPlayer);
+    localStorage.setItem('players-arena', JSON.stringify(this.playerList));
   }
 
   //mueve el meteorito cada vez que sale una carta
