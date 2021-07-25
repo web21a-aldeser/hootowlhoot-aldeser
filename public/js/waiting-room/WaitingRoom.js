@@ -4,9 +4,10 @@ import AvatarSelector from './AvatarSelector.js';
 const PLAYER_TABLE_ID = 'players-list-table';
 
 export default class WaitingRoom {
-  constructor(socket) {
-    this.socket = socket;
+  constructor(websocket) {
+    this.websocket = websocket;
     this.playerList = new PlayerList(PLAYER_TABLE_ID);
+    this.playerList.websocket = websocket;
     this.avatarSelector = new AvatarSelector();
   }
 
@@ -70,8 +71,13 @@ export default class WaitingRoom {
         data.value.players_list.push(player.toJson());
       });
 
-      this.socket.send(JSON.stringify(data));
+      this.websocket.send(JSON.stringify(data));
       window.location = 'arena.xhtml';
     });
+  }
+
+  updatePlayerName(message) {
+    const player = this.playerList.players.find((p) => p.playerIdForSession === message.player_id);
+    player.updateName(message.player_name);
   }
 }

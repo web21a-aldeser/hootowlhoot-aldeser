@@ -1,5 +1,6 @@
 import sessionManager from './SessionsManager.js';
 import messagesTypes from '../utilities/MessagesTypes.js';
+import broadcaster from '../utilities/Broadcaster.js';
 
 class WebSocketServerManager {
   constructor() {
@@ -12,6 +13,7 @@ class WebSocketServerManager {
     this.wsServer.on('connection', (socket) => {
       // ToDo: Handle reconnection after changing to arena.
       socket.on('message', (rawMessage) => {
+        console.log(`Message ${rawMessage}`);
         // Get message type.
         const message = JSON.parse(rawMessage);
         const messageType = message.type;
@@ -20,6 +22,8 @@ class WebSocketServerManager {
           sessionManager.createNewSession(socket, this.clientsWebsockets);
         } else if (messageType === messagesTypes.guestPlayerInitialRequest) {
           sessionManager.addPlayerToSession(socket, this.clientsWebsockets);
+        } else {
+          broadcaster.broadcastToAllExcept(socket, message);
         }
       });
 

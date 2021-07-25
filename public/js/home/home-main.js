@@ -10,6 +10,7 @@ function main() {
 
   const joinMatchButton = document.getElementById('join-button');
   joinMatchButton.addEventListener('click', () => {
+    //localStorage.setItem(isHostKey, JSON.stringify('false'));
     // Make fetch call to server endpoint to authenticate given key.
     const joinGameInput = document.getElementById('join-key-input');
     const gameKey = joinGameInput.value;
@@ -33,7 +34,8 @@ function requestServerToJoinSession(gameKey) {
     body: JSON.stringify({session_key: gameKey})
   };
 
-  const url = 'http://localhost:3000/join-session';
+  // const url = 'http://localhost:3000/join-session';
+  const url = `http://${window.location.host}/join-session`;
 
   fetch(url, parameters)
     .then((res) => res.json())

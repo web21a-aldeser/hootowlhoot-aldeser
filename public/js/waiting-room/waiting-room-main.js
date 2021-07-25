@@ -1,45 +1,38 @@
 import WaitingRoom from './WaitingRoom.js';
-import PlayerList from './PlayerList.js';
+import messagesTypes from './MessagesTypes.js';
 
 const isHostKey = 'isHost';
-const messagesTypes = {
-  sessionCreated: 'sessionCreated',
-  playerIdentity: 'playerIdentity',
-  guestPlayerSuccessfullyJoined: 'joinedSuccessfully',
-  newPlayer: 'newPlayer',
-  currentPlayers: 'currentPlayers'
-};
+const websocket = new WebSocket(`ws://${window.location.host}`);
+const waitingRoom = new WaitingRoom(websocket);
 
 function main() {
-  const socket = new WebSocket(`ws://${window.location.host}`);
   const amIHost = JSON.parse(localStorage.getItem(isHostKey));
-  const waitingRoom = new WaitingRoom(socket);
-  waitingRoom.configure();
 
-  socket.onmessage = (event) => {
+  waitingRoom.configure();
+  websocket.onmessage = (event) => {
     processMessage(JSON.parse(event.data));
     configureEventsForPlayersList(waitingRoom);
   };
 
   if (amIHost) {
     // Identify myself to the server as host player.
-    socket.onopen = () => {
+    websocket.onopen = () => {
       console.log('The socket was opened for host player');
       const message = {
         type: 'createSession'
       };
-      socket.send(JSON.stringify(message));
+      websocket.send(JSON.stringify(message));
     };
   } else {
     // Guest
     // Identify myself to the server as player.
     disableControlsForGuestPlayer();
-    socket.onopen = () => {
+    websocket.onopen = () => {
       console.log('The socket was opened for guest player');
       const message = {
         type: 'guestPlayerInitialRequest'
       };
-      socket.send(JSON.stringify(message));
+      websocket.send(JSON.stringify(message));
     };
   }
 }
@@ -60,6 +53,7 @@ function processMessage(message) {
   const joinedToSession = message.type === messagesTypes.guestPlayerSuccessfullyJoined;
   const newPlayerHasJoined = message.type === messagesTypes.newPlayer;
   const currentPlayersReceived = message.type === messagesTypes.currentPlayers;
+  const playerNameUpdateReceived = message.type === messagesTypes.playerNameUpdate;
 
   const requirementsSatisfiedToUpdateWaitingRoom =
     sessionCreated || joinedToSession || newPlayerHasJoined;
@@ -68,6 +62,8 @@ function processMessage(message) {
     updateWaitingRoom(message.value);
   } else if (currentPlayersReceived) {
     addNewPlayersToList(message.value.players);
+  } else if (playerNameUpdateReceived) {
+    waitingRoom.updatePlayerName(message.value);
   }
 }
 
@@ -84,11 +80,10 @@ function updateWaitingRoom(message) {
   // It saves this player identity so the next time a socket is created it can
   // be mapped to a session on the server-side.
   const playerIdentity = {
-    sessionId: message.session_key,
-    playerId: message.player_id
+    player_id: message.player_id,
+    session_key: message.session_key
   };
-
-  localStorage.setItem(messagesTypes, JSON.stringify(playerIdentity));
+  localStorage.setItem(messagesTypes.playerIdentity, JSON.stringify(playerIdentity));
 }
 
 function addNewPlayersToList(players) {
