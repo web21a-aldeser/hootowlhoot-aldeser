@@ -1,7 +1,9 @@
 import PlayerList from './PlayerList.js';
 import AvatarSelector from './AvatarSelector.js';
+import messagesTypes from './MessagesTypes.js';
 
 const PLAYER_TABLE_ID = 'players-list-table';
+const waitingTimeToChangeScreen = 3000;
 
 export default class WaitingRoom {
   constructor(websocket) {
@@ -50,40 +52,32 @@ export default class WaitingRoom {
       localStorage.setItem('Eggs', JSON.stringify(options[1]));
       localStorage.setItem('Binoculars', JSON.stringify(options[2]));
 
-      const geyser_probability = document.getElementById('geyser-probability').value;
-      const eggs_probability = document.getElementById('eggs-probability').value;
-      const binoculars_probability = document.getElementById('binoculars-probability').value;
-
-      const data = {
-        type: 'arena_data',
-        value: {
-          game_settings: {
-            binoculars_probability: binoculars_probability,
-            eggs_probability: eggs_probability,
-            geyser_probability: geyser_probability
-          },
-          players_list: []
-        }
-      };
-
-      const players = this.playerList.getPlayers();
-      players.forEach((player) => {
-        console.log(player);
-        data.value.players_list.push(player.toJson());
-      });
-
-      this.websocket.send(JSON.stringify(data));
-      window.location = 'arena.xhtml';
+      this.sendMatchStartedMessageToServer();
+      window.location.href = 'arena.xhtml';
     });
+  }
+
+  sendMatchStartedMessageToServer() {
+    const sessionKey = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity)).session_key;
+    const matchStarted = {
+      type: messagesTypes.matchStarted,
+      value: {
+        session_key: sessionKey,
+        data: []
+      }
+    };
+    this.websocket.send(JSON.stringify(matchStarted));
   }
 
   updatePlayerName(message) {
     const player = this.playerList.players.find((p) => p.playerIdForSession === message.player_id);
     player.updateName(message.player_name);
+    this.playerList.refreshStorage();
   }
 
   updatePlayerAvatar(message) {
     const player = this.playerList.players.find((p) => p.playerIdForSession === message.player_id);
     player.updateAvatar(message.avatar_path);
+    this.playerList.refreshStorage();
   }
 }

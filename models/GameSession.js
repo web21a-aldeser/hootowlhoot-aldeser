@@ -15,4 +15,8 @@ export default class GameSession {
     }
     return result;
   }
+
+  findPlayerById(id) {
+    return this.players.find((player) => player.id === id);
+  }
 }

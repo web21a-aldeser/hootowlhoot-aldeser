@@ -10,27 +10,34 @@ class WebSocketServerManager {
 
   configure(wsServer) {
     this.wsServer = wsServer;
-    this.wsServer.on('connection', (socket) => {
+    this.wsServer.on('connection', (websocket) => {
       // ToDo: Handle reconnection after changing to arena.
-      socket.on('message', (rawMessage) => {
+      websocket.on('message', (rawMessage) => {
         console.log(`Message ${rawMessage}`);
         // Get message type.
         const message = JSON.parse(rawMessage);
         const messageType = message.type;
 
         if (messageType === messagesTypes.createSession) {
-          sessionManager.createNewSession(socket, this.clientsWebsockets);
+          sessionManager.createNewSession(websocket, this.clientsWebsockets);
         } else if (messageType === messagesTypes.guestPlayerInitialRequest) {
-          sessionManager.addPlayerToSession(socket, this.clientsWebsockets);
+          sessionManager.addPlayerToSession(websocket, this.clientsWebsockets);
+        } else if (messageType === messagesTypes.reauthentication) {
+          // Reauthenticate websockets
+          sessionManager.reattachSocketToPlayer(
+            websocket,
+            this.clientsWebsockets,
+            message.value.player_identity
+          );
         } else {
           const session = sessionManager.findSessionByKey(message.value.session_key);
-          broadcaster.broadcastToAllExcept(session, socket, message);
+          broadcaster.broadcastToAllExcept(session, websocket, message);
         }
       });
 
-      socket.on('close', () => {
-        console.log(`${this.clientsWebsockets.get(socket)} closed the connection`);
-        this.clientsWebsockets.delete(socket);
+      websocket.on('close', () => {
+        console.log(`${this.clientsWebsockets.get(websocket)} closed the connection`);
+        this.clientsWebsockets.delete(websocket);
       });
     });
   }

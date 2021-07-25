@@ -78,6 +78,18 @@ class SessionManager {
     this.sendCurrentSessionPlayersToNewPlayer(socket, session, player.id);
   }
 
+  reattachSocketToPlayer(websocket, clientsWebsockets, playerIdentity) {
+    // Player identity reference { player_id: message.player_id, session_key: message.session_key }
+    const session = this.findSessionByKey(playerIdentity.session_key);
+    const player = session.findPlayerById(playerIdentity.player_id);
+    // It saves the websocket for broadcasting purposes.
+    session.clients.push(websocket);
+    // This map is not in use yet.
+    clientsWebsockets.set(websocket, player);
+
+    console.log('Websocket trace successfully recovered');
+  }
+
   sendNewPlayerToEveryone(session, socket, player) {
     const newPlayerMessage = {
       type: messagesTypes.newPlayerHasJoined,

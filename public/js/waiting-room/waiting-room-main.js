@@ -56,6 +56,7 @@ function processMessage(message) {
   const currentPlayersReceived = message.type === messagesTypes.currentPlayers;
   const playerNameUpdateReceived = message.type === messagesTypes.playerNameUpdate;
   const playerAvatarUpdated = message.type === messagesTypes.avatarUpdated;
+  const matchHasStarted = message.type === messagesTypes.matchStarted;
 
   const requirementsSatisfiedToUpdateWaitingRoom =
     sessionCreated || joinedToSession || newPlayerHasJoined;
@@ -68,6 +69,8 @@ function processMessage(message) {
     waitingRoom.updatePlayerName(message.value);
   } else if (playerAvatarUpdated) {
     waitingRoom.updatePlayerAvatar(message.value);
+  } else if (matchHasStarted) {
+    window.location.href = 'arena.xhtml';
   }
 }
 

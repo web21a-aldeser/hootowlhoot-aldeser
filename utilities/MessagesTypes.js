@@ -4,6 +4,8 @@ const messagesTypes = {
   guestPlayerInitialRequest: 'guestPlayerInitialRequest',
   guestPlayerSuccessfullyJoined: 'joinedSuccessfully',
   newPlayerHasJoined: 'newPlayer',
-  currentPlayers: 'currentPlayers'
+  currentPlayers: 'currentPlayers',
+  reauthentication: 'reauthentication',
+  matchStarted: 'matchStarted'
 };
 export default messagesTypes;

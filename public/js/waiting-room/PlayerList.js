@@ -56,6 +56,10 @@ export default class PlayerList {
     localStorage.setItem('players', JSON.stringify(this.players));
   }
 
+  refreshStorage() {
+    this.passListPlayers();
+  }
+
   passListPlayers() {
     //localStorage.clear();
     localStorage.setItem('players', JSON.stringify(this.players));
