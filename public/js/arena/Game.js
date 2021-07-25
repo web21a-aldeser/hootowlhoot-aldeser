@@ -24,6 +24,11 @@ export default class Game {
     this.meteor = document.getElementById('meteor');
     this.currentList = [];
     this.currentPlayer = 0;
+    this.boardData = {
+      type: "board-data",
+      tiles: {}
+    };
+    this.numberElements = 0;
   }
 
   configurePlayersCards() {
@@ -33,6 +38,18 @@ export default class Game {
     this.createGeyser();
     this.createEggs();
     this.createBino();
+    const pass = document.getElementById('pass');
+    pass.addEventListener('click', () => {
+      this.chageTurn(this.currentPlayer);
+    });
+    this.setupEventsForCards();
+  }
+
+  configurePlayersCardsNonHost(content){
+    this.getListPlayers();
+    localStorage.setItem('players-arena', JSON.stringify(this.playerList));
+    this.setFirstTurn();
+    this.createArena(content);
     const pass = document.getElementById('pass');
     pass.addEventListener('click', () => {
       this.chageTurn(this.currentPlayer);
@@ -258,7 +275,7 @@ export default class Game {
 
   // asigna una celda aleatoria para la insercion de los objetos
   // eslint-disable-next-line class-methods-use-this
-  randomCell() {
+  randomCell(newElement) {
     // arreglo de los numeros de columnas del tablero
     // ya que estas son las que cambian respecto a las filas en nuestro tablero
     const validCol = [0, 2, 4, 6];
@@ -280,6 +297,11 @@ export default class Game {
     } else {
       col = validCol[Math.floor(Math.random() * 4)];
     }
+    this.boardData.tiles[this.numberElements]={
+      position : row.toString() + col.toString(),
+      element : newElement.toString()
+  }
+  ++this.numberElements;
     return document.querySelector(`td[data-row="${row}"][data-col="${col}"]`);
   }
 
@@ -292,9 +314,9 @@ export default class Game {
       mine.width = '60';
       mine.style.position = 'absolute';
       // Asign positions
-      let newCell = this.randomCell();
+      let newCell = this.randomCell(1);
       while (newCell.children.length !== 0) {
-        newCell = this.randomCell();
+        newCell = this.randomCell(1);
       }
       newCell.appendChild(mine);
       const computedStyles = window.getComputedStyle(mine);
@@ -315,9 +337,9 @@ export default class Game {
       egg.width = '50';
       egg.style.position = 'absolute';
       // Asign positions
-      let newCell = this.randomCell();
+      let newCell = this.randomCell(3);
       while (newCell.children.length !== 0) {
-        newCell = this.randomCell();
+        newCell = this.randomCell(3);
       }
       newCell.appendChild(egg);
       const computedStyles = window.getComputedStyle(egg);
@@ -338,9 +360,9 @@ export default class Game {
       bino.width = '50';
       bino.style.position = 'absolute';
       // Asign positions
-      let newCell = this.randomCell();
+      let newCell = this.randomCell(2);
       while (newCell.children.length !== 0) {
-        newCell = this.randomCell();
+        newCell = this.randomCell(2);
       }
       newCell.appendChild(bino);
       const computedStyles = window.getComputedStyle(bino);
@@ -401,6 +423,15 @@ export default class Game {
         egg.style.display = 'none';
         this.eggList.push(egg);
         break;
+    }
+  }
+
+  createArena(content) {
+    var arenaElements = JSON.parse(content);
+    for(var tile in arenaElements.tiles){
+      if(arenaElements.tiles.hasOwnProperty(tile)){
+        this.AddTileElements(arenaElements.tiles[tile].position, arenaElements.tiles[tile].element);
+      }
     }
   }
 }
