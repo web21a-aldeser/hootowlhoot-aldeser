@@ -54,6 +54,7 @@ function processMessage(message) {
   const newPlayerHasJoined = message.type === messagesTypes.newPlayer;
   const currentPlayersReceived = message.type === messagesTypes.currentPlayers;
   const playerNameUpdateReceived = message.type === messagesTypes.playerNameUpdate;
+  const playerAvatarUpdated = message.type === messagesTypes.avatarUpdated;
 
   const requirementsSatisfiedToUpdateWaitingRoom =
     sessionCreated || joinedToSession || newPlayerHasJoined;
@@ -64,6 +65,8 @@ function processMessage(message) {
     addNewPlayersToList(message.value.players);
   } else if (playerNameUpdateReceived) {
     waitingRoom.updatePlayerName(message.value);
+  } else if (playerAvatarUpdated) {
+    waitingRoom.updatePlayerAvatar(message.value);
   }
 }
 

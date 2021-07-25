@@ -1,3 +1,5 @@
+import messagesTypes from './MessagesTypes.js';
+
 const AVATAR_SELECTION_ID = 'avatar-selection';
 const AVATAR_SELECTION_TABLE_ID = 'avatar-selection-table';
 const AVATAR_IMAGE_CELL = 1;
@@ -13,6 +15,7 @@ export default class AvatarSelector {
     this.element.style.display = 'none';
     this.avatarsTable = document.getElementById(AVATAR_SELECTION_TABLE_ID);
     this.playersList = [];
+    this.websocket = null;
   }
 
   show() {
@@ -58,6 +61,7 @@ export default class AvatarSelector {
         ].children[PLAYERS_AVATAR_BUTTON].src = avatarImagePath;
         console.log(this.element.dataset.key);
         this.updateAvatar(this.element.dataset.key, avatarImagePath);
+        this.sendAvatarUpdateToServer(avatarImagePath);
         // this.playersList[this.element.dataset.key].avatar = avatarImagePath;
       });
     }
@@ -68,5 +72,21 @@ export default class AvatarSelector {
     this.playersList[index].avatar = avatar;
     localStorage.setItem('players', JSON.stringify(this.playersList));
     console.log(localStorage.getItem('players'));
+  }
+
+  sendAvatarUpdateToServer(avatarImagePath) {
+    //const trimmedAvatarPath = `../../${avatarImagePath.substr(avatarImagePath.indexOf('icons'))}`;
+
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+    const avatarImageUpdated = {
+      type: messagesTypes.avatarUpdated,
+      value: {
+        player_id: playerIdentity.player_id,
+        session_key: playerIdentity.session_key,
+        avatar_path: avatarImagePath
+      }
+    };
+
+    this.websocket.send(JSON.stringify(avatarImageUpdated));
   }
 }

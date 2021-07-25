@@ -9,6 +9,7 @@ export default class WaitingRoom {
     this.playerList = new PlayerList(PLAYER_TABLE_ID);
     this.playerList.websocket = websocket;
     this.avatarSelector = new AvatarSelector();
+    this.avatarSelector.websocket = websocket;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -79,5 +80,10 @@ export default class WaitingRoom {
   updatePlayerName(message) {
     const player = this.playerList.players.find((p) => p.playerIdForSession === message.player_id);
     player.updateName(message.player_name);
+  }
+
+  updatePlayerAvatar(message) {
+    const player = this.playerList.players.find((p) => p.playerIdForSession === message.player_id);
+    player.updateAvatar(message.avatar_path);
   }
 }

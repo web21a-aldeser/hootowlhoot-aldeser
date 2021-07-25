@@ -21,4 +21,8 @@ export default class Player {
   updateName(name) {
     this.nameElement.innerHTML = name;
   }
+
+  updateAvatar(path) {
+    this.avatarElement.firstChild.firstChild.src = path;
+  }
 }
