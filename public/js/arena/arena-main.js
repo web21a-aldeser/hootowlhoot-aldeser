@@ -30,8 +30,12 @@ function processMessage(message) {
   console.log(`A message has arrived ${message}`);
 
   const theMeteoriteHasMoved = message.type === messagesTypes.meteoriteMovement;
+  const boardConstructed = message.type === messagesTypes.createBoard;
   if (theMeteoriteHasMoved) {
     game.moveMeteorite();
+  }
+  if(boardConstructed){
+    game.createBoard(message);
   }
 }
 
