@@ -10,7 +10,7 @@ function main() {
 
   const joinMatchButton = document.getElementById('join-button');
   joinMatchButton.addEventListener('click', () => {
-    //localStorage.setItem(isHostKey, JSON.stringify('false'));
+    localStorage.setItem(isHostKey, JSON.stringify('false'));
     // Make fetch call to server endpoint to authenticate given key.
     const joinGameInput = document.getElementById('join-key-input');
     const gameKey = joinGameInput.value;
