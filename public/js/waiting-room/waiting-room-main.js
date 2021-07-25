@@ -4,6 +4,7 @@ import messagesTypes from './MessagesTypes.js';
 const isHostKey = 'isHost';
 const websocket = new WebSocket(`ws://${window.location.host}`);
 const waitingRoom = new WaitingRoom(websocket);
+let firstLoad = false;
 
 function main() {
   const amIHost = JSON.parse(localStorage.getItem(isHostKey));
@@ -14,7 +15,7 @@ function main() {
     configureEventsForPlayersList(waitingRoom);
   };
 
-  if (amIHost) {
+  if (amIHost === 'true') {
     // Identify myself to the server as host player.
     websocket.onopen = () => {
       console.log('The socket was opened for host player');
@@ -62,7 +63,7 @@ function processMessage(message) {
   if (requirementsSatisfiedToUpdateWaitingRoom) {
     updateWaitingRoom(message.value);
   } else if (currentPlayersReceived) {
-    addNewPlayersToList(message.value.players);
+    addNewPlayersToListUI(message.value.players);
   } else if (playerNameUpdateReceived) {
     waitingRoom.updatePlayerName(message.value);
   } else if (playerAvatarUpdated) {
@@ -73,7 +74,7 @@ function processMessage(message) {
 function updateWaitingRoom(message) {
   const amIHost = JSON.parse(localStorage.getItem(isHostKey));
 
-  if (amIHost) {
+  if (amIHost === 'true' && !firstLoad) {
     const gameKey = document.getElementById('game-private-key');
     gameKey.innerHTML = `Game key: ${message.session_key}`;
   }
@@ -86,10 +87,14 @@ function updateWaitingRoom(message) {
     player_id: message.player_id,
     session_key: message.session_key
   };
-  localStorage.setItem(messagesTypes.playerIdentity, JSON.stringify(playerIdentity));
+
+  if (!firstLoad) {
+    localStorage.setItem(messagesTypes.playerIdentity, JSON.stringify(playerIdentity));
+    firstLoad = true;
+  }
 }
 
-function addNewPlayersToList(players) {
+function addNewPlayersToListUI(players) {
   players.forEach((player) => {
     addPlayerToPlayersList(player);
   });

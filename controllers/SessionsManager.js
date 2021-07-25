@@ -18,6 +18,7 @@ class SessionManager {
     const session = new GameSession();
     const player = new Player(hostPlayerId);
     session.players.push(player);
+    session.clients.push(socket);
 
     // It maps the socket to the player.
     webSocketsToPlayers.set(socket, player);
@@ -51,6 +52,8 @@ class SessionManager {
 
   addPlayerToSession(socket, webSocketsToPlayers) {
     const session = this.findSessionByKey(this.sessionsKeysToBeAssigned.shift());
+    session.clients.push(socket);
+
     const player = new Player(session.players.length + 1);
 
     session.players.push(player);
@@ -69,13 +72,13 @@ class SessionManager {
     socket.send(JSON.stringify(guestPlayerIdentity));
 
     // Send this player via broadcast to all clients.
-    this.sendNewPlayerToEveryone(socket, player);
+    this.sendNewPlayerToEveryone(session, socket, player);
 
     // Send all other players data to the new player.
     this.sendCurrentSessionPlayersToNewPlayer(socket, session, player.id);
   }
 
-  sendNewPlayerToEveryone(socket, player) {
+  sendNewPlayerToEveryone(session, socket, player) {
     const newPlayerMessage = {
       type: messagesTypes.newPlayerHasJoined,
       value: {
@@ -85,7 +88,7 @@ class SessionManager {
       }
     };
 
-    broadcaster.broadcastToAllExcept(socket, newPlayerMessage);
+    broadcaster.broadcastToAllExcept(session, socket, newPlayerMessage);
   }
 
   sendCurrentSessionPlayersToNewPlayer(socket, session, newPlayerId) {

@@ -23,7 +23,8 @@ class WebSocketServerManager {
         } else if (messageType === messagesTypes.guestPlayerInitialRequest) {
           sessionManager.addPlayerToSession(socket, this.clientsWebsockets);
         } else {
-          broadcaster.broadcastToAllExcept(socket, message);
+          const session = sessionManager.findSessionByKey(message.value.session_key);
+          broadcaster.broadcastToAllExcept(session, socket, message);
         }
       });
 

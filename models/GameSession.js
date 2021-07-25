@@ -3,6 +3,7 @@ export default class GameSession {
   constructor() {
     this.key = this.generateRandomGameKey(keyLength);
     this.players = [];
+    this.clients = [];
   }
 
   generateRandomGameKey(length) {

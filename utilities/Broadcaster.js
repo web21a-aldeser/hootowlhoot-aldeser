@@ -8,16 +8,16 @@ class Broadcaster {
     this.wsServer = wsServer;
   }
 
-  broadcastToEveryone(message) {
-    this.wsServer.clients.forEach((client) => {
+  broadcastToEveryone(session, message) {
+    session.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(message));
       }
     });
   }
 
-  broadcastToAllExcept(socket, message) {
-    this.wsServer.clients.forEach((client) => {
+  broadcastToAllExcept(session, socket, message) {
+    session.clients.forEach((client) => {
       if (client !== socket && client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(message));
       }
