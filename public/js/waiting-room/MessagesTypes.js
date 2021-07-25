@@ -8,7 +8,8 @@ const messagesTypes = {
   avatarUpdated: 'avatarUpdated',
   reauthentication: 'reauthentication',
   matchStarted: 'matchStarted',
-  isHostKey: 'isHost'
+  isHostKey: 'isHost',
+  meteoriteMovement: 'meteoriteMovement'
 };
 
 export default messagesTypes;
