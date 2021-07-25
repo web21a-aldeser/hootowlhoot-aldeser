@@ -25,18 +25,17 @@ export default class Game {
     this.meteor = document.getElementById('meteor');
     this.currentList = [];
     this.currentPlayer = 0;
-<<<<<<< HEAD
     this.boardData = {
       type: "board-data",
       tiles: {}
     };
     this.numberElements = 0;
-=======
     this.websocket = websocket;
->>>>>>> origin/websockets
   }
 
   configurePlayersCards() {
+    console.log(this.currentPlayer);
+    console.log(this.playerList);
     this.getListPlayers();
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
     this.setFirstTurn();

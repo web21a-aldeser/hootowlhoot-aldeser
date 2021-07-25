@@ -18,7 +18,7 @@ router.use(express.urlencoded({extended: false}));
 router.use(express.json());
 
 // serve public content
-router.use('/', express.static(path.join(process.cwd(), 'public')));
+router.use('/', express.static(path.join(process.cwd(), 'public'), {index: 'home.xhtml'}));
 
 router.post('/join-session', (req, res, next) => {
   authentication.authenticatePlayer(req, res, next);
