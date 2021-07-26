@@ -52,7 +52,6 @@ function processMessage(message) {
   if (syncCards){
     game.recieveCardsUpdate(message);
     console.log(message);
-
   }
   if (theMeteoriteHasMoved) {
     game.moveMeteorite();

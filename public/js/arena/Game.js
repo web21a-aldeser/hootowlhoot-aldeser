@@ -51,6 +51,7 @@ export default class Game {
     const pass = document.getElementById('pass');
     pass.addEventListener('click', () => {
       this.chageTurn(this.currentPlayer);
+      this.updateTurn(this.currentPlayer)
     });
     this.setupEventsForCards();
   }
@@ -63,6 +64,7 @@ export default class Game {
     const pass = document.getElementById('pass');
     pass.addEventListener('click', () => {
       this.chageTurn(this.currentPlayer);
+      this.updateTurn(this.currentPlayer)
     });
     this.setupEventsForCards();
   }
@@ -99,6 +101,7 @@ export default class Game {
       case src.indexOf('egg') !== -1:
         this.playerList[index].currentCell.children[0].style.display = 'block';
         this.turn = this.playerList[index].name;
+        this.updateTurn(this.currentPlayer);
         const audio2 = new Audio('sounds/achivement.wav');
         audio2.play();
         break;
@@ -203,8 +206,11 @@ export default class Game {
             }
             this.playerList[id].prevCol = this.playerList[id].colum;
             this.playerList[id].prevRow = this.playerList[id].row;
+            this.chageTurn(this.currentPlayer);
+          this.updateTurn(this.currentPlayer);
           }
           this.chageTurn(id);
+          this.updateTurn(this.currentPlayer);
           this.syncCards(id,cardId);
           this.sendCardsUpdate(id);
         });
@@ -223,7 +229,7 @@ export default class Game {
 
   // updates cards with the message recieved
   recieveCardsUpdate(message){
-    console.log(message,'reciviendo');
+    console.log(message,'recibiendo');
     const playersCards = this.tableBodyElement.children.item(message.value.index).children.item(CARDS_CELL);
     for (let index = 0; index < message.value.colors.length; index++) {
       const card = playersCards.children[index];
@@ -263,11 +269,11 @@ export default class Game {
     } else {
       index = 0;
     }
+    this.turn = document.getElementById('turn');
     this.turn.innerText = this.playerList[index].name;
     this.currentPlayer = index;
     this.disableCards();
     this.searchMeteorite(this.currentPlayer);
-    this.updateTurn(index)
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
   }
 
@@ -276,7 +282,7 @@ export default class Game {
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
 
     const getTurnMessage = {
-      type: messagesTypes.getTurn,
+      type: messagesTypes.currentTurn,
       value: {
         session_key: playerIdentity.session_key,
         player_id: playerIdentity.player_id,
@@ -310,6 +316,8 @@ export default class Game {
       window.location = 'aftermatch.xhtml';
     }
     this.chageTurn(this.currentPlayer);
+    this.updateTurn(this.currentPlayer);
+
   }
 
   sendMeteoriteMovementToServer() {
