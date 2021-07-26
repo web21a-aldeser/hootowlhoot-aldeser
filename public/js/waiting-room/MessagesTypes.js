@@ -10,7 +10,8 @@ const messagesTypes = {
   matchStarted: 'matchStarted',
   isHostKey: 'isHost',
   meteoriteMovement: 'meteoriteMovement',
-  currentTurn: 'currentTurn'
+  currentTurn: 'currentTurn',
+  cardSync: 'cardSync'
 };
 
 export default messagesTypes;

@@ -32,12 +32,15 @@ function processMessage(message) {
   const theMeteoriteHasMoved = message.type === messagesTypes.meteoriteMovement;
   const boardConstructed = message.type === messagesTypes.createBoard;
   const currentTurn = message.type === messagesTypes.currentTurn;
-
+  const syncCards = message.type === messagesTypes.cardSync;
+  if (syncCards){
+    game.recieveCardsUpdate(message);
+  }
   if (theMeteoriteHasMoved) {
     game.moveMeteorite();
   }
   if(boardConstructed){
-    game.createBoard(message);
+    //game.createArena(message);
   }
   if(currentTurn){
     game.chageTurn(message.player_index);

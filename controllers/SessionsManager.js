@@ -69,13 +69,15 @@ class SessionManager {
       }
     };
 
+    // Send all other players data to the new player.
+    this.sendCurrentSessionPlayersToNewPlayer(socket, session, player.id);
+
     socket.send(JSON.stringify(guestPlayerIdentity));
 
     // Send this player via broadcast to all clients.
     this.sendNewPlayerToEveryone(session, socket, player);
 
-    // Send all other players data to the new player.
-    this.sendCurrentSessionPlayersToNewPlayer(socket, session, player.id);
+   
   }
 
   reattachSocketToPlayer(websocket, clientsWebsockets, playerIdentity) {

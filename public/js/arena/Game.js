@@ -172,37 +172,72 @@ export default class Game {
 
   setupEventsForCards() {
     const playersCount = this.tableBodyElement.children.length;
-    for (let i = 0; i < playersCount; i += 1) {
-      const playersCards = this.tableBodyElement.children.item(i).children.item(CARDS_CELL);
-      for (let j = 0; j < CARDS_COUNT; j += 1) {
-        const card = playersCards.children[j];
+    for (let id = 0; id < playersCount; id += 1) {
+      const playersCards = this.tableBodyElement.children.item(id).children.item(CARDS_CELL);
+      for (let cardId = 0; cardId < CARDS_COUNT; cardId += 1) {
+        const card = playersCards.children[cardId];
         card.addEventListener('click', () => {
           if (card.src.indexOf('meteorite') !== -1) {
             this.moveMeteorite();
             this.sendMeteoriteMovementToServer();
           } else {
             //
-            let color = this.playerList[i].currentCell.className;
-            this.playerList[i].previusCell = this.playerList[i].currentCell;
+            let color = this.playerList[id].currentCell.className;
+            this.playerList[id].previusCell = this.playerList[id].currentCell;
             // el jugador se mueve hasta encontrar el color que tocó
             do {
-              this.playerList[i].move();
-              color = this.playerList[i].currentCell.className;
+              this.playerList[id].move();
+              color = this.playerList[id].currentCell.className;
             } while (card.src.indexOf(color) === -1);
             // si encuentra un objeto en la celda actual realiza su evento si no solo se mueve
-            if (this.playerList[i].currentCell.children[0].src != null) {
-              this.objectActions(this.playerList[i].currentCell.children[0].src, card, i);
+            if (this.playerList[id].currentCell.children[0].src != null) {
+              this.objectActions(this.playerList[id].currentCell.children[0].src, card, id);
             } else {
-              this.playerList[i].previusCell = this.playerList[i].currentCell;
+              this.playerList[id].previusCell = this.playerList[id].currentCell;
             }
-            this.playerList[i].prevCol = this.playerList[i].colum;
-            this.playerList[i].prevRow = this.playerList[i].row;
+            this.playerList[id].prevCol = this.playerList[id].colum;
+            this.playerList[id].prevRow = this.playerList[id].row;
           }
-          this.chageTurn(i);
-          card.src = this.getRandomCard();
+          this.chageTurn(id);
+          this.syncCards(id,cardId);
+          this.sendCardsUpdate(id);
         });
       }
     }
+  }
+
+  // sync cards with the card array of the player
+    syncCards(player,index){
+    const playersCards = this.tableBodyElement.children.item(player).children.item(CARDS_CELL);
+    const card = playersCards.children[index];
+    card.src = this.getRandomCard();
+    this.playerList[player].cards[index]=card.src;
+  }
+
+  // updates cards with the message recieved
+  recieveCardsUpdate(message){
+    const playersCards = this.tableBodyElement.children.item(message.value.index).children.item(CARDS_CELL);
+    for (let index = 0; index < message.value.colors.length; index++) {
+      const card = playersCards.children[index];
+      card.src = message.value.colors[index];
+    }
+  }
+
+  // send a message with the colors of the cards
+  sendCardsUpdate(index){
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+
+    const cards = {
+      type: messagesTypes.getTurn,
+      value: {
+        session_key: playerIdentity.session_key,
+        player_id: playerIdentity.player_id,
+        colors: this.playerList[index].cards,
+        index: index
+      }
+    };
+    console.log(cards);
+    this.websocket.send(JSON.stringify(cards));
   }
 
   // pone el primer turno al empezar la partida
@@ -223,7 +258,6 @@ export default class Game {
     this.currentPlayer = index;
     this.disableCards();
     this.searchMeteorite(this.currentPlayer);
-    console.log('aloooo');
     this.updateTurn(index)
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
   }
@@ -243,11 +277,6 @@ export default class Game {
     console.log(JSON.stringify(getTurnMessage));
     this.websocket.send(JSON.stringify(getTurnMessage));
   }
-
-  /*sendCards(){
-    this.websocket.send(JSON.stringify(getTurnMessage));
-  }
-  */
 
   //mueve el meteorito cada vez que sale una carta
   moveMeteorite() {
@@ -307,16 +336,20 @@ export default class Game {
       //asigna cartas al azar
       for (let j = 0; j < CARDS_COUNT; j += 1) {
         const card = playersCards.children[j];
-        card.src = this.getRandomCard();
+        //card.src = this.getRandomCard();
+        this.syncCards(i,j);
+        //this.sendCardsUpdate(i);
+        this.playerList[i].cards[j]=card.src;
       }
     }
+    console.log(this.playerList);
   }
 
-  // asigna una celda aleatoria para la insercion de los objetos
+  // asigns a random cell to new objects
   // eslint-disable-next-line class-methods-use-this
   randomCell(newElement) {
-    // arreglo de los numeros de columnas del tablero
-    // ya que estas son las que cambian respecto a las filas en nuestro tablero
+    // array with the number of valid columns in the board
+    // the columns change in concern of the rows
     const validCol = [0, 2, 4, 6];
     let col = 0;
     const row = Math.floor(Math.random() * 8);
