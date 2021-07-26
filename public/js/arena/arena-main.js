@@ -3,7 +3,7 @@ import messagesTypes from '../waiting-room/MessagesTypes.js';
 
 const websocket = new WebSocket(`ws://${window.location.host}`);
 const game = new Game(websocket);
-const timeForWaitingWebSocketToOpen = 500;
+const timeForWaitingWebSocketToOpen = 1000;
 
 function main() {
   // Player identity reference { player_id: message.player_id, session_key: message.session_key }
