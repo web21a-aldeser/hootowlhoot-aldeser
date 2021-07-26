@@ -26,22 +26,28 @@ export default class Game {
     this.currentList = [];
     this.currentPlayer = 0;
     this.boardData = {
-      type: "board-data",
-      tiles: {}
+      type: "createBoard",
+      value:{
+        session_key: "",
+        tiles: {}
+      }
     };
     this.numberElements = 0;
     this.websocket = websocket;
   }
 
-  configurePlayersCards() {
+  configurePlayersCards(id) {
     console.log(this.currentPlayer);
     console.log(this.playerList);
     this.getListPlayers();
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
     this.setFirstTurn();
-    this.createGeyser();
-    this.createEggs();
-    this.createBino();
+    console.log("id " + id);
+    if(id == 1){
+      this.createGeyser();
+      this.createEggs();
+      this.createBino();
+    }
     const pass = document.getElementById('pass');
     pass.addEventListener('click', () => {
       this.chageTurn(this.currentPlayer);
@@ -266,6 +272,15 @@ export default class Game {
     this.websocket.send(JSON.stringify(meteoriteMovementMessage));
   }
 
+
+
+  sendCreationEventToServer(){
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+    this.boardData.value.session_key = playerIdentity.session_key;
+    console.log(JSON.stringify(this.boardData));
+    this.websocket.send(JSON.stringify(this.boardData));
+  }
+
   // retorna una carta al azar
   // eslint-disable-next-line class-methods-use-this
   getRandomCard() {
@@ -313,10 +328,10 @@ export default class Game {
     } else {
       col = validCol[Math.floor(Math.random() * 4)];
     }
-    this.boardData.tiles[this.numberElements]={
+    this.boardData.value.tiles[this.numberElements]={
       position : row.toString() + col.toString(),
       element : newElement.toString()
-  }
+    }
   ++this.numberElements;
     return document.querySelector(`td[data-row="${row}"][data-col="${col}"]`);
   }
@@ -447,11 +462,12 @@ export default class Game {
   }
 
   createArena(content) {
-    var arenaElements = JSON.parse(content);
-    for(var tile in arenaElements.tiles){
-      if(arenaElements.tiles.hasOwnProperty(tile)){
-        this.AddTileElements(arenaElements.tiles[tile].position, arenaElements.tiles[tile].element);
+    this.boardData = content;
+    for(var tile in content.value.tiles){
+      if(content.value.tiles.hasOwnProperty(tile)){
+        this.AddTileElements(content.value.tiles[tile].position, content.value.tiles[tile].element);
       }
     }
+    console.log(content);
   }
 }

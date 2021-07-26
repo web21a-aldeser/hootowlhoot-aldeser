@@ -9,7 +9,10 @@ const messagesTypes = {
   reauthentication: 'reauthentication',
   matchStarted: 'matchStarted',
   isHostKey: 'isHost',
-  meteoriteMovement: 'meteoriteMovement'
+  meteoriteMovement: 'meteoriteMovement',
+  createBoard: 'createBoard',
+  turnInformation: 'turnInfo',
+  movementInfo: 'movementInfo',
 };
 
 export default messagesTypes;
