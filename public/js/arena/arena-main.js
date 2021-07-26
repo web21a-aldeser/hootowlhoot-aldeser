@@ -5,8 +5,6 @@ const websocket = new WebSocket(`ws://${window.location.host}`);
 const game = new Game(websocket);
 
 function main() {
-  game.configurePlayersCards();
-
   // Player identity reference { player_id: message.player_id, session_key: message.session_key }
   const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
 
@@ -18,12 +16,30 @@ function main() {
         player_identity: playerIdentity
       }
     };
+    //game = new Game(websocket);
+
     websocket.send(JSON.stringify(reauthentication));
   };
 
   websocket.onmessage = (event) => {
     processMessage(JSON.parse(event.data));
   };
+
+  setTimeout(() => {
+    createBoard();
+  }, 5000);
+  
+  
+}
+
+function createBoard(){
+  const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+  game.configurePlayersCards(parseInt(JSON.stringify(playerIdentity.player_id)));
+
+  if(parseInt(JSON.stringify(playerIdentity.player_id)) == 1){
+    console.log("made it here");
+    game.sendCreationEventToServer();
+  }
 }
 
 function processMessage(message) {
@@ -40,7 +56,8 @@ function processMessage(message) {
     game.moveMeteorite();
   }
   if(boardConstructed){
-    //game.createArena(message);
+    game.createArena(message);
+    console.log(message);
   }
   if(currentTurn){
     game.chageTurn(message.player_index);

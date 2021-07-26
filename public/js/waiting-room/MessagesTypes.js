@@ -11,7 +11,10 @@ const messagesTypes = {
   isHostKey: 'isHost',
   meteoriteMovement: 'meteoriteMovement',
   currentTurn: 'currentTurn',
-  cardSync: 'cardSync'
+  cardSync: 'cardSync',
+  createBoard: 'createBoard',
+  turnInformation: 'turnInfo',
+  movementInfo: 'movementInfo'
 };
 
 export default messagesTypes;
