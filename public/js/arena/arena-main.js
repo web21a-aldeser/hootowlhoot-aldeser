@@ -25,6 +25,10 @@ function main() {
     processMessage(JSON.parse(event.data));
   };
 
+  // Priority...
+  // 1. Save all game configuration on local storage or store it on the server...
+  // 2.
+
   // This timeout is used to give the websocket time to open.
   setTimeout(() => {
     createBoard();

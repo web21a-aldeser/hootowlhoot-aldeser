@@ -522,7 +522,9 @@ export default class Game {
         position.substr(1, 2)
       )}"]`
     );
-    var computedStyles;
+    let computedStyles;
+
+    // We should use constants or enums instead of integers (case 1).
     switch (parseInt(customElements)) {
       //Add geyser
       case 1:
@@ -571,7 +573,7 @@ export default class Game {
 
   createArena(content) {
     this.boardData = content;
-    for (var tile in content.value.tiles) {
+    for (let tile in content.value.tiles) {
       if (content.value.tiles.hasOwnProperty(tile)) {
         this.AddTileElements(content.value.tiles[tile].position, content.value.tiles[tile].element);
       }
