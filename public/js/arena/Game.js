@@ -92,7 +92,7 @@ export default class Game {
       // caso de huevos, duplican turno
       case src.indexOf('egg') !== -1:
         this.playerList[index].currentCell.children[0].style.display = 'block';
-        this.turn = this.player.name;
+        this.turn = this.playerList[index].name;
         const audio2 = new Audio('sounds/achivement.wav');
         audio2.play();
         break;
@@ -223,8 +223,31 @@ export default class Game {
     this.currentPlayer = index;
     this.disableCards();
     this.searchMeteorite(this.currentPlayer);
+    console.log('aloooo');
+    this.updateTurn(index)
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
   }
+
+  updateTurn(index) {
+    // Player identity reference { player_id: message.player_id, session_key: message.session_key }
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+
+    const getTurnMessage = {
+      type: messagesTypes.getTurn,
+      value: {
+        session_key: playerIdentity.session_key,
+        player_id: playerIdentity.player_id,
+        player_index: index
+      }
+    };
+    console.log(JSON.stringify(getTurnMessage));
+    this.websocket.send(JSON.stringify(getTurnMessage));
+  }
+
+  /*sendCards(){
+    this.websocket.send(JSON.stringify(getTurnMessage));
+  }
+  */
 
   //mueve el meteorito cada vez que sale una carta
   moveMeteorite() {
