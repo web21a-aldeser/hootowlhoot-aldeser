@@ -51,6 +51,8 @@ function processMessage(message) {
   const syncCards = message.type === messagesTypes.cardSync;
   if (syncCards){
     game.recieveCardsUpdate(message);
+    console.log(message);
+
   }
   if (theMeteoriteHasMoved) {
     game.moveMeteorite();

@@ -17,6 +17,7 @@ class Player {
         this.prevRow = this.row;
         this.prevCol = this.colum;
         this.name = name;
+        this.cards=[];
     }
 
     // Configure avatar and name in player box

@@ -215,6 +215,7 @@ export default class Game {
   // sync cards with the card array of the player
     syncCards(player,index){
     const playersCards = this.tableBodyElement.children.item(player).children.item(CARDS_CELL);
+    console.log(this.playerList);
     const card = playersCards.children[index];
     card.src = this.getRandomCard();
     this.playerList[player].cards[index]=card.src;
@@ -222,9 +223,11 @@ export default class Game {
 
   // updates cards with the message recieved
   recieveCardsUpdate(message){
+    console.log(message,'reciviendo');
     const playersCards = this.tableBodyElement.children.item(message.value.index).children.item(CARDS_CELL);
     for (let index = 0; index < message.value.colors.length; index++) {
       const card = playersCards.children[index];
+      console.log('carta');
       card.src = message.value.colors[index];
     }
   }
@@ -234,7 +237,7 @@ export default class Game {
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
 
     const cards = {
-      type: messagesTypes.getTurn,
+      type: messagesTypes.cardSync,
       value: {
         session_key: playerIdentity.session_key,
         player_id: playerIdentity.player_id,
@@ -351,11 +354,11 @@ export default class Game {
       //asigna cartas al azar
       for (let j = 0; j < CARDS_COUNT; j += 1) {
         const card = playersCards.children[j];
-        //card.src = this.getRandomCard();
-        this.syncCards(i,j);
-        //this.sendCardsUpdate(i);
+        card.src = this.getRandomCard();
+        //
         this.playerList[i].cards[j]=card.src;
       }
+      //this.sendCardsUpdate(i);
     }
     console.log(this.playerList);
   }
