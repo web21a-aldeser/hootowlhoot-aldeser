@@ -3,6 +3,7 @@ import messagesTypes from '../waiting-room/MessagesTypes.js';
 
 const websocket = new WebSocket(`ws://${window.location.host}`);
 const game = new Game(websocket);
+const timeForWaitingWebSocketToOpen = 500;
 
 function main() {
   // Player identity reference { player_id: message.player_id, session_key: message.session_key }
@@ -16,7 +17,6 @@ function main() {
         player_identity: playerIdentity
       }
     };
-    //game = new Game(websocket);
 
     websocket.send(JSON.stringify(reauthentication));
   };
@@ -25,19 +25,18 @@ function main() {
     processMessage(JSON.parse(event.data));
   };
 
+  // This timeout is used to give the websocket time to open.
   setTimeout(() => {
     createBoard();
-  }, 5000);
-  
-  
+  }, timeForWaitingWebSocketToOpen);
 }
 
-function createBoard(){
+function createBoard() {
   const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
   game.configurePlayersCards(parseInt(JSON.stringify(playerIdentity.player_id)));
 
-  if(parseInt(JSON.stringify(playerIdentity.player_id)) == 1){
-    console.log("made it here");
+  if (parseInt(JSON.stringify(playerIdentity.player_id)) == 1) {
+    console.log('made it here');
     game.sendCreationEventToServer();
   }
 }
@@ -49,19 +48,20 @@ function processMessage(message) {
   const boardConstructed = message.type === messagesTypes.createBoard;
   const currentTurn = message.type === messagesTypes.currentTurn;
   const syncCards = message.type === messagesTypes.cardSync;
-  if (syncCards){
-    game.recieveCardsUpdate(message);
+
+  if (syncCards) {
+    game.receiveCardsUpdateFromServer(message);
     console.log(message);
   }
   if (theMeteoriteHasMoved) {
     game.moveMeteorite();
   }
-  if(boardConstructed){
+  if (boardConstructed) {
     game.createArena(message);
     console.log(message);
   }
-  if(currentTurn){
-    game.chageTurn(message.player_index);
+  if (currentTurn) {
+    game.receiveTurnUpdate(message.value.player_index);
   }
 }
 
