@@ -76,8 +76,6 @@ class SessionManager {
 
     // Send this player via broadcast to all clients.
     this.sendNewPlayerToEveryone(session, socket, player);
-
-   
   }
 
   reattachSocketToPlayer(websocket, clientsWebsockets, playerIdentity) {

@@ -25,6 +25,10 @@ function main() {
     processMessage(JSON.parse(event.data));
   };
 
+  // Priority...
+  // 1. Save all game configuration on local storage or store it on the server...
+  // 2.
+
   // This timeout is used to give the websocket time to open.
   setTimeout(() => {
     createBoard();
@@ -49,6 +53,8 @@ function processMessage(message) {
   const currentTurn = message.type === messagesTypes.currentTurn;
   const syncCards = message.type === messagesTypes.cardSync;
   const checkWin = message.type === messagesTypes.checkWin;
+  const playerHasMoved = message.type === messagesTypes.movementInfo;
+
   if (syncCards) {
     game.receiveCardsUpdateFromServer(message);
     console.log(message);
@@ -66,6 +72,9 @@ function processMessage(message) {
   if(checkWin) {
     console.log(message);
     game.receiveCheckWin(message.value.win);
+  }
+  if(playerHasMoved){
+    game.movePlayer(message);
   }
 }
 

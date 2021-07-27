@@ -215,6 +215,7 @@ export default class Game {
 
             this.playerList[playerIndex].prevCol = this.playerList[playerIndex].colum;
             this.playerList[playerIndex].prevRow = this.playerList[playerIndex].row;
+            this.sendMovementMessage(playerIndex, cardColor, cardIndex);
           }
 
           //check if end
@@ -407,13 +408,52 @@ receiveCheckWin(check){
 
     this.websocket.send(JSON.stringify(meteoriteMovementMessage));
   }
+  
+  // Moves the player specified in the message
+  // to the closer space of the specifed color in the message
+  movePlayer(message){
+    let colorToGo = message.value.color;
+    let playerIndex = parseInt(JSON.stringify(message.value.playerIndex));
 
-  sendCreationEventToServer() {
-    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
-    this.boardData.value.session_key = playerIdentity.session_key;
-    console.log(JSON.stringify(this.boardData));
-    this.websocket.send(JSON.stringify(this.boardData));
+    const playersCards = this.tableBodyElement.children.item(playerIndex).children.item(CARDS_CELL);
+    const card = playersCards.children[message.value.cardIndex];
+    let color = this.playerList[playerIndex].currentCell.className;
+
+    this.playerList[playerIndex].previousCell = this.playerList[playerIndex].currentCell;
+    // It moves the player until it finds the target color.
+    do {
+      this.playerList[playerIndex].move();
+      color = this.playerList[playerIndex].currentCell.className;
+      console.log(color + " " + colorToGo);
+    } while (colorToGo !== color);
+
+    // si encuentra un objeto en la celda actual realiza su evento si no solo se mueve
+    if (this.playerList[playerIndex].currentCell.children[0].src != null) {
+      this.objectActions(this.playerList[playerIndex].currentCell.children[0].src, card, playerIndex);
+    } else {
+      this.playerList[playerIndex].previusCell = this.playerList[playerIndex].currentCell;
+    }
+    this.playerList[playerIndex].prevCol = this.playerList[playerIndex].colum;
+    this.playerList[playerIndex].prevRow = this.playerList[playerIndex].row;
   }
+
+  // Sending side.
+  sendMovementMessage(playerIndex, color, cardIndex){
+    // Player identity reference { player_id: message.player_id, session_key: message.session_key }
+   const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+
+   const playerMovementMessage = {
+     type: messagesTypes.movementInfo,
+     value: {
+       session_key: playerIdentity.session_key,
+       playerIndex: playerIndex,
+       color: color,
+       cardIndex: cardIndex
+     }
+   };
+   console.log(JSON.stringify(playerMovementMessage));
+   this.websocket.send(JSON.stringify(playerMovementMessage));
+ }
 
   // retorna una carta al azar
   // eslint-disable-next-line class-methods-use-this
@@ -560,7 +600,9 @@ receiveCheckWin(check){
         position.substr(1, 2)
       )}"]`
     );
-    var computedStyles;
+    let computedStyles;
+
+    // We should use constants or enums instead of integers (case 1).
     switch (parseInt(customElements)) {
       //Add geyser
       case 1:
@@ -607,13 +649,24 @@ receiveCheckWin(check){
     }
   }
 
-  createArena(content) {
-    this.boardData = content;
-    for (var tile in content.value.tiles) {
-      if (content.value.tiles.hasOwnProperty(tile)) {
-        this.AddTileElements(content.value.tiles[tile].position, content.value.tiles[tile].element);
+  // Puts the custom elements(geysers, binoculars and eggs) in the 
+  // corresponding tiles of the arena acording to the message recieved.
+  createArena(message) {
+    this.boardData = message;
+    for (let tile in message.value.tiles) {
+      if (message.value.tiles.hasOwnProperty(tile)) {
+        this.AddTileElements(message.value.tiles[tile].position, message.value.tiles[tile].element);
       }
     }
-    console.log(content);
+    console.log(message);
+  }
+
+  // Sends a a message containig the board data in order for the board
+  // to be replicated for other users.
+  sendCreationEventToServer() {
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+    this.boardData.value.session_key = playerIdentity.session_key;
+    console.log(JSON.stringify(this.boardData));
+    this.websocket.send(JSON.stringify(this.boardData));
   }
 }

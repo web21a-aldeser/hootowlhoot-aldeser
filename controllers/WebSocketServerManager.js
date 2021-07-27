@@ -2,6 +2,19 @@ import sessionManager from './SessionsManager.js';
 import messagesTypes from '../utilities/MessagesTypes.js';
 import broadcaster from '../utilities/Broadcaster.js';
 
+/*class WEbSocketServer {
+  changePlayerSocket() { ... }
+  playerReady() { ... }
+  ...
+  }
+  
+  socket.on('message', (rawMessage) => {
+  const message = JSON.parse(rawMessage)
+  if (typeof this[message.type] == 'function') {
+  this[message.type]();
+  }
+  });*/
+
 class WebSocketServerManager {
   constructor() {
     this.wsServer = null;
