@@ -67,18 +67,24 @@ export default class PlayerList {
   }
 
   setupEventsForPlayersList(avatarSelector) {
+    // Player identity reference { player_id: int, session_key: string }
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+
     for (let index = 0; index < this.players.length; index += 1) {
-      this.players[index].avatarElement.addEventListener('click', () => {
-        avatarSelector.show();
-        avatarSelector.setPlayersAvatarId(this.players[index].avatarId);
-        avatarSelector.setPlayerAvatar(this.players[index].avatarId, index);
-      });
-      // eslint-disable-next-line max-len
-      this.setUpEventForPlayersNameElement(
-        this.players[index].nameElement,
-        this.players[index].name,
-        index
-      );
+      if (playerIdentity.player_id === this.players[index].playerIdForSession) {
+        this.players[index].avatarElement.addEventListener('click', () => {
+          avatarSelector.show();
+          avatarSelector.setPlayersAvatarId(this.players[index].avatarId);
+          avatarSelector.setPlayerAvatar(this.players[index].avatarId, index);
+        });
+
+        // eslint-disable-next-line max-len
+        this.setUpEventForPlayersNameElement(
+          this.players[index].nameElement,
+          this.players[index].name,
+          index
+        );
+      }
       this.passListPlayers();
     }
   }
