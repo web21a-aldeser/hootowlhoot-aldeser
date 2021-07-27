@@ -206,6 +206,7 @@ export default class Game {
             }
             this.playerList[id].prevCol = this.playerList[id].colum;
             this.playerList[id].prevRow = this.playerList[id].row;
+            this.sendMovementMessage(id, color, cardId);
             this.chageTurn(this.currentPlayer);
           this.updateTurn(this.currentPlayer);
           }
@@ -291,6 +292,45 @@ export default class Game {
     };
     console.log(JSON.stringify(getTurnMessage));
     this.websocket.send(JSON.stringify(getTurnMessage));
+  }
+
+  sendMovementMessage(playerIndex, color, cardIndex){
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+
+    const playerMovementMessage = {
+      type: messagesTypes.movementInfo,
+      value: {
+        session_key: playerIdentity.session_key,
+        playerIndex: playerIndex,
+        color: color,
+        cardIndex: cardIndex
+      }
+    };
+    console.log(JSON.stringify(playerMovementMessage));
+    this.websocket.send(JSON.stringify(playerMovementMessage));
+  }
+
+  movePlayer(message){
+    var colorToGo = message.value.color;
+    var playerIndex = parseInt(JSON.stringify(message.value.playerIndex));
+
+    const playersCards = this.tableBodyElement.children.item(playerIndex).children.item(CARDS_CELL);
+    const card = playersCards.children[message.value.cardIndex];
+    let color = this.playerList[playerIndex].currentCell.className;
+    this.playerList[playerIndex].previousCell = this.playerList[playerIndex].currentCell;
+    do {
+      this.playerList[playerIndex].move();
+      color = this.playerList[playerIndex].currentCell.className;
+      console.log(color + " " + colorToGo);
+    } while (colorToGo !== color);
+    // si encuentra un objeto en la celda actual realiza su evento si no solo se mueve
+    if (this.playerList[playerIndex].currentCell.children[0].src != null) {
+      this.objectActions(this.playerList[playerIndex].currentCell.children[0].src, card, playerIndex);
+    } else {
+      this.playerList[playerIndex].previusCell = this.playerList[playerIndex].currentCell;
+    }
+    this.playerList[playerIndex].prevCol = this.playerList[playerIndex].colum;
+    this.playerList[playerIndex].prevRow = this.playerList[playerIndex].row;
   }
 
   //mueve el meteorito cada vez que sale una carta
