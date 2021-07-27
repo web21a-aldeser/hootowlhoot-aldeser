@@ -2,6 +2,7 @@ const isHostKey = 'isHost';
 const gameKeyRequired = 'You must specify a key';
 
 function main() {
+  localStorage.clear();
   const hostMatchButton = document.getElementById('host-button');
   hostMatchButton.addEventListener('click', () => {
     localStorage.setItem(isHostKey, JSON.stringify('true'));

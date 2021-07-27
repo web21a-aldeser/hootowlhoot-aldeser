@@ -17,6 +17,7 @@ const CARDS = [
 export default class Game {
   constructor(websocket) {
     this.tableBodyElement = document.getElementById(PLAYERS_CARDS_TABLE_ID);
+    // The order of players must be the same on the players table.
     this.playerList = [];
     this.geyserList = [];
     this.eggList = [];
@@ -26,9 +27,9 @@ export default class Game {
     this.currentList = [];
     this.currentPlayer = 0;
     this.boardData = {
-      type: "createBoard",
-      value:{
-        session_key: "",
+      type: 'createBoard',
+      value: {
+        session_key: '',
         tiles: {}
       }
     };
@@ -39,32 +40,19 @@ export default class Game {
   configurePlayersCards(id) {
     console.log(this.currentPlayer);
     console.log(this.playerList);
-    this.getListPlayers();
+    this.createPlayersAndGenerateRandomIntialCardHandForEachOne();
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
     this.setFirstTurn();
-    console.log("id " + id);
-    if(id == 1){
+    console.log('id ' + id);
+    if (id == 1) {
       this.createGeyser();
       this.createEggs();
       this.createBino();
     }
     const pass = document.getElementById('pass');
     pass.addEventListener('click', () => {
-      this.chageTurn(this.currentPlayer);
-      this.updateTurn(this.currentPlayer)
-    });
-    this.setupEventsForCards();
-  }
-
-  configurePlayersCardsNonHost(content){
-    this.getListPlayers();
-    localStorage.setItem('players-arena', JSON.stringify(this.playerList));
-    this.setFirstTurn();
-    this.createArena(content);
-    const pass = document.getElementById('pass');
-    pass.addEventListener('click', () => {
-      this.chageTurn(this.currentPlayer);
-      this.updateTurn(this.currentPlayer)
+      this.changeTurn(this.currentPlayer);
+      this.sendTurnUpdateToServer(this.currentPlayer);
     });
     this.setupEventsForCards();
   }
@@ -100,8 +88,7 @@ export default class Game {
       // caso de huevos, duplican turno
       case src.indexOf('egg') !== -1:
         this.playerList[index].currentCell.children[0].style.display = 'block';
-        this.turn = this.playerList[index].name;
-        this.updateTurn(this.currentPlayer);
+        this.changeTurnOnUi(index);
         const audio2 = new Audio('sounds/achivement.wav');
         audio2.play();
         break;
@@ -181,66 +168,108 @@ export default class Game {
 
   setupEventsForCards() {
     const playersCount = this.tableBodyElement.children.length;
-    for (let id = 0; id < playersCount; id += 1) {
-      const playersCards = this.tableBodyElement.children.item(id).children.item(CARDS_CELL);
-      for (let cardId = 0; cardId < CARDS_COUNT; cardId += 1) {
-        const card = playersCards.children[cardId];
+
+    // For each player on the players table.
+    for (let playerIndex = 0; playerIndex < playersCount; playerIndex += 1) {
+      const playerCards = this.tableBodyElement.children
+        .item(playerIndex)
+        .children.item(CARDS_CELL);
+
+      // For each card of the player.
+      for (let cardIndex = 0; cardIndex < CARDS_COUNT; cardIndex += 1) {
+        // It gets the i-th card of the current player.
+        const card = playerCards.children[cardIndex];
+        // It configures on click event for current card.
         card.addEventListener('click', () => {
+          // Event for meteorite card.
           if (card.src.indexOf('meteorite') !== -1) {
             this.moveMeteorite();
             this.sendMeteoriteMovementToServer();
           } else {
-            //
-            let color = this.playerList[id].currentCell.className;
-            this.playerList[id].previusCell = this.playerList[id].currentCell;
-            // el jugador se mueve hasta encontrar el color que tocó
+            // Event for normal card.
+            let cardColor = this.playerList[playerIndex].currentCell.className;
+            this.playerList[playerIndex].previusCell = this.playerList[playerIndex].currentCell;
+
+            // It moves the player until it finds the target color.
             do {
-              this.playerList[id].move();
-              color = this.playerList[id].currentCell.className;
-            } while (card.src.indexOf(color) === -1);
-            // si encuentra un objeto en la celda actual realiza su evento si no solo se mueve
-            if (this.playerList[id].currentCell.children[0].src != null) {
-              this.objectActions(this.playerList[id].currentCell.children[0].src, card, id);
+              this.playerList[playerIndex].move();
+              cardColor = this.playerList[playerIndex].currentCell.className;
+            } while (card.src.indexOf(cardColor) === -1);
+
+            // If an object is found e.g egg, binoculars.. It performs the event.
+            // Otherwise, it just moves the player.
+            const objectFoundInNewPlayersPosition =
+              this.playerList[playerIndex].currentCell.children[0].src != null;
+
+            if (objectFoundInNewPlayersPosition) {
+              // Execute action associated with event.
+              this.objectActions(
+                this.playerList[playerIndex].currentCell.children[0].src,
+                card,
+                playerIndex
+              );
             } else {
-              this.playerList[id].previusCell = this.playerList[id].currentCell;
+              // Move player.
+              this.playerList[playerIndex].previusCell = this.playerList[playerIndex].currentCell;
             }
+<<<<<<< HEAD
             this.playerList[id].prevCol = this.playerList[id].colum;
             this.playerList[id].prevRow = this.playerList[id].row;
             this.sendMovementMessage(id, color, cardId);
             this.chageTurn(this.currentPlayer);
           this.updateTurn(this.currentPlayer);
+=======
+
+            this.playerList[playerIndex].prevCol = this.playerList[playerIndex].colum;
+            this.playerList[playerIndex].prevRow = this.playerList[playerIndex].row;
+>>>>>>> origin/players-cards-synchronization
           }
-          this.chageTurn(id);
-          this.updateTurn(this.currentPlayer);
-          this.syncCards(id,cardId);
-          this.sendCardsUpdate(id);
+
+          // After the card was clicked and the actions such as show objects with binoculars executed.
+          this.changeTurn(playerIndex);
+          this.sendTurnUpdateToServer(this.currentPlayer);
+
+          this.generateNewCardAndSyncPlayersList(playerIndex, cardIndex);
+          this.sendCardsUpdateToServer(playerIndex);
         });
       }
     }
   }
 
-  // sync cards with the card array of the player
-    syncCards(player,index){
-    const playersCards = this.tableBodyElement.children.item(player).children.item(CARDS_CELL);
+  /************************** CARDS RELATED METHODS BEGIN ********************************/
+  generateNewCardAndSyncPlayersList(playerIndex, cardIndex) {
+    // It gets the cards for the player with the provided index.
+    const playerCards = this.tableBodyElement.children.item(playerIndex).children.item(CARDS_CELL);
+
     console.log(this.playerList);
-    const card = playersCards.children[index];
+    const card = playerCards.children[cardIndex];
     card.src = this.getRandomCard();
-    this.playerList[player].cards[index]=card.src;
+
+    // It updates the card avatar for the provided player index on players list.
+    this.playerList[playerIndex].cards[cardIndex] = card.src;
   }
 
-  // updates cards with the message recieved
-  recieveCardsUpdate(message){
-    console.log(message,'recibiendo');
-    const playersCards = this.tableBodyElement.children.item(message.value.index).children.item(CARDS_CELL);
-    for (let index = 0; index < message.value.colors.length; index++) {
-      const card = playersCards.children[index];
+  // Client receiving side.
+  // It updates cards with the received message
+  receiveCardsUpdateFromServer(message) {
+    console.log(message, 'recibiendo');
+
+    const playersCards = this.tableBodyElement.children
+      .item(message.value.player_position_in_table)
+      .children.item(CARDS_CELL);
+
+    // It updates the color for each card in the hand.
+    for (let cardIndex = 0; cardIndex < message.value.colors.length; cardIndex++) {
+      const card = playersCards.children[cardIndex];
       console.log('carta');
-      card.src = message.value.colors[index];
+      card.src = message.value.colors[cardIndex];
+      this.playerList[message.value.player_position_in_table].cards[cardIndex] = card.src;
     }
   }
 
+  // Client sending side.
   // send a message with the colors of the cards
-  sendCardsUpdate(index){
+  sendCardsUpdateToServer(playerIndex) {
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
 
     const cards = {
@@ -248,37 +277,51 @@ export default class Game {
       value: {
         session_key: playerIdentity.session_key,
         player_id: playerIdentity.player_id,
-        colors: this.playerList[index].cards,
-        index: index
+        colors: this.playerList[playerIndex].cards,
+        player_position_in_table: playerIndex
       }
     };
     console.log(cards);
     this.websocket.send(JSON.stringify(cards));
   }
+  /************************** CARDS RELATED METHODS END ********************************/
 
-  // pone el primer turno al empezar la partida
+  //-------------------------------------------------------------------------------------
+
+  /************************** TURN RELATED METHODS BEGIN ********************************/
   setFirstTurn() {
     this.turn.innerText = this.playerList[0].name;
     this.disableCards();
     this.searchMeteorite(this.currentPlayer);
   }
 
-  // cambia de turno
-  chageTurn(index) {
+  // It changes the player turn.
+  changeTurn(index) {
     if (index < this.playerList.length - 1) {
       index += 1;
     } else {
       index = 0;
     }
+    this.changeTurnOnUi(index);
+    // Is the necessary?
+    localStorage.setItem('players-arena', JSON.stringify(this.playerList));
+  }
+
+  // Turn receiving side.
+  receiveTurnUpdate(playerIndex) {
+    this.changeTurnOnUi(playerIndex);
+  }
+
+  changeTurnOnUi(index) {
     this.turn = document.getElementById('turn');
     this.turn.innerText = this.playerList[index].name;
     this.currentPlayer = index;
     this.disableCards();
     this.searchMeteorite(this.currentPlayer);
-    localStorage.setItem('players-arena', JSON.stringify(this.playerList));
   }
 
-  updateTurn(index) {
+  // Turn sending side.
+  sendTurnUpdateToServer(index) {
     // Player identity reference { player_id: message.player_id, session_key: message.session_key }
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
 
@@ -293,6 +336,7 @@ export default class Game {
     console.log(JSON.stringify(getTurnMessage));
     this.websocket.send(JSON.stringify(getTurnMessage));
   }
+  /************************** TURN RELATED METHODS END ********************************/
 
   sendMovementMessage(playerIndex, color, cardIndex){
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
@@ -355,11 +399,9 @@ export default class Game {
       this.meteor.style.top = '100px';
       window.location = 'aftermatch.xhtml';
     }
-    this.chageTurn(this.currentPlayer);
-    this.updateTurn(this.currentPlayer);
-
   }
 
+  // Sending side.
   sendMeteoriteMovementToServer() {
     // Player identity reference { player_id: message.player_id, session_key: message.session_key }
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
@@ -375,9 +417,7 @@ export default class Game {
     this.websocket.send(JSON.stringify(meteoriteMovementMessage));
   }
 
-
-
-  sendCreationEventToServer(){
+  sendCreationEventToServer() {
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
     this.boardData.value.session_key = playerIdentity.session_key;
     console.log(JSON.stringify(this.boardData));
@@ -391,22 +431,30 @@ export default class Game {
   }
 
   // pasa la lista de jugadores
-  getListPlayers() {
+  createPlayersAndGenerateRandomIntialCardHandForEachOne() {
+    // It gets players data generated on waiting room.
     const localList = JSON.parse(localStorage.getItem('players'));
+
     // crea y configura los jugadores
-    for (let i = 0; i < localList.length; i += 1) {
-      const player = new Player(localList[i].name, localList[i].avatar, i);
+    for (let playerIndex = 0; playerIndex < localList.length; playerIndex += 1) {
+      const player = new Player(
+        localList[playerIndex].name,
+        localList[playerIndex].avatar,
+        playerIndex
+      );
       player.configurePlayer();
       this.playerList.push(player);
-      const playersCards = this.tableBodyElement.children.item(i).children.item(CARDS_CELL);
-      //asigna cartas al azar
-      for (let j = 0; j < CARDS_COUNT; j += 1) {
-        const card = playersCards.children[j];
+
+      const playerCards = this.tableBodyElement.children
+        .item(playerIndex)
+        .children.item(CARDS_CELL);
+      // Asigna cartas al azar.
+      for (let cardIndex = 0; cardIndex < CARDS_COUNT; cardIndex += 1) {
+        const card = playerCards.children[cardIndex];
         card.src = this.getRandomCard();
-        //
-        this.playerList[i].cards[j]=card.src;
+        this.playerList[playerIndex].cards[cardIndex] = card.src;
       }
-      //this.sendCardsUpdate(i);
+      this.sendCardsUpdateToServer(playerIndex);
     }
     console.log(this.playerList);
   }
@@ -435,11 +483,11 @@ export default class Game {
     } else {
       col = validCol[Math.floor(Math.random() * 4)];
     }
-    this.boardData.value.tiles[this.numberElements]={
-      position : row.toString() + col.toString(),
-      element : newElement.toString()
-    }
-  ++this.numberElements;
+    this.boardData.value.tiles[this.numberElements] = {
+      position: row.toString() + col.toString(),
+      element: newElement.toString()
+    };
+    ++this.numberElements;
     return document.querySelector(`td[data-row="${row}"][data-col="${col}"]`);
   }
 
@@ -570,8 +618,8 @@ export default class Game {
 
   createArena(content) {
     this.boardData = content;
-    for(var tile in content.value.tiles){
-      if(content.value.tiles.hasOwnProperty(tile)){
+    for (var tile in content.value.tiles) {
+      if (content.value.tiles.hasOwnProperty(tile)) {
         this.AddTileElements(content.value.tiles[tile].position, content.value.tiles[tile].element);
       }
     }
