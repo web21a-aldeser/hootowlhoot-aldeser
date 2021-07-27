@@ -19,6 +19,7 @@ function main() {
     };
 
     websocket.send(JSON.stringify(reauthentication));
+    createBoard();
   };
 
   websocket.onmessage = (event) => {
@@ -30,9 +31,9 @@ function main() {
   // 2.
 
   // This timeout is used to give the websocket time to open.
-  setTimeout(() => {
+  /*setTimeout(() => {
     createBoard();
-  }, timeForWaitingWebSocketToOpen);
+  }, timeForWaitingWebSocketToOpen);*/
 }
 
 function createBoard() {
