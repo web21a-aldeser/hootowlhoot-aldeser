@@ -94,9 +94,13 @@ class SessionManager {
     const newPlayerMessage = {
       type: messagesTypes.newPlayerHasJoined,
       value: {
-        player_id: player.id,
-        player_name: player.name,
-        player_avatar: player.avatar
+        players: [
+          {
+            player_id: player.id,
+            player_name: player.name,
+            player_avatar: player.avatar
+          }
+        ]
       }
     };
 

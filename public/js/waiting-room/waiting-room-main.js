@@ -4,7 +4,6 @@ import messagesTypes from './MessagesTypes.js';
 const isHostKey = 'isHost';
 const websocket = new WebSocket(`ws://${window.location.host}`);
 const waitingRoom = new WaitingRoom(websocket);
-let firstLoad = false;
 
 function main() {
   const amIHost = JSON.parse(localStorage.getItem(isHostKey));
@@ -49,22 +48,28 @@ function disableControlsForGuestPlayer() {
 function processMessage(message) {
   console.log(message);
 
-  // These conditions might be managed as the default case.
-  const sessionCreated = message.type === messagesTypes.sessionCreated;
-  const joinedToSession = message.type === messagesTypes.guestPlayerSuccessfullyJoined;
+  // I have just joined to the session.
+  const sessionCreatedByHost = message.type === messagesTypes.sessionCreated;
+  const iHaveJoinedToSessionAsGuest = message.type === messagesTypes.guestPlayerSuccessfullyJoined;
+  const iHaveJoinedAsHostOrGuest = sessionCreatedByHost || iHaveJoinedToSessionAsGuest;
+
+  // Current players on the session message is received when I have just joined or
+  // when a new player joins to the session.
   const newPlayerHasJoined = message.type === messagesTypes.newPlayer;
-  const currentPlayersReceived = message.type === messagesTypes.currentPlayers;
+  const otherPlayerReceived = message.type === messagesTypes.currentPlayers;
+  const playersUpdateReceived = newPlayerHasJoined || otherPlayerReceived;
+
+  // Updates on avatar or name.
   const playerNameUpdateReceived = message.type === messagesTypes.playerNameUpdate;
   const playerAvatarUpdated = message.type === messagesTypes.avatarUpdated;
+
+  // Match started.
   const matchHasStarted = message.type === messagesTypes.matchStarted;
 
-  const requirementsSatisfiedToUpdateWaitingRoom =
-    sessionCreated || joinedToSession || newPlayerHasJoined;
-
-  if (requirementsSatisfiedToUpdateWaitingRoom) {
-    updateWaitingRoom(message.value);
-  } else if (currentPlayersReceived) {
-    addNewPlayersToListUI(message.value.players);
+  if (iHaveJoinedAsHostOrGuest) {
+    addMySelfToTheWaitingRoom(message.value);
+  } else if (playersUpdateReceived) {
+    addNewPlayerToWaitingRoom(message.value.players);
   } else if (playerNameUpdateReceived) {
     waitingRoom.updatePlayerName(message.value);
   } else if (playerAvatarUpdated) {
@@ -74,30 +79,25 @@ function processMessage(message) {
   }
 }
 
-function updateWaitingRoom(message) {
+// This method is executed only the a player joins as host or guest.
+function addMySelfToTheWaitingRoom(message) {
   const amIHost = JSON.parse(localStorage.getItem(isHostKey));
 
-  if (amIHost === 'true' && !firstLoad) {
+  if (amIHost === 'true') {
     const gameKey = document.getElementById('game-private-key');
     gameKey.innerHTML = `Game key: ${message.session_key}`;
   }
-
   addPlayerToPlayersList(message);
-
   // It saves this player identity so the next time a socket is created it can
   // be mapped to a session on the server-side.
   const playerIdentity = {
     player_id: message.player_id,
     session_key: message.session_key
   };
-
-  if (!firstLoad) {
-    localStorage.setItem(messagesTypes.playerIdentity, JSON.stringify(playerIdentity));
-    firstLoad = true;
-  }
+  localStorage.setItem(messagesTypes.playerIdentity, JSON.stringify(playerIdentity));
 }
 
-function addNewPlayersToListUI(players) {
+function addNewPlayerToWaitingRoom(players) {
   players.forEach((player) => {
     addPlayerToPlayersList(player);
   });
