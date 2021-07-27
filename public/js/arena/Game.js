@@ -217,16 +217,54 @@ export default class Game {
             this.playerList[playerIndex].prevRow = this.playerList[playerIndex].row;
           }
 
+          //check if end
+
           // After the card was clicked and the actions such as show objects with binoculars executed.
           this.changeTurn(playerIndex);
           this.sendTurnUpdateToServer(this.currentPlayer);
-
+          this.sendCheckWin(this.checkWin());
           this.generateNewCardAndSyncPlayersList(playerIndex, cardIndex);
           this.sendCardsUpdateToServer(playerIndex);
         });
       }
     }
   }
+
+  // checks if all the players are in the final cell
+  checkWin(){
+  const finalCell = document.getElementById('final').childElementCount;
+  if (finalCell === JSON.parse(localStorage.getItem('players-quantity')) + 1) {
+    const audio = new Audio('sounds/levelComplete.wav');
+    audio.play();
+    return true;
+  }
+  return false;
+}
+
+sendCheckWin(check) {
+  // Player identity reference { player_id: message.player_id, session_key: message.session_key }
+  const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+
+  const message = {
+    type: messagesTypes.checkWin,
+    value: {
+      session_key: playerIdentity.session_key,
+      player_id: playerIdentity.player_id,
+      win: check
+    }
+  };
+  console.log(JSON.stringify(message));
+  this.websocket.send(JSON.stringify(message));
+  if (check){
+  window.location = 'aftermatch.xhtml';
+  }
+}
+
+receiveCheckWin(check){
+  if (check) {
+    window.location = 'aftermatch.xhtml';
+  }
+}
 
   /************************** CARDS RELATED METHODS BEGIN ********************************/
   generateNewCardAndSyncPlayersList(playerIndex, cardIndex) {

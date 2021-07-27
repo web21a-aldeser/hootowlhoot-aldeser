@@ -14,7 +14,8 @@ const messagesTypes = {
   cardSync: 'cardSync',
   createBoard: 'createBoard',
   turnInformation: 'turnInfo',
-  movementInfo: 'movementInfo'
+  movementInfo: 'movementInfo',
+  checkWin: 'checkWin'
 };
 
 export default messagesTypes;

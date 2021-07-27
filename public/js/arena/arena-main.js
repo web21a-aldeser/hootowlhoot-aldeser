@@ -48,7 +48,7 @@ function processMessage(message) {
   const boardConstructed = message.type === messagesTypes.createBoard;
   const currentTurn = message.type === messagesTypes.currentTurn;
   const syncCards = message.type === messagesTypes.cardSync;
-
+  const checkWin = message.type === messagesTypes.checkWin;
   if (syncCards) {
     game.receiveCardsUpdateFromServer(message);
     console.log(message);
@@ -62,6 +62,10 @@ function processMessage(message) {
   }
   if (currentTurn) {
     game.receiveTurnUpdate(message.value.player_index);
+  }
+  if(checkWin) {
+    console.log(message);
+    game.receiveCheckWin(message.value.win);
   }
 }
 
