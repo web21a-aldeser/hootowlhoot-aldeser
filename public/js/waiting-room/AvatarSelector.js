@@ -69,6 +69,7 @@ export default class AvatarSelector {
 
   // eslint-disable-next-line class-methods-use-this
   updateAvatar(index, avatar) {
+    this.playersList = JSON.parse(localStorage.getItem('players'));
     this.playersList[index].avatar = avatar;
     localStorage.setItem('players', JSON.stringify(this.playersList));
     console.log(localStorage.getItem('players'));
