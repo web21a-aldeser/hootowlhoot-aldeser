@@ -42,9 +42,17 @@ class WebSocketServerManager {
             this.clientsWebsockets,
             message.value.player_identity
           );
+        } else if (messageType === messagesTypes.playerNameUpdate) {
+          // Update player name
+          sessionManager.updatePlayerName(message.value);
+          this.broadcastMessage(message, websocket);
+        } else if (messageType === messagesTypes.avatarUpdated) {
+          // Update avatar name
+          sessionManager.updatePlayerAvatar(message.value);
+          console.log('Avatar update received');
+          this.broadcastMessage(message, websocket);
         } else {
-          const session = sessionManager.findSessionByKey(message.value.session_key);
-          broadcaster.broadcastToAllExcept(session, websocket, message);
+          this.broadcastMessage(message, websocket);
         }
       });
 
@@ -53,6 +61,11 @@ class WebSocketServerManager {
         this.clientsWebsockets.delete(websocket);
       });
     });
+  }
+
+  broadcastMessage(message, websocket) {
+    const session = sessionManager.findSessionByKey(message.value.session_key);
+    broadcaster.broadcastToAllExcept(session, websocket, message);
   }
 }
 

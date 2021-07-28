@@ -132,6 +132,20 @@ class SessionManager {
   rememberToAssignPlayerToSession(sessionKey) {
     this.sessionsKeysToBeAssigned.push(sessionKey);
   }
+
+  updatePlayerName(message) {
+    // Reference {player_id, session_key, player_name}
+    const session = this.findSessionByKey(message.session_key);
+    const player = session.findPlayerById(message.player_id);
+    player.name = message.player_name;
+  }
+
+  updatePlayerAvatar(message) {
+    // Reference {player_id, session_key, avatar_path}
+    const session = this.findSessionByKey(message.session_key);
+    const player = session.findPlayerById(message.player_id);
+    player.avatar = message.avatar_path;
+  }
 }
 
 const sessionManager = new SessionManager();

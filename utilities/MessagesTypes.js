@@ -6,6 +6,8 @@ const messagesTypes = {
   newPlayerHasJoined: 'newPlayer',
   currentPlayers: 'currentPlayers',
   reauthentication: 'reauthentication',
-  matchStarted: 'matchStarted'
+  matchStarted: 'matchStarted',
+  playerNameUpdate: 'playerNameUpdate',
+  avatarUpdated: 'avatarUpdated'
 };
 export default messagesTypes;
