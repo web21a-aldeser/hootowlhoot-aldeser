@@ -38,12 +38,9 @@ export default class Game {
   }
 
   configurePlayersCards(id) {
-    console.log(this.currentPlayer);
-    console.log(this.playerList);
     this.createPlayersAndGenerateRandomIntialCardHandForEachOne();
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
     this.setFirstTurn();
-    console.log('id ' + id);
     if (id == 1) {
       this.createGeyser();
       this.createEggs();
@@ -57,6 +54,7 @@ export default class Game {
     this.setupEventsForCards();
   }
 
+  // push undiscovered geysers into the current list
   showGeysers() {
     this.currentList = [];
     for (let i = 0; i < this.geyserList.length; i += 1) {
@@ -67,12 +65,9 @@ export default class Game {
     }
   }
 
-  // evalua el objeto en el que el jugador cae para ejecutar su determinada accion
-  objectActions(src, card, index) {
-    switch (true) {
-      // caso de binoculares, permite ver geysers por un tiempo determinado
-      case src.indexOf('see') !== -1:
-        this.playerList[index].currentCell.children[0].style.display = 'block';
+// binoculars method
+  binocularsAction(index){
+    this.playerList[index].currentCell.children[0].style.display = 'block';
         // this.player.previusCell = this.player.currentCell;
         this.showGeysers();
         const list = this.currentList;
@@ -83,44 +78,80 @@ export default class Game {
         }, 10000);
         const audio1 = new Audio('sounds/achivement.wav');
         audio1.play();
+  }
+
+  //egg method. duplicates turn
+  eggAction(index){
+    this.playerList[index].currentCell.children[0].style.display = 'block';
+    console.log(this.currentPlayer,'Jugando huevo');
+    if (this.currentPlayer === 0){
+      this.currentPlayer = this.playerList.length -1;
+    } else {
+      this.currentPlayer -=1;
+    }
+    const audio2 = new Audio('sounds/achivement.wav');
+    audio2.play();  
+  }
+
+  //find geyser
+  findGeyser(geyser){
+    for (let index = 0; index < this.currentList.length; index++) {
+      if (this.currentList[index] === geyser ) {
+        return true
+      }
+    }
+    return false;
+  }
+  //geyser method
+  // caso de geyser, el jugador vuelve a su posicion inicial
+  // si escoge un color que ya tenia un geyser descubierto lo salta al siguiente color
+  geyserAction(index,card){
+    // && pertenecen a la lista de geysers descubiertos currentList tiene los geysers no descubiertos
+    const geyser = this.playerList[index].currentCell.children[0];
+    console.log('geyser',geyser);
+    //&& this.findGeyser(geyser) === true
+    if (geyser.style.display === 'block' ) {
+      let color = this.playerList[index].currentCell.className;
+      do {
+        this.playerList[index].move();
+        color = this.playerList[index].currentCell.className;
+      } while (card.src.indexOf(color) === -1);
+    } else {
+      //const geyser = this.playerList[index].currentCell.children[0];
+      geyser.style.display = 'block';
+      geyser.style.filter = 'brightness(1.75)';
+      this.playerList[index].avatar.style.filter = 'brightness(0)';
+      setTimeout(() => {
+        geyser.style.filter = 'brightness(1)';
+        this.playerList[index].avatar.style.filter = 'brightness(1)';
+      }, 1000);
+      this.playerList[index].currentCell.removeChild(this.playerList[index].avatar);
+      this.playerList[index].currentCell = this.playerList[index].previusCell;
+      this.playerList[index].previusCell.appendChild(this.playerList[index].avatar);
+      this.playerList[index].row = this.playerList[index].prevRow;
+      this.playerList[index].colum = this.playerList[index].prevCol;
+      // unvalidate cell
+      const audio3 = new Audio('sounds/explosion.wav');
+      audio3.play();
+    }
+  }
+
+  // evalua el objeto en el que el jugador cae para ejecutar su determinada accion
+  objectActions(src, card, index) {
+    switch (true) {
+      // caso de binoculares, permite ver geysers por un tiempo determinado
+      case src.indexOf('see') !== -1:
+        this.binocularsAction(index);
         break;
 
       // caso de huevos, duplican turno
       case src.indexOf('egg') !== -1:
-        this.playerList[index].currentCell.children[0].style.display = 'block';
-        this.changeTurnOnUi(index);
-        const audio2 = new Audio('sounds/achivement.wav');
-        audio2.play();
+        this.eggAction(index);
         break;
 
-      // caso de geyser, el jugador vuelve a su posicion inicial
-      // si escoge un color que ya tenia un geyser descubierto lo salta al siguiente color
       case src.indexOf('geyser') !== -1:
-        // caso de que el geyser ya este descubierto en el color al que escogio
-        if (this.playerList[index].currentCell.children[0].style.display === 'block') {
-          let color = this.playerList[index].currentCell.className;
-          do {
-            this.playerList[index].move();
-            color = this.playerList[index].currentCell.className;
-          } while (card.src.indexOf(color) === -1);
-        } else {
-          const geyser = this.playerList[index].currentCell.children[0];
-          geyser.style.display = 'block';
-          geyser.style.filter = 'brightness(1.75)';
-          this.playerList[index].avatar.style.filter = 'brightness(0)';
-          setTimeout(() => {
-            geyser.style.filter = 'brightness(1)';
-            this.playerList[index].avatar.style.filter = 'brightness(1)';
-          }, 1000);
-          this.playerList[index].currentCell.removeChild(this.playerList[index].avatar);
-          this.playerList[index].currentCell = this.playerList[index].previusCell;
-          this.playerList[index].previusCell.appendChild(this.playerList[index].avatar);
-          this.playerList[index].row = this.playerList[index].prevRow;
-          this.playerList[index].colum = this.playerList[index].prevCol;
-          // unvalidate cell
-          const audio3 = new Audio('sounds/explosion.wav');
-          audio3.play();
-        }
+        // caso de que el geyser ya este descubierto en el color al que 
+        this.geyserAction(index,card);
         break;
 
       default:
@@ -151,7 +182,6 @@ export default class Game {
     for (let j = 0; j < CARDS_COUNT; j += 1) {
       if (playersCards.children[j].src.indexOf('meteorite') !== -1) {
         found = true;
-        console.log('found');
       }
     }
     if (found) {
@@ -221,7 +251,7 @@ export default class Game {
           //check if end
 
           // After the card was clicked and the actions such as show objects with binoculars executed.
-          this.changeTurn(playerIndex);
+          this.changeTurn(this.currentPlayer);
           this.sendTurnUpdateToServer(this.currentPlayer);
           this.sendCheckWin(this.checkWin());
           this.generateNewCardAndSyncPlayersList(playerIndex, cardIndex);
@@ -254,7 +284,6 @@ sendCheckWin(check) {
       win: check
     }
   };
-  console.log(JSON.stringify(message));
   this.websocket.send(JSON.stringify(message));
   if (check){
   window.location = 'aftermatch.xhtml';
@@ -272,7 +301,6 @@ receiveCheckWin(check){
     // It gets the cards for the player with the provided index.
     const playerCards = this.tableBodyElement.children.item(playerIndex).children.item(CARDS_CELL);
 
-    console.log(this.playerList);
     const card = playerCards.children[cardIndex];
     card.src = this.getRandomCard();
 
@@ -283,7 +311,6 @@ receiveCheckWin(check){
   // Client receiving side.
   // It updates cards with the received message
   receiveCardsUpdateFromServer(message) {
-    console.log(message, 'recibiendo');
 
     const playersCards = this.tableBodyElement.children
       .item(message.value.player_position_in_table)
@@ -292,7 +319,6 @@ receiveCheckWin(check){
     // It updates the color for each card in the hand.
     for (let cardIndex = 0; cardIndex < message.value.colors.length; cardIndex++) {
       const card = playersCards.children[cardIndex];
-      console.log('carta');
       card.src = message.value.colors[cardIndex];
       this.playerList[message.value.player_position_in_table].cards[cardIndex] = card.src;
     }
@@ -312,7 +338,6 @@ receiveCheckWin(check){
         player_position_in_table: playerIndex
       }
     };
-    console.log(cards);
     this.websocket.send(JSON.stringify(cards));
   }
   /************************** CARDS RELATED METHODS END ********************************/
@@ -335,6 +360,7 @@ receiveCheckWin(check){
     }
     this.changeTurnOnUi(index);
     // Is the necessary?
+    console.log(this.playerList[index].name, 'turno');
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
   }
 
@@ -424,7 +450,6 @@ receiveCheckWin(check){
     do {
       this.playerList[playerIndex].move();
       color = this.playerList[playerIndex].currentCell.className;
-      console.log(color + " " + colorToGo);
     } while (colorToGo !== color);
 
     // si encuentra un objeto en la celda actual realiza su evento si no solo se mueve
@@ -451,7 +476,6 @@ receiveCheckWin(check){
        cardIndex: cardIndex
      }
    };
-   console.log(JSON.stringify(playerMovementMessage));
    this.websocket.send(JSON.stringify(playerMovementMessage));
  }
 
@@ -487,7 +511,6 @@ receiveCheckWin(check){
       }
       this.sendCardsUpdateToServer(playerIndex);
     }
-    console.log(this.playerList);
   }
 
   // asigns a random cell to new objects
@@ -658,7 +681,6 @@ receiveCheckWin(check){
         this.AddTileElements(message.value.tiles[tile].position, message.value.tiles[tile].element);
       }
     }
-    console.log(message);
   }
 
   // Sends a a message containig the board data in order for the board
@@ -666,7 +688,6 @@ receiveCheckWin(check){
   sendCreationEventToServer() {
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
     this.boardData.value.session_key = playerIdentity.session_key;
-    console.log(JSON.stringify(this.boardData));
     this.websocket.send(JSON.stringify(this.boardData));
   }
 }
