@@ -55,7 +55,7 @@
                 <!-- Waiting room buttons -->
                 <div id="waiting-room-buttons">
                     <button id="start-match-button" class="buttons">Start match</button>
-                    <button id="leave-match-button" class="buttons" onclick="window.location.href='home'">Leave match</button>
+                    <button id="leave-match-button" class="buttons" onclick="window.location.href='/'">Leave match</button>
                 </div>
             </div>
             <!-- Avatar selection modal -->

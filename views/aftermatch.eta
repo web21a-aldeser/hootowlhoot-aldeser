@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="CSS/aftermatch.css" />
-    <link rel="shortcut icon" href="icons/stegosaurios.svg" type="image/x-icon"></link>
-</head>
-
-<body>
-    <header>
-        <nav class="nav-bar" id="main-navigatin-menu">
-            <a>Dino Explosion</a>
-            <a>Aldeser</a>
-            <a>Info</a>
-            <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4">How
-          to play</a>
-        </nav>
-    </header>
-    <main>
+<% layout('layouts/main_layout') %>
         <section id="main-group">
             <div class="enclosing">
                 <div class="title">Results</div>
@@ -46,14 +26,9 @@
                         </tbody>
                     </table>
                     <div class="column">
-                        <a href="home"><button class="button" id="leave-game-button">Leave game</button></a>
+                        <a href="/"><button class="button" id="leave-game-button">Leave game</button></a>
                         <a href="arena"><button class="button" id="rematch-button">Rematch</button></a>
                     </div>
                 </div>
             </div>
         </section>
-    </main>
-    <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
-</body>
-
-</html>

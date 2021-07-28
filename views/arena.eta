@@ -212,7 +212,7 @@
                     </tr>
                 </tbody>
             </table>
-            <button id="resign" onclick="window.location.href='home'">Resign</button>
+            <button id="resign" onclick="window.location.href='/'">Resign</button>
         </aside>
     <!-- The Modal -->
     <div id="myModal" class="modal">

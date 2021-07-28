@@ -6,6 +6,7 @@ import authentication from '../controllers/AuthenticationController.js';
 import home from '../controllers/HomeController.js';
 import waitingRoom from '../controllers/WaitingRoomController.js';
 import arena from '../controllers/ArenaController.js';
+import aftermatch from '../controllers/AftermatchController.js';
 
 const router = express.Router();
 
@@ -33,6 +34,11 @@ router.get('/waiting-room', (req, res) => {
 // serve arena page
 router.get('/arena', (req, res) => {
   arena.getArenaPage(req, res);
+});
+
+// serve after-match page
+router.get('/aftermatch', (req, res) => {
+  aftermatch.getAfterMatchPage(req, res);
 });
 
 // serve public static content
