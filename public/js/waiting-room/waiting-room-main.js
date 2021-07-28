@@ -75,7 +75,7 @@ function processMessage(message) {
   } else if (playerAvatarUpdated) {
     waitingRoom.updatePlayerAvatar(message.value);
   } else if (matchHasStarted) {
-    window.location.href = 'arena.xhtml';
+    window.location.href = 'arena';
   }
 }
 

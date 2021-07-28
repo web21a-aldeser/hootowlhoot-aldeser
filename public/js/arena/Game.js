@@ -351,7 +351,7 @@ export default class Game {
       this.meteor.style.position = 'absolute';
       this.meteor.style.left = '850px';
       this.meteor.style.top = '100px';
-      window.location = 'aftermatch.xhtml';
+      window.location = 'aftermatch';
     }
   }
 
@@ -370,10 +370,10 @@ export default class Game {
 
     this.websocket.send(JSON.stringify(meteoriteMovementMessage));
   }
-  
+
   // Moves the player specified in the message
   // to the closer space of the specifed color in the message
-  movePlayer(message){
+  movePlayer(message) {
     let colorToGo = message.value.color;
     let playerIndex = parseInt(JSON.stringify(message.value.playerIndex));
 
@@ -386,12 +386,16 @@ export default class Game {
     do {
       this.playerList[playerIndex].move();
       color = this.playerList[playerIndex].currentCell.className;
-      console.log(color + " " + colorToGo);
+      console.log(color + ' ' + colorToGo);
     } while (colorToGo !== color);
 
     // si encuentra un objeto en la celda actual realiza su evento si no solo se mueve
     if (this.playerList[playerIndex].currentCell.children[0].src != null) {
-      this.objectActions(this.playerList[playerIndex].currentCell.children[0].src, card, playerIndex);
+      this.objectActions(
+        this.playerList[playerIndex].currentCell.children[0].src,
+        card,
+        playerIndex
+      );
     } else {
       this.playerList[playerIndex].previusCell = this.playerList[playerIndex].currentCell;
     }
@@ -400,22 +404,22 @@ export default class Game {
   }
 
   // Sending side.
-  sendMovementMessage(playerIndex, color, cardIndex){
+  sendMovementMessage(playerIndex, color, cardIndex) {
     // Player identity reference { player_id: message.player_id, session_key: message.session_key }
-   const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
 
-   const playerMovementMessage = {
-     type: messagesTypes.movementInfo,
-     value: {
-       session_key: playerIdentity.session_key,
-       playerIndex: playerIndex,
-       color: color,
-       cardIndex: cardIndex
-     }
-   };
-   console.log(JSON.stringify(playerMovementMessage));
-   this.websocket.send(JSON.stringify(playerMovementMessage));
- }
+    const playerMovementMessage = {
+      type: messagesTypes.movementInfo,
+      value: {
+        session_key: playerIdentity.session_key,
+        playerIndex: playerIndex,
+        color: color,
+        cardIndex: cardIndex
+      }
+    };
+    console.log(JSON.stringify(playerMovementMessage));
+    this.websocket.send(JSON.stringify(playerMovementMessage));
+  }
 
   // retorna una carta al azar
   // eslint-disable-next-line class-methods-use-this
@@ -611,7 +615,7 @@ export default class Game {
     }
   }
 
-  // Puts the custom elements(geysers, binoculars and eggs) in the 
+  // Puts the custom elements(geysers, binoculars and eggs) in the
   // corresponding tiles of the arena acording to the message recieved.
   createArena(message) {
     this.boardData = message;

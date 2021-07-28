@@ -53,7 +53,7 @@ export default class WaitingRoom {
       localStorage.setItem('Binoculars', JSON.stringify(options[2]));
 
       this.sendMatchStartedMessageToServer();
-      window.location.href = 'arena.xhtml';
+      window.location.href = 'arena';
     });
   }
 
