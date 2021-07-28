@@ -1,0 +1,43 @@
+<% layout('layouts/main_layout')%>
+        <h1>Dino Explosion </h1>
+        <aside class="logo">
+            <!-- Dinasours Logo -->
+            <img src="icons/rex.svg" alt="dino" width="80" height="70"> </img>
+            <img src="icons/nuclear-explosion.svg" alt="dino" width="70" height="70"> </img>
+            <img src="icons/stegosaurios.svg" alt="dino" width="70" height="70"> </img>
+        </aside>
+        <aside class="home-section" id="Home">
+            <!-- Home options -->
+            <aside id="options">
+                <ul>
+                    <li>
+                        <button class="button" id="host-button">Host Game</button>
+                    </li>
+                    <li>
+                        <input type="text" id="join-key-input" name="join-key" placeholder="FDDLA54"></input>
+                        <button class="button" id="join-button">Join Game</button>
+                    </li>
+                </ul>
+            </aside>
+            <!-- Error modal -->
+            <div id="session-error-modal" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content">
+                <button class="close" onclick="hide('session-error-modal')">x</button>
+                <p>The session does not exist</p>
+              </div>
+            </div>
+            <aside id="help-dialog">
+                <!-- Help and rules -->
+                <button class="close-button" onclick="hide('help-dialog')">x</button>
+                <h2>Rules:</h2>
+                <p>Each player must play one of his cards on his turn, moving to the available position of the card color he chose to play. If a player has a meteor card, he is required to play it and advance the meteor token on that turn. At the end of
+                    his turn. If all the dinosaurs reached the cave before the meteorite token reached the planet, then all players win; but if there is still at least one dinosaur to enter the cave and the meteorite token reaches its peak, the game is
+                    over and the players lose.
+                </p>
+                <h2>Host:</h2>
+                <p>Click the host button, share the key and wait for your friends</p>
+                <h2>Join:</h2>
+                <a>Enter the key and click the Join Game button.</a>
+            </aside>
+        </aside>

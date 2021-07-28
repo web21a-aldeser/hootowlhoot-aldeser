@@ -3,6 +3,7 @@ import path from 'path';
 import log from '../controllers/LogController.js';
 import error from '../controllers/ErrorController.js';
 import authentication from '../controllers/AuthenticationController.js';
+import homeController from '../controllers/HomeController.js';
 
 const router = express.Router();
 
@@ -16,6 +17,10 @@ router.use(express.urlencoded({extended: false}));
 
 // parse application/json
 router.use(express.json());
+
+router.get('/', (req, res) => {
+  homeController.getHomePage(req, res);
+});
 
 // serve public content
 router.use('/', express.static(path.join(process.cwd(), 'public'), {index: 'home.xhtml'}));
