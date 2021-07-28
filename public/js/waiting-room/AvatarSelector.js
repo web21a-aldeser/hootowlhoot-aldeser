@@ -60,7 +60,7 @@ export default class AvatarSelector {
           PLAYERS_AVATAR_CELL
         ].children[PLAYERS_AVATAR_BUTTON].src = avatarImagePath;
         console.log(this.element.dataset.key);
-        this.updateAvatar(this.element.dataset.key, avatarImagePath);
+        this.updateAvatar(parseInt(this.element.dataset.key), avatarImagePath);
         this.sendAvatarUpdateToServer(avatarImagePath);
         // this.playersList[this.element.dataset.key].avatar = avatarImagePath;
       });
