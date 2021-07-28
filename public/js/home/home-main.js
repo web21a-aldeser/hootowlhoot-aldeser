@@ -6,7 +6,7 @@ function main() {
   const hostMatchButton = document.getElementById('host-button');
   hostMatchButton.addEventListener('click', () => {
     localStorage.setItem(isHostKey, JSON.stringify('true'));
-    window.location.href = 'waiting-room.xhtml';
+    window.location.href = 'waiting-room';
   });
 
   const joinMatchButton = document.getElementById('join-button');
@@ -44,7 +44,7 @@ function requestServerToJoinSession(gameKey) {
       const response = JSON.parse(data);
       if (response.hasOwnProperty('success')) {
         console.log('The session does exist');
-        window.location.href = 'waiting-room.xhtml';
+        window.location.href = 'waiting-room';
       } else {
         showSessionNotFoundError(response);
       }

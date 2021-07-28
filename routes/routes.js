@@ -3,7 +3,8 @@ import path from 'path';
 import log from '../controllers/LogController.js';
 import error from '../controllers/ErrorController.js';
 import authentication from '../controllers/AuthenticationController.js';
-import homeController from '../controllers/HomeController.js';
+import home from '../controllers/HomeController.js';
+import waitingRoom from '../controllers/WaitingRoomController.js';
 
 const router = express.Router();
 
@@ -18,12 +19,18 @@ router.use(express.urlencoded({extended: false}));
 // parse application/json
 router.use(express.json());
 
+// server home page
 router.get('/', (req, res) => {
-  homeController.getHomePage(req, res);
+  home.getHomePage(req, res);
 });
 
-// serve public content
-router.use('/', express.static(path.join(process.cwd(), 'public'), {index: 'home.xhtml'}));
+// server waiting room page
+router.get('/waiting-room', (req, res) => {
+  waitingRoom.getWaitingRoomPage(req, res);
+});
+
+// serve public static content
+router.use('/', express.static(path.join(process.cwd(), 'public')));
 
 router.post('/join-session', (req, res, next) => {
   authentication.authenticatePlayer(req, res, next);

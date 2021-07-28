@@ -1,25 +1,4 @@
-<!DOCTYPE html>
-<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="CSS/waiting-room.css" />
-    <link rel="shortcut icon" href="icons/stegosaurios.svg" type="image/x-icon"></link>
-    <title>Waiting Room</title>
-</head>
-
-<body>
-    <header>
-        <nav class="nav-bar" id="main-navigatin-menu">
-            <a>Dino Explosion</a>
-            <a>Aldeser</a>
-            <a>Info</a>
-            <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4">How
-                    to play</a>
-        </nav>
-    </header>
-    <main id="waiting-room-main">
+<% layout('layouts/main_layout') %>
         <h2 id="waiting-room-title">Waiting Room</h2>
         <!-- Main container -->
         <div id="container-for-settings-players-and-avatar-selection">
@@ -135,10 +114,3 @@
                 </table>
             </article>
         </div>
-    </main>
-    <footer class="footer">Web 2021 Dino Explosión - Aldeser </footer>
-    
-    <script src="js/common.js"></script>
-    <script src="js/waiting-room/waiting-room-main.js" type="module"></script>
-</body>
-</html>
