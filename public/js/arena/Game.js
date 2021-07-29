@@ -398,8 +398,21 @@ export default class Game {
       this.meteor.style.position = 'absolute';
       this.meteor.style.left = '850px';
       this.meteor.style.top = '100px';
-      window.location = 'aftermatch';
+      this.sendLoseCheck();
+      window.location.href = 'aftermatch';
     }
+  }
+
+  sendLoseCheck() {
+    const sessionKey = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity)).session_key;
+    const checkLose = {
+      type: messagesTypes.checkLose,
+      value: {
+        session_key: sessionKey,
+        data: []
+      }
+    };
+    this.websocket.send(JSON.stringify(checkLose));
   }
 
   // Sending side.

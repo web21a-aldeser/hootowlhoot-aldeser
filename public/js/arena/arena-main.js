@@ -78,7 +78,7 @@ function processMessage(message) {
         game.receiveCheckWin(message.value.win);
     }
     if (checkLose) {
-      game.receiveCheckLose();
+      window.location.href = 'aftermatch';
     }
 }
 
