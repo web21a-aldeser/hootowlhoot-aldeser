@@ -60,7 +60,7 @@
             </div>
             <!-- Avatar selection modal -->
             <article id="avatar-selection" data-avatar-id="none">
-                <button class="close-button" onclick="hide('avatar-selection')">x</button>
+                <button class="close-button" id= "close-button">x</button>
                 <h3>Choose your avatar</h3>
                 <table id="avatar-selection-table">
                     <tr>

@@ -7,7 +7,7 @@ const waitingRoom = new WaitingRoom(websocket);
 
 function main() {
   const amIHost = JSON.parse(localStorage.getItem(isHostKey));
-
+  hide();
   waitingRoom.configure();
   websocket.onmessage = (event) => {
     processMessage(JSON.parse(event.data));
@@ -136,5 +136,14 @@ function addPlayerToPlayersList(message) {
 function configureEventsForPlayersList(waitingRoom) {
   waitingRoom.playerList.configurePlayersList(waitingRoom.avatarSelector);
 }
+
+function hide() {
+  const element = document.getElementById('avatar-selection');
+  const closeButton = document.getElementById('close-button');
+  closeButton.addEventListener('click', () => {
+  element.style.display = 'none';
+  });
+}
+
 
 window.addEventListener('load', main);

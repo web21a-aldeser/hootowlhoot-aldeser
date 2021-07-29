@@ -16,7 +16,7 @@ const messagesTypes = {
   turnInformation: 'turnInfo',
   movementInfo: 'movementInfo',
   checkWin: 'checkWin',
-  checkLose: 'checkLose'
+  checkLose: 'checkLose',
 };
 
 export default messagesTypes;

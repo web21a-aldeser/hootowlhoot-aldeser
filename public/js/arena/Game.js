@@ -136,15 +136,16 @@ export default class Game {
     }
   }
 
-  // desactiva las cartas de los jugadores a los que no les corresponde el turno
+  // Desactiva las cartas del jugador si no es su turno y las activa si si
   disableCards() {
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
     const playersCount = this.tableBodyElement.children.length;
     for (let i = 0; i < playersCount; i += 1) {
       const playersCards = this.tableBodyElement.children.item(i).children.item(CARDS_CELL);
       for (let j = 0; j < CARDS_COUNT; j += 1) {
         playersCards.children[j].disabled = true;
         playersCards.children[j].style.opacity = '0.5';
-        if (this.currentPlayer === i) {
+        if ((this.currentPlayer === i) && ((playerIdentity.player_id -1 ) === this.currentPlayer )) {
           playersCards.children[j].disabled = false;
           playersCards.children[j].style.opacity = '1';
         }
@@ -159,7 +160,6 @@ export default class Game {
     for (let j = 0; j < CARDS_COUNT; j += 1) {
       if (playersCards.children[j].src.indexOf('meteorite') !== -1) {
         found = true;
-        console.log('found');
       }
     }
     if (found) {
@@ -265,6 +265,7 @@ export default class Game {
     };
     this.websocket.send(JSON.stringify(message));
     if (check){
+      localStorage.setItem('win',true);
       window.location.href = 'aftermatch';
     }
   }
@@ -399,6 +400,7 @@ export default class Game {
       this.meteor.style.left = '850px';
       this.meteor.style.top = '100px';
       this.sendLoseCheck();
+      localStorage.setItem('win',false);
       window.location.href = 'aftermatch';
     }
   }

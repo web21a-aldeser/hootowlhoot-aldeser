@@ -56,7 +56,6 @@ function processMessage(message) {
     const playerHasMoved = message.type === messagesTypes.movementInfo;
     const checkWin = message.type === messagesTypes.checkWin;
     const checkLose = message.type === messagesTypes.checkLose;
-
     if (syncCards) {
         game.receiveCardsUpdateFromServer(message);
         console.log(message);
@@ -75,9 +74,12 @@ function processMessage(message) {
         game.movePlayer(message);
     }
     if (checkWin) {
-        game.receiveCheckWin(message.value.win);
+      localStorage.setItem('win',true);
+      game.receiveCheckWin(message.value.win);
+
     }
     if (checkLose) {
+      localStorage.setItem('win',false);
       window.location.href = 'aftermatch';
     }
 }

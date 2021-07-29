@@ -44,6 +44,8 @@ class Player {
       card.setAttribute('type', 'image');
       card.setAttribute('width', 50);
       card.setAttribute('height', 50);
+      card.disabled = true;
+      card.style.opacity = '0.5';
       // card.setAttribute('onmouseover', 'image');
       cards.append(card);
     }
