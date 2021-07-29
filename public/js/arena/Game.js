@@ -38,12 +38,9 @@ export default class Game {
   }
 
   configurePlayersCards(id) {
-    console.log(this.currentPlayer);
-    console.log(this.playerList);
     this.createPlayersAndGenerateRandomIntialCardHandForEachOne();
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
     this.setFirstTurn();
-    console.log('id ' + id);
     if (id == 1) {
       this.createGeyser();
       this.createEggs();
@@ -56,6 +53,7 @@ export default class Game {
     });
     this.setupEventsForCards();
   }
+  /************************** OBJECTS ACTIONS ********************************/
 
   showGeysers() {
     this.currentList = [];
@@ -66,6 +64,19 @@ export default class Game {
       }
     }
   }
+
+   //egg method. duplicates turn
+   eggAction(index){
+    this.playerList[index].currentCell.children[0].style.display = 'block';
+    if (this.currentPlayer === 0){
+      this.currentPlayer = this.playerList.length -1;
+    } else {
+      this.currentPlayer -=1;
+    }
+    const audio2 = new Audio('sounds/achivement.wav');
+    audio2.play();  
+  }
+
 
   // evalua el objeto en el que el jugador cae para ejecutar su determinada accion
   objectActions(src, card, index) {
@@ -87,10 +98,7 @@ export default class Game {
 
       // caso de huevos, duplican turno
       case src.indexOf('egg') !== -1:
-        this.playerList[index].currentCell.children[0].style.display = 'block';
-        this.changeTurnOnUi(index);
-        const audio2 = new Audio('sounds/achivement.wav');
-        audio2.play();
+        this.eggAction(index);
         break;
 
       // caso de geyser, el jugador vuelve a su posicion inicial
@@ -219,8 +227,10 @@ export default class Game {
           }
 
           // After the card was clicked and the actions such as show objects with binoculars executed.
-          this.changeTurn(playerIndex);
+          this.changeTurn(this.currentPlayer);
           this.sendTurnUpdateToServer(this.currentPlayer);
+
+          this.sendCheckWin(this.checkWin());
 
           this.generateNewCardAndSyncPlayersList(playerIndex, cardIndex);
           this.sendCardsUpdateToServer(playerIndex);
@@ -228,6 +238,43 @@ export default class Game {
       }
     }
   }
+
+  // checks if all the players are in the final cell
+  checkWin(){
+    const finalCell = document.getElementById('final').childElementCount;
+    if (finalCell === JSON.parse(localStorage.getItem('players-quantity')) + 1) {
+      const audio = new Audio('sounds/levelComplete.wav');
+      audio.play();
+      return true;
+    }
+    return false;
+  }
+  
+  //sends the message for checking if all the players are in the final cell
+  sendCheckWin(check) {
+    // Player identity reference { player_id: message.player_id, session_key: message.session_key }
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+  
+    const message = {
+      type: messagesTypes.checkWin,
+      value: {
+        session_key: playerIdentity.session_key,
+        player_id: playerIdentity.player_id,
+        win: check
+      }
+    };
+    this.websocket.send(JSON.stringify(message));
+    if (check){
+      window.location.href = 'aftermatch';
+    }
+  }
+  
+  receiveCheckWin(check){
+    if (check) {
+      window.location.href = 'aftermatch';
+    }
+  }
+  
 
   /************************** CARDS RELATED METHODS BEGIN ********************************/
   generateNewCardAndSyncPlayersList(playerIndex, cardIndex) {

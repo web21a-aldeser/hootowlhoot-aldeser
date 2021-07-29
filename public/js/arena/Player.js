@@ -121,11 +121,6 @@ class Player {
     newCell.appendChild(this.avatar);
     this.currentCell = newCell;
     const finalCell = document.getElementById('final').childElementCount;
-    if (finalCell === JSON.parse(localStorage.getItem('players-quantity')) + 1) {
-      const audio = new Audio('sounds/levelComplete.wav');
-      audio.play();
-      window.location = 'aftermatch';
-    }
   }
 }
 
