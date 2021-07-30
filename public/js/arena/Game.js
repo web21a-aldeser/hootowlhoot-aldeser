@@ -35,6 +35,7 @@ export default class Game {
     };
     this.numberElements = 0;
     this.websocket = websocket;
+    this.stats = {turns: 0, meteors: 0, geysers: 0};
   }
 
   configurePlayersCards(id) {
@@ -68,6 +69,7 @@ export default class Game {
    //egg method. duplicates turn
    eggAction(index){
     this.playerList[index].currentCell.children[0].style.display = 'block';
+
     if (this.currentPlayer === 0){
       this.currentPlayer = this.playerList.length -1;
     } else {
@@ -77,63 +79,60 @@ export default class Game {
     audio2.play();  
   }
 
+  binocularsAction(index){
+    this.playerList[index].currentCell.children[0].style.display = 'block';
+    // this.player.previusCell = this.player.currentCell;
+    this.showGeysers();
+    const list = this.currentList;
+    setTimeout(() => {
+      for (let i = 0; i < list.length; i += 1) {
+        list[i].style.display = 'none';
+      }
+    }, 10000);
+    const audio1 = new Audio('sounds/achivement.wav');
+    audio1.play();
+  }
+
+  geyserAction(index,card){
+    if (this.playerList[index].currentCell.children[0].style.display === 'block') {
+      let color = this.playerList[index].currentCell.className;
+      do {
+        this.playerList[index].move();
+        color = this.playerList[index].currentCell.className;
+      } while (card.src.indexOf(color) === -1);
+    } else {
+      this.stats.geysers += 1;
+      const geyser = this.playerList[index].currentCell.children[0];
+      geyser.style.display = 'block';
+      geyser.style.filter = 'brightness(1.75)';
+      this.playerList[index].avatar.style.filter = 'brightness(0)';
+      setTimeout(() => {
+        geyser.style.filter = 'brightness(1)';
+        this.playerList[index].avatar.style.filter = 'brightness(1)';
+      }, 1000);
+      this.playerList[index].currentCell.removeChild(this.playerList[index].avatar);
+      this.playerList[index].currentCell = this.playerList[index].previusCell;
+      this.playerList[index].previusCell.appendChild(this.playerList[index].avatar);
+      this.playerList[index].row = this.playerList[index].prevRow;
+      this.playerList[index].colum = this.playerList[index].prevCol;
+      // unvalidate cell
+      const audio3 = new Audio('sounds/explosion.wav');
+      audio3.play();
+    }
+  }
 
   // evalua el objeto en el que el jugador cae para ejecutar su determinada accion
   objectActions(src, card, index) {
-    switch (true) {
       // caso de binoculares, permite ver geysers por un tiempo determinado
-      case src.indexOf('see') !== -1:
-        this.playerList[index].currentCell.children[0].style.display = 'block';
-        // this.player.previusCell = this.player.currentCell;
-        this.showGeysers();
-        const list = this.currentList;
-        setTimeout(() => {
-          for (let i = 0; i < list.length; i += 1) {
-            list[i].style.display = 'none';
-          }
-        }, 10000);
-        const audio1 = new Audio('sounds/achivement.wav');
-        audio1.play();
-        break;
-
-      // caso de huevos, duplican turno
-      case src.indexOf('egg') !== -1:
+      if (src.indexOf('see') !== -1){
+        this.binocularsAction(index);
+      } 
+      else if (src.indexOf('egg') !== -1){
         this.eggAction(index);
-        break;
-
-      // caso de geyser, el jugador vuelve a su posicion inicial
-      // si escoge un color que ya tenia un geyser descubierto lo salta al siguiente color
-      case src.indexOf('geyser') !== -1:
-        // caso de que el geyser ya este descubierto en el color al que escogio
-        if (this.playerList[index].currentCell.children[0].style.display === 'block') {
-          let color = this.playerList[index].currentCell.className;
-          do {
-            this.playerList[index].move();
-            color = this.playerList[index].currentCell.className;
-          } while (card.src.indexOf(color) === -1);
-        } else {
-          const geyser = this.playerList[index].currentCell.children[0];
-          geyser.style.display = 'block';
-          geyser.style.filter = 'brightness(1.75)';
-          this.playerList[index].avatar.style.filter = 'brightness(0)';
-          setTimeout(() => {
-            geyser.style.filter = 'brightness(1)';
-            this.playerList[index].avatar.style.filter = 'brightness(1)';
-          }, 1000);
-          this.playerList[index].currentCell.removeChild(this.playerList[index].avatar);
-          this.playerList[index].currentCell = this.playerList[index].previusCell;
-          this.playerList[index].previusCell.appendChild(this.playerList[index].avatar);
-          this.playerList[index].row = this.playerList[index].prevRow;
-          this.playerList[index].colum = this.playerList[index].prevCol;
-          // unvalidate cell
-          const audio3 = new Audio('sounds/explosion.wav');
-          audio3.play();
-        }
-        break;
-
-      default:
-        break;
-    }
+      }
+      else if (src.indexOf('geyser') !== -1){
+        this.geyserAction(index,card);
+      }
   }
 
   // Desactiva las cartas del jugador si no es su turno y las activa si si
@@ -156,13 +155,15 @@ export default class Game {
   //desactiva las cartas si se encuentra 1 de meteorito
   searchMeteorite(index) {
     const playersCards = this.tableBodyElement.children.item(index).children.item(CARDS_CELL);
+    const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
+
     let found = false;
     for (let j = 0; j < CARDS_COUNT; j += 1) {
       if (playersCards.children[j].src.indexOf('meteorite') !== -1) {
         found = true;
       }
     }
-    if (found) {
+    if (found && (playerIdentity.player_id -1 ) === this.currentPlayer ) {
       for (let j = 0; j < CARDS_COUNT; j += 1) {
         playersCards.children[j].disabled = true;
         playersCards.children[j].style.opacity = '0.5';
@@ -192,6 +193,8 @@ export default class Game {
           // Event for meteorite card.
           if (card.src.indexOf('meteorite') !== -1) {
             this.moveMeteorite();
+            this.stats.meteors += 1;
+
             this.sendMeteoriteMovementToServer();
           } else {
             // Event for normal card.
@@ -243,8 +246,6 @@ export default class Game {
   checkWin(){
     const finalCell = document.getElementById('final').childElementCount;
     if (finalCell === JSON.parse(localStorage.getItem('players-quantity')) + 1) {
-      const audio = new Audio('sounds/levelComplete.wav');
-      audio.play();
       return true;
     }
     return false;
@@ -254,7 +255,7 @@ export default class Game {
   sendCheckWin(check) {
     // Player identity reference { player_id: message.player_id, session_key: message.session_key }
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
-  
+    
     const message = {
       type: messagesTypes.checkWin,
       value: {
@@ -266,12 +267,14 @@ export default class Game {
     this.websocket.send(JSON.stringify(message));
     if (check){
       localStorage.setItem('win',true);
+      localStorage.setItem('stats',JSON.stringify(this.stats));
       window.location.href = 'aftermatch';
     }
   }
   
   receiveCheckWin(check){
     if (check) {
+      localStorage.setItem('stats',JSON.stringify(this.stats));
       window.location.href = 'aftermatch';
     }
   }
@@ -345,6 +348,8 @@ export default class Game {
     }
     this.changeTurnOnUi(index);
     // Is the necessary?
+    this.stats.turns += 1;
+
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
   }
 
@@ -400,6 +405,7 @@ export default class Game {
       this.meteor.style.left = '850px';
       this.meteor.style.top = '100px';
       this.sendLoseCheck();
+      localStorage.setItem('stats',JSON.stringify(this.stats));
       localStorage.setItem('win',false);
       window.location.href = 'aftermatch';
     }
@@ -465,7 +471,7 @@ export default class Game {
     this.playerList[playerIndex].prevRow = this.playerList[playerIndex].row;
   }
 
-  // Sending side.
+  // Sending side. deberia de enviar las columnas y filas anteriores o todo el player
   sendMovementMessage(playerIndex, color, cardIndex) {
     // Player identity reference { player_id: message.player_id, session_key: message.session_key }
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));

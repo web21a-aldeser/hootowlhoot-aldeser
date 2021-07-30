@@ -75,11 +75,14 @@ function processMessage(message) {
     }
     if (checkWin) {
       localStorage.setItem('win',true);
+      console.log(game.stats,'stats');
+      localStorage.setItem('stats',JSON.stringify(game.stats));
       game.receiveCheckWin(message.value.win);
 
     }
     if (checkLose) {
       localStorage.setItem('win',false);
+      localStorage.setItem('stats',JSON.stringify(game.stats));
       window.location.href = 'aftermatch';
     }
 }

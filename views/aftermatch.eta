@@ -1,13 +1,12 @@
 <% layout('layouts/main_layout') %>
         <section id="main-group">
             <div class="enclosing">
-                <div class="title">Results</div>
+                <div class="title" id='title'></div>
                 <hr style="border:3px solid #f1f1f1" />
                 <div class="row">
                     <table id="stats">
                         <thead>
                             <tr>
-                                <th>Player</th>
                                 <th>Turns</th>
                                 <th>Meteors</th>
                                 <th>Geysers</th>
@@ -15,10 +14,6 @@
                         </thead>
                         <tbody id="players-stats">
                             <tr>
-                                <td>
-                                    <p>Player1</p><img src="icons/rex.svg" alt="rex" width="50" height="50"> </img>
-                                </td>
-
                                 <td>10</td>
                                 <td>4</td>
                                 <td>3</td>

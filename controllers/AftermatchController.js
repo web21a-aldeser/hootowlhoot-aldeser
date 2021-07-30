@@ -3,7 +3,7 @@ class AftermatchController {
     res.render('aftermatch', {
       title: 'Aftermatch',
       stylesheets: ['/CSS/aftermatch.css'],
-      scripts: ['/js/common.js']
+      scripts: ['/js/aftermatch/aftermatch-main.js','/js/common.js']
     });
   }
 }
