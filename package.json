@@ -1,0 +1,19 @@
+{
+  "name": "aldeser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "aldeser",
+  "license": "ISC",
+  "dependencies": {
+    "eta": "^1.12.2",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.9",
+    "ws": "^7.5.2"
+  },
+  "type": "module"
+}

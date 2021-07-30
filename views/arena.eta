@@ -1,0 +1,226 @@
+<% layout('layouts/main_layout') %>
+        <figure class="proximity-bar">
+            <img src="icons/galaxy.svg" alt="galaxy" width="70" height="70"> </img>
+            <ul class="clarity" id="clarity">
+                <li class="cl1"><img src="icons/meteorite.svg" id="meteor" alt="meteorite" width="50" height="50"></img>
+                </li>
+                <li class="cl2"></li>
+                <li class="cl3"></li>
+                <li class="cl4"></li>
+                <li class="cl5"></li>
+                <li class="cl6"></li>
+                <li class="cl7"></li>
+                <li class="cl8"></li>
+                <li class="cl9"></li>
+                <li class="cl10"></li>
+                <li class="cl11"></li>
+                <li class="cl12"></li>
+                <li class="cl13"></li>
+                <li class="cl14"></li>
+            </ul>
+            <img src="icons/planet-earth.svg" alt="planet" width="70" height="70"> </img>
+        </figure>
+
+        <aside id="wrapper">
+
+            <section id="player-box">
+              <!-- Template -->
+                <h2>Turn: <label id='turn'>Player</label></h2>
+                <aside id="hand">
+                    <table class="generated-table">
+                        <thead>
+                            <tr>
+                                <th>Dinasour</th>
+                                <th>Player</th>
+                                <th>Hand</th>
+                            </tr>
+                        </thead>
+                        <tbody id="players-cards">
+                          <!-- Generate players list using ETA -->
+                        </tbody>
+                    </table>
+                    <button id="pass">Pass Turn</button>
+                </aside>
+
+            </section>
+            <!-- End of player box -->
+            <table class="board">
+                <tbody id="board-body">
+                    <tr>
+                        <!-- B(0,0) -->
+                        <td class="red" id="first" data-row="0" data-col="0"></td>
+                        <!-- B(0,1) -->
+                        <td class="light" data-row="0" data-col="1"></td>
+                        <!-- B(0,2) -->
+                        <td class="red" data-row="0" data-col="2">
+                        </td>
+                        <!-- B(0,3) -->
+                        <td class="green" data-row="0" data-col="3"></td>
+                        <!-- B(0,4) -->
+                        <td class="blue" data-row="0" data-col="4"></td>
+                        <!-- B(0,5) -->
+                        <td class="light" data-row="0" data-col="5"></td>
+                        <!-- B(0,6) -->
+                        <td class="yellow" data-row="0" data-col="6"></td>
+                        <!-- B(0,7) -->
+                        <td class="orange" data-row="0" data-col="7"></td>
+                        <!-- B(0,8) -->
+                        <td data-row="0" data-col="8" id='final'>
+                            <img src="icons/cave.svg" alt="cave" id="cave" width="100" height="60"> </img>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <!-- B(1,0) -->
+                        <td class="orange" data-row="1" data-col="0"></td>
+                        <!-- B(1,1) -->
+                        <td class="light" data-row="1" data-col="1"></td>
+                        <!-- B(1,2) -->
+                        <td class="orange" data-row="1" data-col="2"></td>
+                        <!-- B(1,3) -->
+                        <td class="light" data-row="1" data-col="3"></td>
+                        <!-- B(1,4) -->
+                        <td class="green" data-row="1" data-col="4"></td>
+                        <!-- B(1,5) -->
+                        <td class="light" data-row="1" data-col="5"></td>
+                        <!-- B(1,6) -->
+                        <td class="purple" data-row="1" data-col="6"></td>
+                        <!-- B(1,7) -->
+                        <td class="light" data-row="1" data-col="7"></td>
+                        <!-- B(1,8) -->
+                        <td data-row="1" data-col="8"></td>
+                    </tr>
+                    <tr>
+                        <!-- B(2,0) -->
+                        <td class="yellow" data-row="2" data-col="0"></td>
+                        <!-- B(2,1) -->
+                        <td class="light" data-row="2" data-col="1"></td>
+                        <!-- B(2,2) -->
+                        <td class="purple" data-row="2" data-col="2"></td>
+                        <!-- B(2,3) -->
+                        <td class="light" data-row="2" data-col="3"></td>
+                        <!-- B(2,4) -->
+                        <td class="yellow" data-row="2" data-col="4"></td>
+                        <!-- B(2,5) -->
+                        <td class="light" data-row="2" data-col="5"></td>
+                        <!-- B(2,6) -->
+                        <td class="red" data-row="2" data-col="6"></td>
+                        <!-- B(2,7) -->
+                        <td class="light" data-row="2" data-col="7"></td>
+                        <!-- B(2,8) -->
+                        <td data-row="2" data-col="8"></td>
+                    </tr>
+                    <tr>
+                        <!-- B(3,0) -->
+                        <td class="green" data-row="3" data-col="0"></td>
+                        <!-- B(3,1) -->
+                        <td class="light" data-row="3" data-col="1"></td>
+                        <!-- B(3,2) -->
+                        <td class="blue" data-row="3" data-col="2"></td>
+                        <!-- B(3,3) -->
+                        <td class="light" data-row="3" data-col="3"></td>
+                        <!-- B(3,4) -->
+                        <td class="orange" data-row="3" data-col="4"></td>
+                        <!-- B(3,5) -->
+                        <td class="light" data-row="3" data-col="5"></td>
+                        <!-- B(3,6) -->
+                        <td class="yellow" data-row="3" data-col="6"></td>
+                        <!-- B(3,7) -->
+                        <td class="light" data-row="3" data-col="7"></td>
+                        <!-- B(3,8) -->
+                        <td data-row="3" data-col="8"></td>
+                    </tr>
+                    <tr>
+                        <!-- B(4,0) -->
+                        <td class="blue" data-row="4" data-col="0"></td>
+                        <!-- B(4,1) -->
+                        <td class="light" data-row="4" data-col="1"></td>
+                        <!-- B(4,2) -->
+                        <td class="red" data-row="4" data-col="2"></td>
+                        <!-- B(4,3) -->
+                        <td class="light" data-row="4" data-col="3"></td>
+                        <!-- B(4,4) -->
+                        <td class="green" data-row="4" data-col="4"></td>
+                        <!-- B(4,5) -->
+                        <td class="light" data-row="4" data-col="5"></td>
+                        <!-- B(4,6) -->
+                        <td class="orange" data-row="4" data-col="6"></td>
+                        <!-- B(4,7) -->
+                        <td class="light" data-row="4" data-col="7"></td>
+                        <!-- B(4,8) -->
+                        <td data-row="4" data-col="8"></td>
+                    </tr>
+                    <tr>
+                        <!-- B(5,0) -->
+                        <td class="purple" data-row="5" data-col="0"></td>
+                        <!-- B(5,1) -->
+                        <td class="light" data-row="5" data-col="1"></td>
+                        <!-- B(5,2) -->
+                        <td class="blue" data-row="5" data-col="2"></td>
+                        <!-- B(5,3) -->
+                        <td class="light" data-row="5" data-col="3"></td>
+                        <!-- B(5,4) -->
+                        <td class="red" data-row="5" data-col="4"></td>
+                        <!-- B(5,5) -->
+                        <td class="light" data-row="5" data-col="5"></td>
+                        <!-- B(5,6) -->
+                        <td class="blue" data-row="5" data-col="6"></td>
+                        <!-- B(5,7) -->
+                        <td class="light" data-row="5" data-col="7"></td>
+                        <!-- B(5,8) -->
+                        <td data-row="5" data-col="8"></td>
+                    </tr>
+                    <tr>
+                        <!-- B(6,0) -->
+                        <td class="yellow" data-row="6" data-col="0"></td>
+                        <!-- B(6,1) -->
+                        <td class="light" data-row="6" data-col="1"></td>
+                        <!-- B(6,2) -->
+                        <td class="orange" data-row="6" data-col="2"></td>
+                        <!-- B(6,3) -->
+                        <td class="light" data-row="6" data-col="3"></td>
+                        <!-- B(6,4) -->
+                        <td class="purple" data-row="6" data-col="4"></td>
+                        <!-- B(6,5) -->
+                        <td class="light" data-row="6" data-col="5"></td>
+                        <!-- B(6,6) -->
+                        <td class="purple" data-row="6" data-col="6"></td>
+                        <!-- B(6,7) -->
+                        <td class="light" data-row="6" data-col="7"></td>
+                        <!-- B(6,8) -->
+                        <td data-row="6" data-col="8"></td>
+                    </tr>
+                    <tr>
+                        <!-- B(7,0) -->
+                        <td class="blue" data-row="7" data-col="0"></td>
+                        <!-- B(7,1) -->
+                        <td class="red" data-row="7" data-col="1"></td>
+                        <!-- B(7,2) -->
+                        <td class="purple" data-row="7" data-col="2"></td>
+                        <!-- B(7,3) -->
+                        <td class="light" data-row="7" data-col="3"></td>
+                        <!-- B(7,4) -->
+                        <td class="yellow" data-row="7" data-col="4"></td>
+                        <!-- B(7,5) -->
+                        <td class="green" data-row="7" data-col="5"></td>
+                        <!-- B(7,6) -->
+                        <td class="red" data-row="7" data-col="6"></td>
+                        <!-- B(7,7) -->
+                        <td class="light" data-row="7" data-col="7"></td>
+                        <!-- B(7,8) -->
+                        <td data-row="7" data-col="8"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button id="resign" onclick="window.location.href='/'">Resign</button>
+        </aside>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="hide('myModal')">x</span>
+            <p>Touch your cards to play and move your Dinasour, if there is a meteorite card you have to play it</p>
+        </div>
+
+    </div>

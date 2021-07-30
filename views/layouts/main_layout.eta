@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<% it.stylesheets.forEach((stylesheet) => { %>
+ <link rel="stylesheet" href="<%= stylesheet %>"></link>
+<% }); %>
+
+    <link rel="shortcut icon" href="icons/stegosaurios.svg" type="image/x-icon"></link>
+    <title><%= it.title %> - Dino Explosion</title>
+
+</head>
+<body>
+ <header>
+        <nav class="nav-bar" id="main-navigatin-menu">
+            <a>Dino Explosion</a>
+            <a>Aldeser</a>
+            <a href='#'>Info</a>
+            <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4" target="_blank">How to play</a>
+            <nav class="nav-bar-right">
+                <a>Credits</a>
+                <a href='#' onclick="show('help-dialog')">Help</a>
+            </nav>
+        </nav>
+    </header>
+<main id="main">
+<%~ it.body %> 
+</main>
+    <footer class="footer ">Web 2021 Dino Explosión - Aldeser </footer>
+<% it.scripts.forEach((script) => { %>
+  <script src="<%= script %>" type="module" defer="defer"></script>
+<% }); %>
+</body>
+</html>
