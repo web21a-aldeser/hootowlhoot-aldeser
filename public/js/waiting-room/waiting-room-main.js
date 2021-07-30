@@ -141,9 +141,8 @@ function hide() {
   const element = document.getElementById('avatar-selection');
   const closeButton = document.getElementById('close-button');
   closeButton.addEventListener('click', () => {
-  element.style.display = 'none';
+    element.style.display = 'none';
   });
 }
-
 
 window.addEventListener('load', main);

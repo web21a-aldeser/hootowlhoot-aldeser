@@ -146,6 +146,22 @@ class SessionManager {
     const player = session.findPlayerById(message.player_id);
     player.avatar = message.avatar_path;
   }
+
+  saveBoardInitialState(message, websocket) {
+    const session = this.findSessionByKey(message.value.session_key);
+    session.initialBoardConfiguration = message;
+
+    // It sends the order to change to waiting room to all clients except the host.
+    const proceedToArena = {
+      type: messagesTypes.matchStarted
+    };
+    broadcaster.broadcastToAllExcept(session, websocket, proceedToArena);
+  }
+
+  getInitialBoardConfiguration(message) {
+    const session = this.findSessionByKey(message.session_key);
+    return session.initialBoardConfiguration;
+  }
 }
 
 const sessionManager = new SessionManager();

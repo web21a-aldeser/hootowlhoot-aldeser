@@ -17,6 +17,7 @@ const messagesTypes = {
   movementInfo: 'movementInfo',
   checkWin: 'checkWin',
   checkLose: 'checkLose',
+  requestBoard: 'requestBoard'
 };
 
 export default messagesTypes;
