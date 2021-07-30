@@ -30,8 +30,12 @@ function main() {
 
 function processMessage(message) {
     console.log(`A message has arrived ${message}`);
-
-}
+    const stats = message.type === messagesTypes.stats;
+    if (stats) {
+        aftermatch.receiveStats(message);
+        console.log(message);
+    }
+  }
 
 window.addEventListener('load', main);
 

@@ -13,16 +13,12 @@
                             </tr>
                         </thead>
                         <tbody id="players-stats">
-                            <tr>
-                                <td>10</td>
-                                <td>4</td>
-                                <td>3</td>
-                            </tr>
+                           
                         </tbody>
                     </table>
                     <div class="column">
                         <a href="/"><button class="button" id="leave-game-button">Leave game</button></a>
-                        <a href="arena"><button class="button" id="rematch-button">Rematch</button></a>
+                        <a href="waiting-room"><button class="button" id="rematch-button">Rematch</button></a>
                     </div>
                 </div>
             </div>
