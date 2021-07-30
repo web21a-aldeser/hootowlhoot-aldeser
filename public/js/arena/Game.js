@@ -89,7 +89,7 @@ export default class Game {
       for (let i = 0; i < list.length; i += 1) {
         list[i].style.display = 'none';
       }
-    }, 10000);
+    }, 1000);
     const audio1 = new Audio('sounds/achivement.wav');
     audio1.play();
   }

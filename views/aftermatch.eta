@@ -1,24 +1,12 @@
 <% layout('layouts/main_layout') %>
         <section id="main-group">
             <div class="enclosing">
-                <div class="title" id='title'></div>
                 <hr style="border:3px solid #f1f1f1" />
                 <div class="row">
-                    <table id="stats">
-                        <thead>
-                            <tr>
-                                <th>Turns</th>
-                                <th>Meteors</th>
-                                <th>Geysers</th>
-                            </tr>
-                        </thead>
-                        <tbody id="players-stats">
-                           
-                        </tbody>
-                    </table>
+                <div class="title" id='title'></div>
                     <div class="column">
                         <a href="/"><button class="button" id="leave-game-button">Leave game</button></a>
-                        <a href="waiting-room"><button class="button" id="rematch-button">Rematch</button></a>
+                        <a href="arena"><button class="button" id="rematch-button">Rematch</button></a>
                     </div>
                 </div>
             </div>
