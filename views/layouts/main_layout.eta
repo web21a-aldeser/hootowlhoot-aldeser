@@ -14,9 +14,10 @@
 <body>
  <header>
         <nav class="nav-bar" id="main-navigatin-menu">
+        <a href = '/'> Dino Explosion</a>
             <a href="http://jeisson.ecci.ucr.ac.cr/appweb/2021a/lecciones/0405-arq/hoot_owl_hoot_game_session.mp4" target="_blank">How to play</a>
             <nav class="nav-bar-right">
-                <a>Credits</a>
+                <a href='/credits'>Credits</a>
                 <a href='#' onclick="show('help-dialog')">Help</a>
             </nav>
         </nav>

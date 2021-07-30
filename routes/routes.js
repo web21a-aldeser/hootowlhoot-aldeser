@@ -7,6 +7,7 @@ import home from '../controllers/HomeController.js';
 import waitingRoom from '../controllers/WaitingRoomController.js';
 import arena from '../controllers/ArenaController.js';
 import aftermatch from '../controllers/AftermatchController.js';
+import credits from '../controllers/CreditsController.js';
 
 const router = express.Router();
 
@@ -39,6 +40,10 @@ router.get('/arena', (req, res) => {
 // serve after-match page
 router.get('/aftermatch', (req, res) => {
   aftermatch.getAfterMatchPage(req, res);
+});
+
+router.get('/credits', (req, res) => {
+  credits.getCreditsPage(req, res);
 });
 
 // serve public static content

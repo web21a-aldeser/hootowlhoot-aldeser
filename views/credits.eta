@@ -1,0 +1,131 @@
+
+       <% layout('layouts/main_layout')%>
+       <h1>Credits</h1>
+        <article>
+          <section>
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <td>Image</td>
+                  </th>
+                  <th>Author</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="./icons/tyrannosaurus-rex.svg" alt="tyrannosaurus-rex" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="./icons/elasmosaurus.svg" alt="elasmosaurus" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="./icons/galaxy.svg" alt="galaxy" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="./icons/meteorite.svg" alt="meteorite" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="./icons/nuclear-explosion.svg" alt="nuclear-explosion" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="./icons/planet-earth.svg" alt="nuclear-explosion" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="./icons/pterodactyl.svg" alt="pterodactyl" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="./icons/rex.svg" alt="rex" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="./icons/stegosaurios.svg" alt="stegosaurus" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="./icons/triceratops.svg" alt="triceratops" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </td>
+                </tr>
+                 <tr>
+                  <td>
+                    <img src="./icons/egg.svg" alt="triceratops" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by<a href="https://freeicons.io/profile/3063%22%3EOscar">EstMont</a> from <a href="https://freeicons.io/%22%3Efreeicons.io" tittle= 'freeicons.io'</a> </div>
+                  </td>
+                </tr>
+                 <tr>
+                  <td>
+                    <img src="./icons/see.svg" alt="binocualares " width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://smashicons.com/" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></div>
+                  </td>
+                </tr>
+                 <tr>
+                  <td>
+                    <img src="./icons/geyser.svg" alt="geyser" width="50" height="50"/>
+                  </td>
+                  <td>
+                    <div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></div>
+                  </td>
+                </tr>
+                 <tr>
+                  <td>
+                    <div>Background made by<a href="https://es.vecteezy.com/vectores-gratis/naturaleza%22%3ENaturaleza"> Vectores por Vecteezy</a></div>
+                  </td>
+                </tr>
+                <td>
+                  <a href="/"><button class="button" id="retur-home-button">Return</button></a>
+               </td>
+              </tbody>
+            </table>
+          </section>
+        </article>
