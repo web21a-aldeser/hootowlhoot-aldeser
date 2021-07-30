@@ -447,7 +447,7 @@ export default class Game {
     const card = playersCards.children[message.value.cardIndex];
     let color = this.playerList[playerIndex].currentCell.className;
 
-    this.playerList[playerIndex].previousCell = this.playerList[playerIndex].currentCell;
+    this.playerList[playerIndex].previusCell = this.playerList[playerIndex].currentCell;
     // It moves the player until it finds the target color.
     do {
       this.playerList[playerIndex].move();
