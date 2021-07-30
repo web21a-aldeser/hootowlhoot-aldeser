@@ -51,6 +51,13 @@ class WebSocketServerManager {
           sessionManager.updatePlayerAvatar(message.value);
           console.log('Avatar update received');
           this.broadcastMessage(message, websocket);
+        } else if (messageType === messagesTypes.createBoard) {
+          sessionManager.saveBoardInitialState(message, websocket);
+        } else if (messageType === messagesTypes.requestBoard) {
+          // The client requests the initial board configuration in the arena.
+          const initialBoardConfig = sessionManager.getInitialBoardConfiguration(message.value);
+          // It sends initial board configuration.
+          websocket.send(JSON.stringify(initialBoardConfig));
         } else {
           this.broadcastMessage(message, websocket);
         }

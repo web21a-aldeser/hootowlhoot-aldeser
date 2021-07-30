@@ -42,6 +42,7 @@ export default class Game {
     this.createPlayersAndGenerateRandomIntialCardHandForEachOne();
     localStorage.setItem('players-arena', JSON.stringify(this.playerList));
     this.setFirstTurn();
+    // Host id.
     if (id == 1) {
       this.createGeyser();
       this.createEggs();
@@ -66,20 +67,20 @@ export default class Game {
     }
   }
 
-   //egg method. duplicates turn
-   eggAction(index){
+  //egg method. duplicates turn
+  eggAction(index) {
     this.playerList[index].currentCell.children[0].style.display = 'block';
 
-    if (this.currentPlayer === 0){
-      this.currentPlayer = this.playerList.length -1;
+    if (this.currentPlayer === 0) {
+      this.currentPlayer = this.playerList.length - 1;
     } else {
-      this.currentPlayer -=1;
+      this.currentPlayer -= 1;
     }
     const audio2 = new Audio('sounds/achivement.wav');
-    audio2.play();  
+    audio2.play();
   }
 
-  binocularsAction(index){
+  binocularsAction(index) {
     this.playerList[index].currentCell.children[0].style.display = 'block';
     // this.player.previusCell = this.player.currentCell;
     this.showGeysers();
@@ -93,7 +94,7 @@ export default class Game {
     audio1.play();
   }
 
-  geyserAction(index,card){
+  geyserAction(index, card) {
     if (this.playerList[index].currentCell.children[0].style.display === 'block') {
       let color = this.playerList[index].currentCell.className;
       do {
@@ -123,16 +124,14 @@ export default class Game {
 
   // evalua el objeto en el que el jugador cae para ejecutar su determinada accion
   objectActions(src, card, index) {
-      // caso de binoculares, permite ver geysers por un tiempo determinado
-      if (src.indexOf('see') !== -1){
-        this.binocularsAction(index);
-      } 
-      else if (src.indexOf('egg') !== -1){
-        this.eggAction(index);
-      }
-      else if (src.indexOf('geyser') !== -1){
-        this.geyserAction(index,card);
-      }
+    // caso de binoculares, permite ver geysers por un tiempo determinado
+    if (src.indexOf('see') !== -1) {
+      this.binocularsAction(index);
+    } else if (src.indexOf('egg') !== -1) {
+      this.eggAction(index);
+    } else if (src.indexOf('geyser') !== -1) {
+      this.geyserAction(index, card);
+    }
   }
 
   // Desactiva las cartas del jugador si no es su turno y las activa si si
@@ -144,7 +143,7 @@ export default class Game {
       for (let j = 0; j < CARDS_COUNT; j += 1) {
         playersCards.children[j].disabled = true;
         playersCards.children[j].style.opacity = '0.5';
-        if ((this.currentPlayer === i) && ((playerIdentity.player_id -1 ) === this.currentPlayer )) {
+        if (this.currentPlayer === i && playerIdentity.player_id - 1 === this.currentPlayer) {
           playersCards.children[j].disabled = false;
           playersCards.children[j].style.opacity = '1';
         }
@@ -163,7 +162,7 @@ export default class Game {
         found = true;
       }
     }
-    if (found && (playerIdentity.player_id -1 ) === this.currentPlayer ) {
+    if (found && playerIdentity.player_id - 1 === this.currentPlayer) {
       for (let j = 0; j < CARDS_COUNT; j += 1) {
         playersCards.children[j].disabled = true;
         playersCards.children[j].style.opacity = '0.5';
@@ -243,19 +242,19 @@ export default class Game {
   }
 
   // checks if all the players are in the final cell
-  checkWin(){
+  checkWin() {
     const finalCell = document.getElementById('final').childElementCount;
     if (finalCell === JSON.parse(localStorage.getItem('players-quantity')) + 1) {
       return true;
     }
     return false;
   }
-  
+
   //sends the message for checking if all the players are in the final cell
   sendCheckWin(check) {
     // Player identity reference { player_id: message.player_id, session_key: message.session_key }
     const playerIdentity = JSON.parse(localStorage.getItem(messagesTypes.playerIdentity));
-    
+
     const message = {
       type: messagesTypes.checkWin,
       value: {
@@ -265,20 +264,19 @@ export default class Game {
       }
     };
     this.websocket.send(JSON.stringify(message));
-    if (check){
-      localStorage.setItem('win',true);
-      localStorage.setItem('stats',JSON.stringify(this.stats));
-      window.location.href = 'aftermatch';
-    }
-  }
-  
-  receiveCheckWin(check){
     if (check) {
-      localStorage.setItem('stats',JSON.stringify(this.stats));
+      localStorage.setItem('win', true);
+      localStorage.setItem('stats', JSON.stringify(this.stats));
       window.location.href = 'aftermatch';
     }
   }
-  
+
+  receiveCheckWin(check) {
+    if (check) {
+      localStorage.setItem('stats', JSON.stringify(this.stats));
+      window.location.href = 'aftermatch';
+    }
+  }
 
   /************************** CARDS RELATED METHODS BEGIN ********************************/
   generateNewCardAndSyncPlayersList(playerIndex, cardIndex) {
@@ -405,8 +403,8 @@ export default class Game {
       this.meteor.style.left = '850px';
       this.meteor.style.top = '100px';
       this.sendLoseCheck();
-      localStorage.setItem('stats',JSON.stringify(this.stats));
-      localStorage.setItem('win',false);
+      localStorage.setItem('stats', JSON.stringify(this.stats));
+      localStorage.setItem('win', false);
       window.location.href = 'aftermatch';
     }
   }

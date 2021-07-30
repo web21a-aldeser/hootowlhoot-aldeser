@@ -4,6 +4,7 @@ export default class GameSession {
     this.key = this.generateRandomGameKey(keyLength);
     this.players = [];
     this.clients = [];
+    this.initialBoardConfiguration = {};
   }
 
   generateRandomGameKey(length) {

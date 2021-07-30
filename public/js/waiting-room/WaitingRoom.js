@@ -52,7 +52,7 @@ export default class WaitingRoom {
       localStorage.setItem('Eggs', JSON.stringify(options[1]));
       localStorage.setItem('Binoculars', JSON.stringify(options[2]));
 
-      this.sendMatchStartedMessageToServer();
+      //this.sendMatchStartedMessageToServer();
       window.location.href = 'arena';
     });
   }

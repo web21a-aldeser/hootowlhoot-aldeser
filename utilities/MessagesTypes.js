@@ -8,6 +8,8 @@ const messagesTypes = {
   reauthentication: 'reauthentication',
   matchStarted: 'matchStarted',
   playerNameUpdate: 'playerNameUpdate',
-  avatarUpdated: 'avatarUpdated'
+  avatarUpdated: 'avatarUpdated',
+  createBoard: 'createBoard',
+  requestBoard: 'requestBoard'
 };
 export default messagesTypes;
